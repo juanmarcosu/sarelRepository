@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" 
+"http://jetty.mortbay.org/configure.dtd"> 
+ 
+<Configure id="sarel" class="org.mortbay.jetty.webapp.WebAppContext">
+   	<New id="dataSource" class="org.mortbay.jetty.plus.naming.Resource">
+    	<Arg>jdbc/sigsaweb</Arg>
+    	<Arg>
+	     	<New class="org.apache.commons.dbcp.BasicDataSource">
+		        <Set name="driverClassName">com.mysql.jdbc.Driver</Set>
+				<Set name="url">jdbc:mysql://localhost/websystique</Set>
+				<Set name="username">root</Set>
+				<Set name="password">sarel</Set>
+				<Set name="minIdle">0</Set>
+		        <Set name="maxIdle">10</Set>
+		        <Set name="maxActive">32</Set>
+		        <Set name="maxWait">1000</Set>
+		        <Set name="defaultAutoCommit">true</Set>
+			</New>
+    	</Arg>
+   	</New>
+</Configure>
