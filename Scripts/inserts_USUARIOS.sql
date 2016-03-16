@@ -1,49 +1,42 @@
-/* Populate USER_PROFILE Table */
+/* Populate CONSULTOR_PROFILE Table */
 INSERT INTO USER_PROFILE(type)
-VALUES ('USER');
- 
-INSERT INTO USER_PROFILE(type)
-VALUES ('ADMIN');
+VALUES ('CONSULTOR');
  
 INSERT INTO USER_PROFILE(type)
-VALUES ('DBA');
+VALUES ('LABORATORISTA');
  
-/* Populate APP_USER Table */
-INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
-VALUES ('bill','abc123', 'Bill','Watcher','bill@xyz.com', 'Active');
+INSERT INTO USER_PROFILE(type)
+VALUES ('ADMINISTRADOR');
  
+/* Populate APP_CONSULTOR Table */
 INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
-VALUES ('danny','abc124', 'Danny','Theys','danny@xyz.com', 'Active');
- 
-INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
-VALUES ('sam','abc125', 'Sam','Smith','samy@xyz.com', 'Active');
+VALUES ('doctor','123', 'doctor','Watcher','doctor@xyz.com', 'Active');
  
 INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
-VALUES ('nicole','abc126', 'Nicole','warner','nicloe@xyz.com', 'Active');
+VALUES ('laboratorista','123', 'laboratorista','Writer','laboratoristay@xyz.com', 'Active');
  
 INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
-VALUES ('kenny','abc127', 'Kenny','Roger','kenny@xyz.com', 'Active');
+VALUES ('administrador','123', 'administrador','soloAdmin','nicloe@xyz.com', 'Active');
+ 
+INSERT INTO APP_USER(sso_id, password, first_name, last_name, email, state)
+VALUES ('juanmarcos','123', 'juanmarcos','AdminYLaboratorista','juanmarcos@xyz.com', 'Active');
 
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile  
-  where user.sso_id='bill' and profile.type='USER';
+INSERT INTO APP_USER_USER_PROFILE (USER_id, USER_profile_id)
+  SELECT USER.id, profile.id FROM APP_USER USER, USER_PROFILE profile  
+  where USER.sso_id='doctor' and profile.type='CONSULTOR';
  
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
-  where user.sso_id='danny' and profile.type='USER';
+INSERT INTO APP_USER_USER_PROFILE (USER_id, USER_profile_id)
+  SELECT USER.id, profile.id FROM APP_USER USER, USER_PROFILE profile
+  where USER.sso_id='laboratorista' and profile.type='LABORATORISTA';
  
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
-  where user.sso_id='sam' and profile.type='ADMIN';
+INSERT INTO APP_USER_USER_PROFILE (USER_id, USER_profile_id)
+  SELECT USER.id, profile.id FROM APP_USER USER, USER_PROFILE profile
+  where USER.sso_id='administrador' and profile.type='ADMINISTRADOR';
  
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile
-  where user.sso_id='nicole' and profile.type='DBA';
+INSERT INTO APP_USER_USER_PROFILE (USER_id, USER_profile_id)
+  SELECT USER.id, profile.id FROM APP_USER USER, USER_PROFILE profile  
+  where USER.sso_id='juanmarcos' and profile.type='LABORATORISTA';
  
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile  
-  where user.sso_id='kenny' and profile.type='ADMIN';
- 
-INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
-  SELECT user.id, profile.id FROM APP_USER user, USER_PROFILE profile  
-  where user.sso_id='kenny' and profile.type='DBA';
+INSERT INTO APP_USER_USER_PROFILE (USER_id, USER_profile_id)
+  SELECT USER.id, profile.id FROM APP_USER USER, USER_PROFILE profile  
+  where USER.sso_id='juanmarcos' and profile.type='ADMINISTRADOR';
