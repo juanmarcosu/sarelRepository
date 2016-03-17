@@ -9,15 +9,31 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.sarel.web")
 public class AppConfig extends WebMvcConfigurerAdapter {
 	
-	@Bean(name="App")
+	@Autowired
+    RoleToUserProfileConverter roleToUserProfileConverter;
+     
+     
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setViewClass(JstlView.class);
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
+        registry.viewResolver(viewResolver);
+    }
+	
+	/*@Bean(name="App")
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
@@ -25,12 +41,21 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setSuffix(".jsp");
 
 		return viewResolver;
-	}
+	}*/
 
 	@Override
-	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-	    }
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+    }
+	
+	/*
+     * Configure Converter to be used.
+     * In our example, we need a converter to convert string values[Roles] to UserProfiles in newUser.jsp
+     */
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(roleToUserProfileConverter);
+    }
 	
 	@Bean
 	public MessageSource messageSource() {

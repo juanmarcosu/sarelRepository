@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Pagina de Confirmaci&oacute;n de Registro</title>
-	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+	<link href="<c:url value='/static/css/appNewUser.css' />" rel="stylesheet"></link>
 </head>
 <body>
 	message : ${success}
