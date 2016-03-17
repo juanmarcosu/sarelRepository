@@ -1,9 +1,9 @@
 package com.sarel.web.model;
 
 public enum UserProfileType {
-	USER("USER"),
-	DBA("DBA"),
-	ADMIN("ADMIN");
+	CONSULTOR("CONSULTOR"),
+	LABORATORISTA("LABORATORISTA"),
+	ADMINISTRADOR("ADMINISTRADOR");
 	
 	String userProfileType;
 	

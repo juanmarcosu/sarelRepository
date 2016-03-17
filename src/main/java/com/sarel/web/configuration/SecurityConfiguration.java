@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/", "/home").permitAll()
 	  	//.antMatchers("/", "/home").access("hasRole('USER')")
 	  	.antMatchers("/admin/**").access("hasRole('ADMINISTRADOR')")
-	  	.antMatchers("/db/**").access("hasRole('ADMINISTRADOR') and hasRole('LABORATORISTA')")
+	  	.antMatchers("/db/**").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	//.and().formLogin().loginPage("/login")
 	  	.and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
 	  	.usernameParameter("ssoId").passwordParameter("password")

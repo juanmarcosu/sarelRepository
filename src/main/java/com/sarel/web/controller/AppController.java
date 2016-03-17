@@ -32,6 +32,7 @@ public class AppController {
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		model.addAttribute("greeting", "Hola, Bienvenido");
+		model.addAttribute("user", getPrincipal());
 		return "welcome";
 	}
 

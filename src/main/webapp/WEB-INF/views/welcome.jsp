@@ -18,14 +18,14 @@
  
     <br/>
     <div>
-        <sec:authorize access="hasRole('ADMIN')">
+        <sec:authorize access="hasRole('ADMINISTRADOR')">
             <label><a href="#">Editar pagina </a> | Esta parte es visible solo para los Administradores</label>
         </sec:authorize>
     </div>
  
     <br/>
     <div>
-        <sec:authorize access="hasRole('ADMIN') and hasRole('DBA')">
+        <sec:authorize access="hasRole('ADMINISTRADOR') and hasRole('LABORATORISTA')">
             <label><a href="#">Crear Backup</a> | Esta parte es visible para los Administradores y para el DBA</label>
         </sec:authorize>
     </div>
