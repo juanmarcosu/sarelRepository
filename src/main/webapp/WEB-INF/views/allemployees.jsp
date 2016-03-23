@@ -42,7 +42,7 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	<div>
+	</div>
 	<br/>
 	<a href="<c:url value='/new' />">Agregar una Nueva Persona</a>
 	</form>

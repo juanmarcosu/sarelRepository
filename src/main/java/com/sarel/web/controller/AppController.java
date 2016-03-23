@@ -1,5 +1,6 @@
 package com.sarel.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,10 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
+import com.sarel.web.model.Paciente;
 import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
+import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
+
+
+
 
 
 
@@ -147,6 +153,24 @@ public class AppController {
 		List<Employee> employees = service.findAllEmployees();
 		model.addAttribute("employees", employees);
 		return "allemployees";
+	}
+	
+	@Autowired
+    PacienteService pacienteService;
+	
+	@RequestMapping(value = { "/pacientes" }, method = RequestMethod.GET)
+	public String lista20Pacientes(ModelMap model) {
+		model.addAttribute("user", getPrincipal());
+		//List<UserProfile> usuarios = userProfileService.findAll();
+		//model.addAttribute("perfilesDeUsuario", usuarios);
+		//List<Paciente> pacientes = pacienteService.findAll();
+		//model.addAttribute("pacientes", pacientes);
+		Paciente unPaciente = pacienteService.findByCarnet(200810837);
+		model.addAttribute("unPaciente", unPaciente.toString());
+		List<Paciente> pacientes = new ArrayList<Paciente>();
+		pacientes.add(unPaciente);
+		model.addAttribute("pacientes", pacientes);
+		return "lista20Pacientes";
 	}
 
 	/*
