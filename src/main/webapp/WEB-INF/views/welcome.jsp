@@ -7,13 +7,14 @@
     <title>Pagina de Bievenida</title>
 </head>
 <body>
-    Hola <strong>${user}</strong>, Esta es la pagina de Bienvenida.
-    <a href="<c:url value="/logout" />">Cerrar Sesi&oacute;n</a>
+    Hola <strong>${user}</strong>, Esta es la pagina de Bienvenida. <a href="<c:url value="/logout" />">Cerrar Sesi&oacute;n</a>
  
     <br/>
     <br/>
     <div>
         <label>Esta Parte es visible para todos los usarios</label>
+        <br>
+        <a href="<c:url value="/pacientes?nombre=&apellido=&carne=" />">Buscar Pacientes:</a>
     </div>
  
     <br/>

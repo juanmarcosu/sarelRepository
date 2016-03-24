@@ -1,6 +1,7 @@
 package com.sarel.web.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sarel.web.model.Paciente;
 
@@ -12,6 +13,8 @@ public interface PacienteDao {
 	
 	List<Paciente> findVeinte();
 
-	public Paciente findByCarnet(Integer carne);
+	Paciente findByCarnet(Integer carne);
+	
+	List<Paciente> findByCriteria(Map<String, Object> params);
 	
 }

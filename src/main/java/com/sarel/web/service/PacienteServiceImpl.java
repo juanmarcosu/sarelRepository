@@ -1,6 +1,7 @@
 package com.sarel.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class PacienteServiceImpl implements PacienteService{
 
 	public Paciente findByCarnet(Integer carne) {
 		return dao.findByCarnet(carne);
+	}
+	
+	public List<Paciente> findByCriteria(Map<String, Object> params){
+		return dao.findByCriteria(params);
 	}
 	
 }

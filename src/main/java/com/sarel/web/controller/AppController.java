@@ -1,8 +1,10 @@
 package com.sarel.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
@@ -25,6 +28,9 @@ import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
+
+
+
 
 
 
@@ -159,21 +165,28 @@ public class AppController {
     PacienteService pacienteService;
 	
 	@RequestMapping(value = { "/pacientes" }, method = RequestMethod.GET)
-	public String lista20Pacientes(ModelMap model) {
+	public String lista20Pacientes(ModelMap model, @RequestParam("nombre") String pNombre, @RequestParam("apellido") String pApellido
+			, @RequestParam("carne") String pCarne ) {
 		model.addAttribute("user", getPrincipal());
-		//List<UserProfile> usuarios = userProfileService.findAll();
-		//model.addAttribute("perfilesDeUsuario", usuarios);
-		List<Paciente> pacientes = pacienteService.findVeinte();
+		boolean parameters = false;
+		List<Paciente> pacientes = null;
+		Map<String, Object> params = new HashMap<String, Object>();
+		if(pNombre!=null && !pNombre.isEmpty()){
+			params.put("nombre", pNombre);
+			parameters = true;
+		}
+		if(pApellido!=null && !pApellido.isEmpty()){
+			params.put("apellido", pApellido);
+			parameters = true;
+		}
+		if(pCarne!=null && !pCarne.isEmpty()){
+			params.put("carne", pCarne);
+			parameters = true;
+		}
+		if(parameters){
+			pacientes = pacienteService.findByCriteria(params);
+		}
 		model.addAttribute("pacientes", pacientes);
-		/*
-		Paciente unPaciente = pacienteService.findByCarnet(200810837);
-		model.addAttribute("unPaciente", unPaciente.toString());
-		Paciente otroPaciente = pacienteService.findById(1000);
-		List<Paciente> pacientes = new ArrayList<Paciente>();
-		pacientes.add(unPaciente);
-		pacientes.add(otroPaciente);
-		model.addAttribute("pacientes", pacientes);
-		*/
 		return "lista20Pacientes";
 	}
 
