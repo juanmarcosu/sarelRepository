@@ -189,6 +189,13 @@ public class AppController {
 		model.addAttribute("pacientes", pacientes);
 		return "buscarPaciente";
 	}
+	
+	@RequestMapping(value = { "/expediente-{idPaciente}-laboratorio" }, method = RequestMethod.GET)
+	public String verExpedientePersona(@PathVariable Integer idPaciente, ModelMap model) {
+		Paciente paciente = pacienteService.findById(idPaciente);
+		model.addAttribute("paciente", paciente);
+		return "expedienteLaboratorio";
+	}
 
 	/*
 	 * This method will list all existing employees.

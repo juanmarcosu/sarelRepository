@@ -59,7 +59,7 @@
 			<td>${unPaciente.apellido}</td>
 			<td>${unPaciente.carne}</td>
 			<td>${unPaciente.fechaNac}</td>
-			<td><a href="<c:url value='/edit-${unPaciente.idPaciente}-employee' />">Consultar</a></td>
+			<td><a href="<c:url value='/expediente-${unPaciente.idPaciente}-laboratorio' />">Consultar</a></td>
 			</tr>
 		</c:forEach>
 		</tbody>
