@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	//.antMatchers("/", "/home").access("hasRole('USER')")
 	  	.antMatchers("/admin/**","/newuser").access("hasRole('ADMINISTRADOR')")
 	  	.antMatchers("/db/**").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/pacientes").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	//.and().formLogin().loginPage("/login")
 	  	.and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
 	  	.usernameParameter("ssoId").passwordParameter("password")
