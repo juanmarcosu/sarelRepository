@@ -30,7 +30,7 @@
 	<table class="table table-hover">
 		<thead>
 		<tr>
-			<td>id Paciente</td><td>Nombre</td><td>Apellido</td><td>Carne</td>
+			<td>id Paciente</td><td>Nombre</td><td>Apellido</td><td>Fecha Nacimiento</td><td>Carne</td><td>Ver Perfil</td>
 		</tr>
 		</thead>
 		<tbody>
@@ -40,7 +40,9 @@
 			<td>${unPaciente.idPaciente}</td>
 			<td>${unPaciente.nombre}</td>
 			<td>${unPaciente.apellido}</td>
+			<td>${unPaciente.fechaNac}</td>
 			<td>${unPaciente.carne}</td>
+			<td><a href="<c:url value='/edit-${unPaciente.idPaciente}-employee' />">Consultar</a></td>
 			</tr>
 		</c:forEach>
 		<%--

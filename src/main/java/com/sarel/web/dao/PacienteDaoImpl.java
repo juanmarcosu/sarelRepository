@@ -30,9 +30,9 @@ public class PacienteDaoImpl extends AbstractDao<Integer, Paciente> implements P
 	
 	@SuppressWarnings("unchecked")
 	public List<Paciente> findVeinte() {
-		Query query = getSession().createSQLQuery("select * from paciente ");
-		query.setMaxResults(20);
-		return (List<Paciente>) query.list();
+		Criteria criteria = createEntityCriteria();
+		criteria.setMaxResults(20);
+		return (List<Paciente>) criteria.list();
 	}
 	
 }

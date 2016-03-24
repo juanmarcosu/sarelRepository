@@ -163,13 +163,17 @@ public class AppController {
 		model.addAttribute("user", getPrincipal());
 		//List<UserProfile> usuarios = userProfileService.findAll();
 		//model.addAttribute("perfilesDeUsuario", usuarios);
-		//List<Paciente> pacientes = pacienteService.findAll();
-		//model.addAttribute("pacientes", pacientes);
+		List<Paciente> pacientes = pacienteService.findVeinte();
+		model.addAttribute("pacientes", pacientes);
+		/*
 		Paciente unPaciente = pacienteService.findByCarnet(200810837);
 		model.addAttribute("unPaciente", unPaciente.toString());
+		Paciente otroPaciente = pacienteService.findById(1000);
 		List<Paciente> pacientes = new ArrayList<Paciente>();
 		pacientes.add(unPaciente);
+		pacientes.add(otroPaciente);
 		model.addAttribute("pacientes", pacientes);
+		*/
 		return "lista20Pacientes";
 	}
 
