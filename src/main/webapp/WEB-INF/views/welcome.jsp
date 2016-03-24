@@ -14,7 +14,7 @@
     <div>
         <label>Esta Parte es visible para todos los usarios</label>
         <br>
-        <a href="<c:url value="/pacientes?nombre=&apellido=&carne=" />">Buscar Pacientes:</a>
+        <a href="<c:url value="/buscarPaciente?nombre=&apellido=&carne=" />">Buscar Pacientes:</a>
     </div>
  
     <br/>

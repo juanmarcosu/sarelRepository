@@ -164,7 +164,7 @@ public class AppController {
 	@Autowired
     PacienteService pacienteService;
 	
-	@RequestMapping(value = { "/pacientes" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/buscarPaciente" }, method = RequestMethod.GET)
 	public String lista20Pacientes(ModelMap model, @RequestParam("nombre") String pNombre, @RequestParam("apellido") String pApellido
 			, @RequestParam("carne") String pCarne ) {
 		model.addAttribute("user", getPrincipal());
@@ -187,7 +187,7 @@ public class AppController {
 			pacientes = pacienteService.findByCriteria(params);
 		}
 		model.addAttribute("pacientes", pacientes);
-		return "lista20Pacientes";
+		return "buscarPaciente";
 	}
 
 	/*
