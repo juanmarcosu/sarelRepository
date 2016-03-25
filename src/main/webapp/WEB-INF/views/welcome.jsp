@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
+	<jsp:include page="heading.jsp"/>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Pagina de Bievenida</title>
 </head>
