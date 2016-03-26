@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 </head>
 <body background="<c:url value='/recursos/imagenes/background.jpg' />">
 	
-	<table>
+	<table class="table">
 		<tr>
 			<td><img src="<c:url value='/recursos/imagenes/logousac.png' />" /></td>
 			<td>
@@ -15,18 +16,30 @@
 		</tr>
 	</table>
 	<div align="right">
-		<label>Usuario: ${user} - </label>
+		<c:if test="${user != 'anonymousUser'}">
+			<label>Usuario: ${user} &nbsp; &nbsp; &nbsp;</label>
+		</c:if>
 	</div>
-	<hr>
+	<hr size="3">
 	<div align="center">
-	<table width="400">
+	<table width="500">
 		<tr>
 			<td><a href="<c:url value='/home' />">Pagina de Inicio</a></td>
-			<td><a href="<c:url value='/buscarPaciente?nombre=&apellido=&carne=' />">Buscar Paciente</a></td>
-			<td><a href="<c:url value='/login' />">Iniciar Sesion</a></td>
+			<sec:authorize access="hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')">
+				<td><a href="<c:url value='/buscarPaciente?nombre=&apellido=&carne=' />">Buscar Paciente</a></td>
+			</sec:authorize>
+			<c:if test="${user == 'anonymousUser'}">
+				<td><a href="<c:url value='/login' />">Iniciar Sesion</a></td>
+			</c:if>
+			<sec:authorize access="hasRole('ADMINISTRADOR')">
+            			<td><a href="<c:url value='/newUser' />">Crear Usuario</a></td>
+        		</sec:authorize>
+			<c:if test="${user != 'anonymousUser'}">
+				<td><a href="<c:url value="/logout" />">Cerrar Sesi&oacute;n</a></td>
+			</c:if>
 		</tr>
 	</table>
 	</div>
-	<hr>
+	<hr size="3">
 </body>
 </html>

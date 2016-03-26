@@ -109,7 +109,7 @@ public class AppController {
             BindingResult result, ModelMap model) {
  
         if (result.hasErrors()) {
-            System.out.println("There are errors");
+            System.out.println("Se encontraron errores");
             return "newuser";
         }
         userService.save(user);
@@ -126,7 +126,7 @@ public class AppController {
             }
         }
          
-        model.addAttribute("success", "User " + user.getFirstName() + " has been registered successfully");
+        model.addAttribute("success", "Usuario " + user.getFirstName() + " a sido creado exitosamente");
         return "registrationsuccess";
     }
 
@@ -192,6 +192,7 @@ public class AppController {
 	
 	@RequestMapping(value = { "/expediente-{idPaciente}-laboratorio" }, method = RequestMethod.GET)
 	public String verExpedientePersona(@PathVariable Integer idPaciente, ModelMap model) {
+		model.addAttribute("user", getPrincipal());
 		Paciente paciente = pacienteService.findById(idPaciente);
 		model.addAttribute("paciente", paciente);
 		return "expedienteLaboratorio";

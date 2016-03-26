@@ -6,7 +6,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Formulario de Creacion de Usuario</title>
+	<title>Formulario de Creacion de nuevo Usuario</title>
 	<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 	<link href="<c:url value='/static/css/appNewUser.css' />" rel="stylesheet"></link>
 </head>
@@ -15,13 +15,13 @@
 
  	<div class="form-container">
  	
- 	<h1>New User Registration Form</h1>
+ 	<h1>Formulario de Creacion de nuevo Usuario</h1>
  	
 	<form:form method="POST" modelAttribute="user" class="form-horizontal">
 
 		<div class="row">
 			<div class="form-group col-md-12">
-				<label class="col-md-3 control-lable" for="firstName">First Name</label>
+				<label class="col-md-3 control-lable" for="firstName">Nombre(s):</label>
 				<div class="col-md-7">
 					<form:input type="text" path="firstName" id="firstName" class="form-control input-sm"/>
 					<div class="has-error">
@@ -33,7 +33,7 @@
 
 		<div class="row">
 			<div class="form-group col-md-12">
-				<label class="col-md-3 control-lable" for="lastName">Last Name</label>
+				<label class="col-md-3 control-lable" for="lastName">Apellido(s):</label>
 				<div class="col-md-7">
 					<form:input type="text" path="lastName" id="lastName" class="form-control input-sm"/>
 					<div class="has-error">
@@ -45,7 +45,7 @@
 
 		<div class="row">
 			<div class="form-group col-md-12">
-				<label class="col-md-3 control-lable" for="ssoId">SSO ID</label>
+				<label class="col-md-3 control-lable" for="ssoId">Nombre de Usuario:</label>
 				<div class="col-md-7">
 					<form:input type="text" path="ssoId" id="ssoId" class="form-control input-sm"/>
 					<div class="has-error">
@@ -57,7 +57,7 @@
 
 		<div class="row">
 			<div class="form-group col-md-12">
-				<label class="col-md-3 control-lable" for="password">Password</label>
+				<label class="col-md-3 control-lable" for="password">Contrase&ntilde;a</label>
 				<div class="col-md-7">
 					<form:input type="password" path="password" id="password" class="form-control input-sm"/>
 					<div class="has-error">
@@ -94,7 +94,7 @@
 
 		<div class="row">
 			<div class="form-actions floatRight">
-				<input type="submit" value="Register" class="btn btn-primary btn-sm"> or <a href="<c:url value='/admin' />">Cancel</a>
+				<input type="submit" value="Crear" class="btn btn-primary btn-sm"> o <a href="<c:url value='/home' />">Cancelar</a>
 			</div>
 		</div>
 	</form:form>
