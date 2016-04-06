@@ -54,7 +54,7 @@ public class ExpedienteLaboratorio {
 	private String email;
 	
 	@Column(name = "sexo", nullable = false)
-	private String sexo;
+	private Sexo sexo;
 
 	@Override
 	public int hashCode() {
@@ -166,11 +166,11 @@ public class ExpedienteLaboratorio {
 		this.email = email;
 	}
 
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 

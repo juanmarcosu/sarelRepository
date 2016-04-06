@@ -2,8 +2,9 @@ package com.sarel.web.model;
 
 public enum Sexo {
 
-	HOMBRE("Hombre"),
-	MUJER("Mujer");
+	
+	MUJER("Mujer"),
+	HOMBRE("Hombre");
 	
 	private String sexo;
 	

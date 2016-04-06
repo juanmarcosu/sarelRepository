@@ -216,9 +216,9 @@ public class AppController {
 			expedienteTemp.setMovil(paciente.getMovil());
 			expedienteTemp.setEmail(paciente.getEmail());
 			if(paciente.getSexo()==1){
-				expedienteTemp.setSexo(Sexo.HOMBRE.toString());
+				expedienteTemp.setSexo(Sexo.HOMBRE);
 			}else{
-				expedienteTemp.setSexo(Sexo.MUJER.toString());
+				expedienteTemp.setSexo(Sexo.MUJER);
 			}
 			expedienteService.saveExpedienteLaboratorio(expedienteTemp);
 			expediente = expedienteService.findByIdPaciente(idPaciente);
