@@ -5,8 +5,8 @@
 <head>
 <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 </head>
-<body background="<c:url value='/recursos/imagenes/background.jpg' />">
-	
+<body>
+	<div background="<c:url value='/recursos/imagenes/background.jpg' />">
 	<table class="table">
 		<tr>
 			<td><img src="<c:url value='/recursos/imagenes/logousac.png' />" /></td>
@@ -41,5 +41,6 @@
 	</table>
 	</div>
 	<hr size="3">
+	</div>
 </body>
 </html>

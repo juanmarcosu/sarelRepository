@@ -22,12 +22,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
+import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.Paciente;
+import com.sarel.web.model.Sexo;
 import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
+import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
+
+
+
 
 
 
@@ -190,12 +196,36 @@ public class AppController {
 		return "buscarPaciente";
 	}
 	
-	@RequestMapping(value = { "/expediente-{idPaciente}-laboratorio" }, method = RequestMethod.GET)
-	public String verExpedientePersona(@PathVariable Integer idPaciente, ModelMap model) {
+	@Autowired
+    ExpedienteLaboratorioService expedienteService;
+	
+	@RequestMapping(value = { "/verExpedienteLaboratorio" }, method = RequestMethod.GET)
+	public String verExpedientePersona(@RequestParam("idPaciente") Integer idPaciente, ModelMap model) {
 		model.addAttribute("user", getPrincipal());
-		Paciente paciente = pacienteService.findById(idPaciente);
-		model.addAttribute("paciente", paciente);
-		return "expedienteLaboratorio";
+		ExpedienteLaboratorio expediente = expedienteService.findByIdPaciente(idPaciente);
+		if(expediente == null){
+			Paciente paciente = pacienteService.findById(idPaciente);
+			ExpedienteLaboratorio expedienteTemp = new ExpedienteLaboratorio();
+			expedienteTemp.setIdPaciente(paciente.getIdPaciente());
+			expedienteTemp.setNombres(paciente.getNombre());
+			expedienteTemp.setApellidos(paciente.getApellido());
+			expedienteTemp.setFechaNacimiento(paciente.getFechaNac());
+			expedienteTemp.setCarne(paciente.getCarne());
+			expedienteTemp.setDireccion(paciente.getDireccion());
+			expedienteTemp.setTelefono(paciente.getTelefono());
+			expedienteTemp.setMovil(paciente.getMovil());
+			expedienteTemp.setEmail(paciente.getEmail());
+			if(paciente.getSexo()==1){
+				expedienteTemp.setSexo(Sexo.HOMBRE.toString());
+			}else{
+				expedienteTemp.setSexo(Sexo.MUJER.toString());
+			}
+			expedienteService.saveExpedienteLaboratorio(expedienteTemp);
+			expediente = expedienteService.findByIdPaciente(idPaciente);
+		}
+		
+		model.addAttribute("expediente", expediente);
+		return "verExpedienteLaboratorio";
 	}
 
 	/*
