@@ -24,6 +24,7 @@
 	<div class="panel-heading"><span class="lead">Expediente de Laboratorio </span></div>
      	<div class="formcontainer">
 	<form name="pacientes" class="form-horizontal">
+	<label>${message}</label>
 	<div class="tablecontainer">
 	<h2>${expediente.nombres} ${expediente.apellidos}</h2>
 	<table width="600">

@@ -41,6 +41,10 @@
 				<td><input type="text" name="carne" path="carne" id="carne"/></td>
 		    </tr>
 		    <tr>
+				<td><label for="codigoPersonal">Codigo Personal: </label> </td>
+				<td><input type="text" name="codigoPersonal" path="codigoPersonal" id="codigoPersonal"/></td>
+		    </tr>
+		    <tr>
 		    	<td><input type="submit" value="Buscar"/></td>
 		    </tr>
     </table>

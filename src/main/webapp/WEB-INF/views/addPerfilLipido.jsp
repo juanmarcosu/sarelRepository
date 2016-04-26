@@ -22,11 +22,22 @@
 		    }
 		}
 	}
+	function calcularFila4y3(){
+		var fila4, fila3, fila6, fila7;
+		fila4 = parseInt(document.getElementById("trigliceridos").value, 0) / 5;
+		document.getElementById("colesterolMuyBajaDensidad").value = fila4;
+		fila3 = parseInt(document.getElementById("colesterolTotal").value,0) - parseInt(document.getElementById("colesterolAltaDensidad").value, 0) - parseInt(fila4,0);
+		document.getElementById("colesterolBajaDensidad").value = fila3;
+		fila6 = parseInt(document.getElementById("colesterolTotal").value,0) / parseInt(document.getElementById("colesterolAltaDensidad").value, 0);
+		document.getElementById("indiceRiesgo").value = fila6;
+		fila7 = parseInt(document.getElementById("trigliceridos").value,0) / parseInt(document.getElementById("colesterolAltaDensidad").value, 0);
+		document.getElementById("resistenciaInsulina").value = fila7;
+	}
 	</script>
 </head>
 
 <body onload="checkMod()">
-
+	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	<h2>Perfil Lipido</h2>
  
 	<form:form method="POST" modelAttribute="perfilLipido">
@@ -34,14 +45,16 @@
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
 		
-		<table>
+		<table align="center">
 			<tr>
 				<td><label for="fechaLaboratorio">Fecha de Laboratorio (dd/MM/yyyy): </label> </td>
 				<td><form:input path="fechaLaboratorio" id="fechaLaboratorio"/></td>
 				<td><form:errors path="fechaLaboratorio" cssClass="error"/></td>
 		    </tr>
 		</table>
-		
+		<br>
+		<hr size=3>
+		<br>
 		<table>
 			<tr>
 				<td><label for="colesterolTotal">Colesterol Total: </label> </td>
@@ -68,7 +81,7 @@
 		    </tr>
 		    <tr>
 				<td><label for="trigliceridos">Trigliceridos: </label> </td>
-				<td><form:input path="trigliceridos" id="trigliceridos"/></td>
+				<td><form:input path="trigliceridos" id="trigliceridos" onchange="calcularFila4y3()"/></td>
 				<td><label for="trigliceridosLabel">Hasta 150 mg/dl </label> </td> 
 				<td><form:errors path="trigliceridos" cssClass="error"/></td>
 		    </tr>

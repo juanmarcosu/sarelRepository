@@ -27,7 +27,7 @@ public class PerfilLipido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "id_expediente", unique=true, nullable = false)
+	@Column(name = "id_expediente", unique=false, nullable = false)
 	private int idExpediente;
 	
 	@NotNull

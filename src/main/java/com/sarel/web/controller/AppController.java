@@ -230,6 +230,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<PerfilLipido> labs = perfilLipidoService.findByIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -238,6 +239,8 @@ public class AppController {
 		model.addAttribute("user", getPrincipal());
 		PerfilLipido perfilLipido = perfilLipidoService.findById(idPerfil);
 		model.addAttribute("perfilLipido", perfilLipido);
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipido.getIdExpediente());
+		model.addAttribute("expediente", expediente);
 		model.addAttribute("soloConsulta", true);
 		return "addPerfilLipido";
 	}
@@ -246,6 +249,8 @@ public class AppController {
 	public String editarPerfilLipido(ModelMap model, @RequestParam("idPerfilLipido") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PerfilLipido perfilLipido = perfilLipidoService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipido.getIdExpediente());
+		model.addAttribute("expediente", expediente);
 		model.addAttribute("perfilLipido", perfilLipido);
 		model.addAttribute("edit", true);
 		return "addPerfilLipido";
@@ -259,12 +264,15 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<PerfilLipido> labs = perfilLipidoService.findByIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + perfilLipido.getId() + " editado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
 	@RequestMapping(value = { "/agregarPerfilLipido" }, method = RequestMethod.GET)
 	public String nuevoPerfilLipido(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
 		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
 		PerfilLipido perfilLipido = new PerfilLipido();
 		model.addAttribute("perfilLipido", perfilLipido);
 		model.addAttribute("idExpediente", idExpediente);
@@ -278,8 +286,12 @@ public class AppController {
 		
 		perfilLipidoService.savePerfilLipido(perfilLipido);
 		model.addAttribute("user", getPrincipal());
-		model.addAttribute("success", "Laboratorio Perfil Lipido Numero: " + perfilLipido.getId() + " creado Exitosamente");
-		return "success";
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipido.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<PerfilLipido> labs = perfilLipidoService.findByIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + perfilLipido.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
 	}
 
 	/*
