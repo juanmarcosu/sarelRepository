@@ -24,13 +24,17 @@ import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.Paciente;
+import com.sarel.web.model.PerfilLipido;
 import com.sarel.web.model.Sexo;
 import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.PacienteService;
+import com.sarel.web.service.PerfilLipidoService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
+
+
 
 
 
@@ -226,6 +230,29 @@ public class AppController {
 		
 		model.addAttribute("expediente", expediente);
 		return "verExpedienteLaboratorio";
+	}
+	
+	@Autowired
+    PerfilLipidoService perfilLipidoService;
+	
+	@RequestMapping(value = { "/agregarPerfilLipido" }, method = RequestMethod.GET)
+	public String nuevoPerfilLipido(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		PerfilLipido perfilLipido = new PerfilLipido();
+		model.addAttribute("perfilLipido", perfilLipido);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPerfilLipido";
+	}
+	
+	@RequestMapping(value = { "/agregarPerfilLipido" }, method = RequestMethod.POST)
+	public String guardarPerfilLipido(@Valid PerfilLipido perfilLipido, 
+			ModelMap model) {
+		
+		perfilLipidoService.savePerfilLipido(perfilLipido);
+		model.addAttribute("user", getPrincipal());
+		model.addAttribute("success", "Laboratorio Perfil Lipido Numero: " + perfilLipido.getId() + " creado Exitosamente");
+		return "success";
 	}
 
 	/*

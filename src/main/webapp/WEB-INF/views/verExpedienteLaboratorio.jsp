@@ -39,6 +39,9 @@
     <label for="direccion">ID PACIENTE: ${expediente.idPaciente} </label>
 	</div>
 	<br/>
+	<div>
+		<a href="<c:url value='/agregarPerfilLipido?idExpediente=${expediente.id}' />">Crear Perfil Lipido</a>
+	</div>
 	</form>
 	</div>     
 	</div>
