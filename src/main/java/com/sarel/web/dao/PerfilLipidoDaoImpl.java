@@ -19,15 +19,24 @@ public class PerfilLipidoDaoImpl extends AbstractDao<Integer, PerfilLipido> impl
 		persist(perfilLipido);
 	}
 	
+	public void updatePerfilLipido(PerfilLipido perfilLipido) {
+		update(perfilLipido);
+	}
+	
+	public void deletePerfilLipido(PerfilLipido perfilLipido){
+		delete(perfilLipido);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<PerfilLipido> findAll() {
 		Criteria criteria = createEntityCriteria();
 		return (List<PerfilLipido>) criteria.list();
 	}
 	
-	public PerfilLipido findByIdExpediente(Integer idExpediente) {
+	@SuppressWarnings("unchecked")
+	public List<PerfilLipido> findByIdExpediente(Integer idExpediente) {
 		Criteria criteria = createEntityCriteria();
 		criteria.add(Restrictions.eq("idExpediente", idExpediente));
-		return (PerfilLipido) criteria.uniqueResult();
+		return criteria.list();
 	}
 }

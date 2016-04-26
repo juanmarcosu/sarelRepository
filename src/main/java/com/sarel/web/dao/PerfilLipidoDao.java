@@ -8,7 +8,9 @@ public interface PerfilLipidoDao {
 	
 	PerfilLipido findById(int id);
 	void savePerfilLipido(PerfilLipido perfilLipido);
+	void updatePerfilLipido(PerfilLipido perfilLipido);
+	void deletePerfilLipido(PerfilLipido perfilLipido);
 	List<PerfilLipido> findAll();
-	PerfilLipido findByIdExpediente(Integer idExpediente);
+	List<PerfilLipido> findByIdExpediente(Integer idExpediente);
 
 }

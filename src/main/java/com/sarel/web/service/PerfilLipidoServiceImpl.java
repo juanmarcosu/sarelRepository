@@ -20,6 +20,14 @@ public class PerfilLipidoServiceImpl implements PerfilLipidoService {
 		return dao.findById(id);
 	}
 	
+	public void updatePerfilLipido(PerfilLipido perfilLipido){
+		dao.updatePerfilLipido(perfilLipido);
+	}
+	
+	public void deletePerfilLipido(PerfilLipido perfilLipido){
+		dao.deletePerfilLipido(perfilLipido);
+	}
+	
 	public void savePerfilLipido(PerfilLipido perfilLipido){
 		dao.savePerfilLipido(perfilLipido);
 	}
@@ -28,7 +36,7 @@ public class PerfilLipidoServiceImpl implements PerfilLipidoService {
 		return dao.findAll();
 	}
 	
-	public PerfilLipido findByIdExpediente(Integer idExpediente){
+	public List<PerfilLipido> findByIdExpediente(Integer idExpediente){
 		return dao.findByIdExpediente(idExpediente);
 	}
 }

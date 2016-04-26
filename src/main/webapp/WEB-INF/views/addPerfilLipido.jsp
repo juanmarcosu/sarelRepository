@@ -8,21 +8,29 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Perfil Lipido</title>
+	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-<style>
-
-	.error {
-		color: #ff0000;
+	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
+	<script>
+	function checkMod(){
+		if ("${soloConsulta}" == "true") {
+			var el = document.getElementById('wholeForm'),
+		        all = el.getElementsByTagName('input'),
+		        i;
+		    for (i = 0; i < all.length; i++) {
+		        all[i].disabled = true;
+		    }
+		}
 	}
-</style>
-
+	</script>
 </head>
 
-<body>
+<body onload="checkMod()">
 
 	<h2>Perfil Lipido</h2>
  
 	<form:form method="POST" modelAttribute="perfilLipido">
+	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
 		
@@ -92,6 +100,7 @@
 				</td>
 			</tr>
 		</table>
+		</div>
 	</form:form>
 </body>
 </html>
