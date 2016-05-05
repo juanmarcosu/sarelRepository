@@ -257,7 +257,12 @@ public class AppController {
 	}
 	
 	@RequestMapping(value = { "/editarPerfilLipidico" }, method = RequestMethod.POST)
-	public String modificarPerfilLipidico(ModelMap model, @Valid PerfilLipidico perfilLipidico) {
+	public String modificarPerfilLipidico(ModelMap model, @Valid PerfilLipidico perfilLipidico, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPerfilLipidico";
+		}
+		
 		model.addAttribute("user", getPrincipal());
 		perfilLipidicoService.updatePerfilLipidico(perfilLipidico);
 		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
