@@ -41,7 +41,7 @@
 	</div>
 	<br/>
 	<div>
-		<a href="<c:url value='/agregarPerfilLipido?idExpediente=${expediente.id}' />">Crear Perfil Lipido</a>
+		<a href="<c:url value='/agregarPerfilLipidico?idExpediente=${expediente.id}' />">Crear Perfil Lipidico</a>
 	</div>
 	<hr size="3">
 	<div id="laboratorios">
@@ -55,12 +55,12 @@
 		 
 		<c:forEach items="${labs}" var="unLaboratorio">
 			<tr>
-			<td>PERFIL LIPIDO</td>
+			<td>PERFIL LIPIDICO</td>
 			<td>ADMINISTRADOR</td>
 			<td>${unLaboratorio.fechaLaboratorio}</td>
-			<td><a href="<c:url value='/consultarPerfilLipido?idPerfilLipido=${unLaboratorio.id}' />">Consultar</a></td>
-			<td><a href="<c:url value='/editarPerfilLipido?idPerfilLipido=${unLaboratorio.id}' />">Editar</a></td>
-			<td><a href="<c:url value='/eliminarPerfilLipido?idPerfilLipido=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Eliminar</a></td>
+			<td><a href="<c:url value='/consultarPerfilLipidico?idPerfilLipidico=${unLaboratorio.id}' />">Consultar</a></td>
+			<td><a href="<c:url value='/editarPerfilLipidico?idPerfilLipidico=${unLaboratorio.id}' />">Editar</a></td>
+			<td><a href="<c:url value='/eliminarPerfilLipidico?idPerfilLipidico=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Eliminar</a></td>
 			<td>IMPRIMIR</td>
 			</tr>
 		</c:forEach>

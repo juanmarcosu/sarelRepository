@@ -23,13 +23,13 @@ import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.Paciente;
-import com.sarel.web.model.PerfilLipido;
+import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.Sexo;
 import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.PacienteService;
-import com.sarel.web.service.PerfilLipidoService;
+import com.sarel.web.service.PerfilLipidicoService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
 
@@ -187,7 +187,7 @@ public class AppController {
 	}
 	
 	@Autowired
-    PerfilLipidoService perfilLipidoService;
+    PerfilLipidicoService perfilLipidicoService;
 	
 	@Autowired
     ExpedienteLaboratorioService expedienteService;
@@ -216,81 +216,85 @@ public class AppController {
 			expedienteService.saveExpedienteLaboratorio(expedienteTemp);
 			expediente = expedienteService.findByIdPaciente(idPaciente);
 		}
-		List<PerfilLipido> labs = perfilLipidoService.findByIdExpediente(expediente.getId());
+		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
 		model.addAttribute("expediente", expediente);
 		model.addAttribute("labs", labs);
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/eliminarPerfilLipido" }, method = RequestMethod.GET)
-	public String eliminarPerfilLipido(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPerfilLipido") int idPerfil) {
+	@RequestMapping(value = { "/eliminarPerfilLipidico" }, method = RequestMethod.GET)
+	public String eliminarPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPerfilLipidico") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
-		perfilLipidoService.deletePerfilLipido(perfilLipidoService.findById(idPerfil));
+		perfilLipidicoService.deletePerfilLipidico(perfilLipidicoService.findById(idPerfil));
 		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
 		model.addAttribute("expediente", expediente);
-		List<PerfilLipido> labs = perfilLipidoService.findByIdExpediente(expediente.getId());
+		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/consultarPerfilLipido" }, method = RequestMethod.GET)
-	public String consultarPerfilLipido(ModelMap model, @RequestParam("idPerfilLipido") int idPerfil) {
+	@RequestMapping(value = { "/consultarPerfilLipidico" }, method = RequestMethod.GET)
+	public String consultarPerfilLipidico(ModelMap model, @RequestParam("idPerfilLipidico") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
-		PerfilLipido perfilLipido = perfilLipidoService.findById(idPerfil);
-		model.addAttribute("perfilLipido", perfilLipido);
-		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipido.getIdExpediente());
+		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
+		model.addAttribute("perfilLipidico", perfilLipidico);
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
 		model.addAttribute("expediente", expediente);
 		model.addAttribute("soloConsulta", true);
-		return "addPerfilLipido";
+		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/editarPerfilLipido" }, method = RequestMethod.GET)
-	public String editarPerfilLipido(ModelMap model, @RequestParam("idPerfilLipido") int idPerfil) {
+	@RequestMapping(value = { "/editarPerfilLipidico" }, method = RequestMethod.GET)
+	public String editarPerfilLipidico(ModelMap model, @RequestParam("idPerfilLipidico") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
-		PerfilLipido perfilLipido = perfilLipidoService.findById(idPerfil);
-		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipido.getIdExpediente());
+		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
 		model.addAttribute("expediente", expediente);
-		model.addAttribute("perfilLipido", perfilLipido);
+		model.addAttribute("perfilLipidico", perfilLipidico);
 		model.addAttribute("edit", true);
-		return "addPerfilLipido";
+		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/editarPerfilLipido" }, method = RequestMethod.POST)
-	public String modificarPerfilLipido(ModelMap model, @Valid PerfilLipido perfilLipido) {
+	@RequestMapping(value = { "/editarPerfilLipidico" }, method = RequestMethod.POST)
+	public String modificarPerfilLipidico(ModelMap model, @Valid PerfilLipidico perfilLipidico) {
 		model.addAttribute("user", getPrincipal());
-		perfilLipidoService.updatePerfilLipido(perfilLipido);
-		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipido.getIdExpediente());
+		perfilLipidicoService.updatePerfilLipidico(perfilLipidico);
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
 		model.addAttribute("expediente", expediente);
-		List<PerfilLipido> labs = perfilLipidoService.findByIdExpediente(expediente.getId());
+		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + perfilLipido.getId() + " editado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + perfilLipidico.getId() + " editado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/agregarPerfilLipido" }, method = RequestMethod.GET)
-	public String nuevoPerfilLipido(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+	@RequestMapping(value = { "/agregarPerfilLipidico" }, method = RequestMethod.GET)
+	public String nuevoPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
 		model.addAttribute("user", getPrincipal());
 		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
 		model.addAttribute("expediente", expediente);
-		PerfilLipido perfilLipido = new PerfilLipido();
-		model.addAttribute("perfilLipido", perfilLipido);
+		PerfilLipidico perfilLipidico = new PerfilLipidico();
+		model.addAttribute("perfilLipidico", perfilLipidico);
 		model.addAttribute("idExpediente", idExpediente);
 		model.addAttribute("edit", false);
-		return "addPerfilLipido";
+		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/agregarPerfilLipido" }, method = RequestMethod.POST)
-	public String guardarPerfilLipido(@Valid PerfilLipido perfilLipido, 
+	@RequestMapping(value = { "/agregarPerfilLipidico" }, method = RequestMethod.POST)
+	public String guardarPerfilLipidico(@Valid PerfilLipidico perfilLipidico, BindingResult result, 
 			ModelMap model) {
 		
-		perfilLipidoService.savePerfilLipido(perfilLipido);
+		if (result.hasErrors()) {
+			return "addPerfilLipidico";
+		}
+		
+		perfilLipidicoService.savePerfilLipidico(perfilLipidico);
 		model.addAttribute("user", getPrincipal());
-		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipido.getIdExpediente());
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
 		model.addAttribute("expediente", expediente);
-		List<PerfilLipido> labs = perfilLipidoService.findByIdExpediente(expediente.getId());
+		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + perfilLipido.getId() + " creado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + perfilLipidico.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 
