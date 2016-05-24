@@ -5,22 +5,16 @@
 <head>
 <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 </head>
-<body>
-	<div background="<c:url value='/recursos/imagenes/background.jpg' />">
+<body background="<c:url value='/recursos/imagenes/background.jpg' />">
+	<div>
 	<table class="table">
 		<tr>
-			<td><img src="<c:url value='/recursos/imagenes/logousac.png' />" /></td>
+			<td><img src="<c:url value='/recursos/imagenes/logousac_small.png' />" /></td>
 			<td>
-				<h1 style="color:#000050;">Sistema de Administracion de REsultados de Laboratorio</h1><h2 style="color:#000050;">SAREL</h2> 
+				<h2 style="color:#000050;">Sistema de Administracion de REsultados de Laboratorio - SAREL</h2> 
 			</td>
 		</tr>
 	</table>
-	<div align="right">
-		<c:if test="${user != 'anonymousUser'}">
-			<label>Usuario: ${user} &nbsp; &nbsp; &nbsp;</label>
-		</c:if>
-	</div>
-	<hr size="3">
 	<div align="center">
 	<table width="500">
 		<tr>
@@ -40,7 +34,12 @@
 		</tr>
 	</table>
 	</div>
-	<hr size="3">
+	<div align="right">
+		<c:if test="${user != 'anonymousUser'}">
+			<label>Usuario: ${user} &nbsp; &nbsp; &nbsp;</label>
+		</c:if>
+	</div>
+	<hr size="1">
 	</div>
 </body>
 </html>

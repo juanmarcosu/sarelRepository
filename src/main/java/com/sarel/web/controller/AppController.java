@@ -1,5 +1,6 @@
 package com.sarel.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -25,6 +26,7 @@ import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PerfilLipidico;
+import com.sarel.web.model.ResultadoLaboratorioVO;
 import com.sarel.web.model.Sexo;
 import com.sarel.web.model.TipoLaboratorio;
 import com.sarel.web.model.User;
@@ -149,6 +151,15 @@ public class AppController {
     public List<User> initializeLaboratoristas() {
         return userService.findAllUsersByRol("LABORATORISTA");
     }
+	
+	@ModelAttribute("tiposLaboratorio")
+    public List<TipoLaboratorio> initializeTiposLaboratorio() {
+		List<TipoLaboratorio> tipos = new ArrayList<TipoLaboratorio>();
+		for (TipoLaboratorio unTipo :TipoLaboratorio.values()){
+			tipos.add(unTipo);
+		}
+        return tipos;
+    }
 
 	@Autowired
 	EmployeeService service;
@@ -202,7 +213,6 @@ public class AppController {
 	@RequestMapping(value = { "/verExpedienteLaboratorio" }, method = RequestMethod.GET)
 	public String verExpedientePersona(@RequestParam("idPaciente") Integer idPaciente, ModelMap model) {
 		model.addAttribute("user", getPrincipal());
-		model.addAttribute("tiposLaboratorio",TipoLaboratorio.values());
 		ExpedienteLaboratorio expediente = expedienteService.findByIdPaciente(idPaciente);
 		if(expediente == null){
 			Paciente paciente = pacienteService.findById(idPaciente);
@@ -224,7 +234,7 @@ public class AppController {
 			expedienteService.saveExpedienteLaboratorio(expedienteTemp);
 			expediente = expedienteService.findByIdPaciente(idPaciente);
 		}
-		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("expediente", expediente);
 		model.addAttribute("labs", labs);
 		return "verExpedienteLaboratorio";
@@ -238,7 +248,7 @@ public class AppController {
 		perfilLipidicoService.updatePerfilLipidico(nuevoPerfilLipidico);
 		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
 		model.addAttribute("expediente", expediente);
-		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
 		return "verExpedienteLaboratorio";
@@ -277,7 +287,7 @@ public class AppController {
 		perfilLipidicoService.updatePerfilLipidico(perfilLipidico);
 		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
 		model.addAttribute("expediente", expediente);
-		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + perfilLipidico.getId() + " editado Exitosamente...");
 		return "verExpedienteLaboratorio";
@@ -296,7 +306,7 @@ public class AppController {
 		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/agregarPerfilLipidico" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/agregarperfillipidico" }, method = RequestMethod.POST)
 	public String guardarPerfilLipidico(@Valid PerfilLipidico perfilLipidico, BindingResult result, 
 			ModelMap model) {
 		
@@ -308,7 +318,7 @@ public class AppController {
 		model.addAttribute("user", getPrincipal());
 		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
 		model.addAttribute("expediente", expediente);
-		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + perfilLipidico.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
@@ -412,6 +422,27 @@ public class AppController {
 	public String deleteEmployee(@PathVariable String ssn) {
 		service.deleteEmployeeBySsn(ssn);
 		return "redirect:/list";
+	}
+	
+	private List<ResultadoLaboratorioVO> obtenerTodosLosLaboratoriosPorIdExpediente(int idExpediente){
+		List<ResultadoLaboratorioVO> resultados = new ArrayList<ResultadoLaboratorioVO>();
+		
+		for(TipoLaboratorio unTipo : TipoLaboratorio.values()){
+			if(unTipo.getName().equals(TipoLaboratorio.PERFIL_LIPIDICO.getName())){
+				List<PerfilLipidico> lipidicos = perfilLipidicoService.findByIdExpediente(idExpediente);
+				for(PerfilLipidico unLipido : lipidicos){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLipido.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLipido.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLipido.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLipido.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo.getName());
+					resultados.add(unResultado);
+				}
+			}
+		}
+		return resultados;
 	}
 
 }
