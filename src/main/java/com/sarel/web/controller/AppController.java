@@ -26,6 +26,7 @@ import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PerfilLipidico;
+import com.sarel.web.model.PruebaEmbarazo;
 import com.sarel.web.model.ResultadoLaboratorioVO;
 import com.sarel.web.model.Sexo;
 import com.sarel.web.model.TipoLaboratorio;
@@ -34,6 +35,7 @@ import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.PerfilLipidicoService;
+import com.sarel.web.service.PruebaEmbarazoService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
 
@@ -323,7 +325,116 @@ public class AppController {
 		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + perfilLipidico.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
+	
+	/* Fin Prueba Embarazo */
 
+	/* Inicia Prueba Embarazo */
+	
+	@Autowired
+    PruebaEmbarazoService pruebaEmbarazoService;
+	
+	@RequestMapping(value = { "/eliminarPruebaEmbarazo" }, method = RequestMethod.GET)
+	public String eliminarPruebaEmbarazo(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPruebaEmbarazo") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaEmbarazo nuevoPruebaEmbarazo = pruebaEmbarazoService.findById(idPerfil);
+		nuevoPruebaEmbarazo.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebaEmbarazoService.updatePruebaEmbarazo(nuevoPruebaEmbarazo);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarPruebaEmbarazo" }, method = RequestMethod.GET)
+	public String consultarPruebaEmbarazo(ModelMap model, @RequestParam("idPruebaEmbarazo") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaEmbarazo pruebaEmbarazo = pruebaEmbarazoService.findById(idPerfil);
+		model.addAttribute("pruebaEmbarazo", pruebaEmbarazo);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaEmbarazo.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebaEmbarazo";
+	}
+	
+	@RequestMapping(value = { "/editarPruebaEmbarazo" }, method = RequestMethod.GET)
+	public String editarPruebaEmbarazo(ModelMap model, @RequestParam("idPruebaEmbarazo") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaEmbarazo pruebaEmbarazo = pruebaEmbarazoService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaEmbarazo.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("pruebaEmbarazo", pruebaEmbarazo);
+		model.addAttribute("edit", true);
+		return "addPruebaEmbarazo";
+	}
+	
+	@RequestMapping(value = { "/editarPruebaEmbarazo" }, method = RequestMethod.POST)
+	public String modificarPruebaEmbarazo(ModelMap model, @Valid PruebaEmbarazo pruebaEmbarazo, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaEmbarazo";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebaEmbarazoService.updatePruebaEmbarazo(pruebaEmbarazo);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaEmbarazo.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + pruebaEmbarazo.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarpruebaembarazo" }, method = RequestMethod.GET)
+	public String nuevoPruebaEmbarazo(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		PruebaEmbarazo pruebaEmbarazo = new PruebaEmbarazo();
+		model.addAttribute("pruebaEmbarazo", pruebaEmbarazo);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPruebaEmbarazo";
+	}
+	
+	@RequestMapping(value = { "/agregarpruebaembarazo" }, method = RequestMethod.POST)
+	public String guardarPruebaEmbarazo(@Valid PruebaEmbarazo pruebaEmbarazo, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaEmbarazo";
+		}
+		
+		pruebaEmbarazoService.savePruebaEmbarazo(pruebaEmbarazo);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaEmbarazo.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + pruebaEmbarazo.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	/* Fin Prueba Embarazo */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*
 	 * This method will list all existing employees.
 	 */
@@ -437,6 +548,19 @@ public class AppController {
 					unResultado.setFechaLaboratorio(unLipido.getFechaLaboratorio());
 					unResultado.setQuimicoBiologo(userService.findById(unLipido.getIdQuimicoBiologo()).getSsoId());
 					unResultado.setEstado(unLipido.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo.getName());
+					resultados.add(unResultado);
+				}
+			}
+			if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_EMBARAZO.getName())){
+				List<PruebaEmbarazo> pruebaEmbarazo = pruebaEmbarazoService.findByIdExpediente(idExpediente);
+				for(PruebaEmbarazo unaPruebaEmbarazo : pruebaEmbarazo){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unaPruebaEmbarazo.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unaPruebaEmbarazo.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unaPruebaEmbarazo.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unaPruebaEmbarazo.getEstado().getName().replaceAll("_", " "));
 					unResultado.setTipoLaboratorio(unTipo.getName());
 					resultados.add(unResultado);
 				}

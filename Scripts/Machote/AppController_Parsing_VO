@@ -1,0 +1,13 @@
+if(unTipo.getName().equals(TipoLaboratorio.PERFIL_LIPIDICO.getName())){
+				List<PerfilLipidico> lipidicos = perfilLipidicoService.findByIdExpediente(idExpediente);
+				for(PerfilLipidico unLipido : lipidicos){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLipido.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLipido.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLipido.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLipido.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo.getName());
+					resultados.add(unResultado);
+				}
+			}

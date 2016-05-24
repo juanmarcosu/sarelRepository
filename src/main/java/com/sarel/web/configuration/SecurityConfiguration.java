@@ -53,9 +53,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/buscarPaciente").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	
 	  	.antMatchers("/consultarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
-	  	.antMatchers("/agregarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/agregarperfillipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/editarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	
+	  	.antMatchers("/consultarPruebaEmbarazo").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarpruebaembarazo").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarPruebaEmbarazo").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarPruebaEmbarazo").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
 	  	.antMatchers("/verExpedienteLaboratorio").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	//.and().formLogin().loginPage("/login")
