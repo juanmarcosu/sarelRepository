@@ -14,6 +14,22 @@
 			background-color: #C6C9C4;
 		}
 	</style>
+	<script>
+		function openPage()
+		 {
+			var tipo, url, nuevaRuta, indiceSelect, context
+			context ="${pageContext.request.contextPath}"
+			url = "?idExpediente="+${expediente.id};
+			alert(context);
+			indiceSelect = document.getElementById('selectTipoLaboratorio');
+			tipo = indiceSelect.options[indiceSelect.selectedIndex].value;
+			tipo = tipo.toLowerCase();
+			tipo = tipo.replace("_","");
+			nuevaRuta = context+"/agregar"+tipo+url;
+			alert(nuevaRuta);
+		 	window.location.href = nuevaRuta;
+		 }
+	</script>
 
 </head>
 
@@ -43,8 +59,18 @@
 	<div>
 		<a href="<c:url value='/agregarPerfilLipidico?idExpediente=${expediente.id}' />">Crear Perfil Lipidico</a>
 	</div>
+	<div width ="150">
+		<select id="selectTipoLaboratorio" class="form-control input-sm">
+		    	<c:forEach items="${tiposLaboratorio}" var="tipo">
+		    		<option value="${tipo}">${tipo.toString()}</option>
+		    	</c:forEach>
+		    	</select>
+	</div>
+	<input type="button" value="Agregar Nuevo Resultado" name="crearLaboratorio"
+    onclick="openPage()"/>
+	
 	<hr size="3">
-	<div id="laboratorios">
+	<div id="laboratorios">`
 		<table class="table table-hover">
 		<thead>
 		<tr>

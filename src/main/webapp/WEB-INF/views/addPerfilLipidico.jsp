@@ -20,6 +20,7 @@
 		    for (i = 0; i < all.length; i++) {
 		        all[i].disabled = true;
 		    }
+		    document.getElementById('idQuimicoBiologo').disabled = true;
 		}
 	}
 	function calcularFila4y3(){
@@ -44,12 +45,13 @@
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
+		<div class="has-error"><form:errors path="idExpediente" class="help-inline"/></div>
 		
-		<table align="center">
+		<table>
 			<tr>
 				<td><label for="fechaLaboratorio">Fecha de Laboratorio (dd/MM/yyyy): </label> </td>
 				<td><form:input path="fechaLaboratorio" id="fechaLaboratorio"/></td>
-				<td><form:errors path="fechaLaboratorio" class="help-inline"/></td>
+				<td><div class="has-error"><form:errors path="fechaLaboratorio" class="help-inline"/></div></td>
 		    </tr>
 		</table>
 		<br>
@@ -60,46 +62,55 @@
 				<td><label for="colesterolTotal">Colesterol Total: </label> </td>
 				<td><form:input path="colesterolTotal" id="colesterolTotal"/></td>
 				<td><label for="colesterolTotalLabel">Hasta 150 mg/dl </label> </td> 
-				<td><form:errors path="colesterolTotal" class="help-inline"/></td>
+				<td><div class="has-error"><form:errors path="colesterolTotal" class="help-inline"/></div></td>
 		    </tr>
 			<tr>
 				<td><label for="colesterolAltaDensidad">Colesterol Alta Densidad (HDL): </label> </td>
 				<td><form:input path="colesterolAltaDensidad" id="colesterolAltaDensidad"/></td>
 				<td><label for="colesterolAltaDensidadLabel">Mayor de 40 mg/dl </label> </td> 
-				<td><form:errors path="colesterolAltaDensidad" class="help-inline"/></td>
+				<td><div class="has-error"><form:errors path="colesterolAltaDensidad" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>
 				<td><label for="colesterolBajaDensidad">Colesterol Baja Densidad (LDL): </label> </td>
 				<td><form:input path="colesterolBajaDensidad" id="colesterolBajaDensidad"/></td>
 				<td><label for="colesterolBajaDensidadLabel">65 - 175 mg/dl </label> </td> 
-				<td><form:errors path="colesterolBajaDensidad" cssClass="error"/></td>
+				<td><div class="has-error"><form:errors path="colesterolBajaDensidad" cssClass="error"/></div></td>
 		    </tr>
 			<tr>
 				<td><label for="colesterolMuyBajaDensidad">Colesterol de Muy Baja Densidad (VLDL): </label> </td>
 				<td><form:input path="colesterolMuyBajaDensidad" id="colesterolMuyBajaDensidad"/></td>
-				<td><form:errors path="colesterolMuyBajaDensidad" cssClass="error"/></td>
+				<td><div class="has-error"><form:errors path="colesterolMuyBajaDensidad" cssClass="error"/></div></td>
 		    </tr>
 		    <tr>
 				<td><label for="trigliceridos">Trigliceridos: </label> </td>
 				<td><form:input path="trigliceridos" id="trigliceridos" onchange="calcularFila4y3()"/></td>
 				<td><label for="trigliceridosLabel">Hasta 150 mg/dl </label> </td> 
-				<td><form:errors path="trigliceridos" cssClass="error"/></td>
+				<td><div class="has-error"><form:errors path="trigliceridos" cssClass="error"/></div></td>
 		    </tr>
 		    <tr>
 				<td><label for="indiceRiesgo">Indice de Riesgo: </label> </td>
 				<td><form:input path="indiceRiesgo" id="indiceRiesgo"/></td>
-				<td><form:errors path="indiceRiesgo" cssClass="error"/></td>
+				<td><div class="has-error"><form:errors path="indiceRiesgo" cssClass="error"/></div></td>
 		    </tr>
 		    <tr>
 				<td><label for="resistenciaInsulina">Resistencia a la Insulina: </label> </td>
 				<td><form:input path="resistenciaInsulina" id="resistenciaInsulina"/></td> 
-				<td><form:errors path="resistenciaInsulina" cssClass="error"/></td>
-		    </tr>
-		    <%-- 
+				<td><div class="has-error"><form:errors path="resistenciaInsulina" cssClass="error"/></div></td>
+		    </tr> 
 		    <tr>
-		    	<form:select path="quimicoBiologo" items="${laboratoristas}" multiple="false" itemValue="id" itemLabel="LAST_NAME" class="form-control input-sm"/>
+		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>
+		    	<%--
+		    	<td><form:select path="quimicoBiologo" id="quimicoBiologo" class="form-control input-sm">
+		    	<option value="" >Seleccionar</option>
+		    	<c:forEach items="${laboratoristas}" var="user">
+		    		<option value=${user}>${user.ssoId}</option>
+		    	</c:forEach>
+		    	</form:select><td>
+		    	 --%>
+		    	<td><form:select path="idQuimicoBiologo" id="idQuimicoBiologo" items="${laboratoristas}" multiple="false" itemValue="id" itemLabel="ssoId" class="form-control input-sm"/></td>
+		    	
+		    	<td><div class="has-error"><form:errors path="idQuimicoBiologo" class="help-inline"/></div></td>
 		    </tr>
-		    --%>
 			<tr>
 				<td colspan="3">
 					<c:choose>

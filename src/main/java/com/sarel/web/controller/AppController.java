@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
+import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.Sexo;
+import com.sarel.web.model.TipoLaboratorio;
 import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.ExpedienteLaboratorioService;
@@ -142,6 +144,11 @@ public class AppController {
     public List<UserProfile> initializeProfiles() {
         return userProfileService.findAll();
     }
+	
+	@ModelAttribute("laboratoristas")
+    public List<User> initializeLaboratoristas() {
+        return userService.findAllUsersByRol("LABORATORISTA");
+    }
 
 	@Autowired
 	EmployeeService service;
@@ -195,6 +202,7 @@ public class AppController {
 	@RequestMapping(value = { "/verExpedienteLaboratorio" }, method = RequestMethod.GET)
 	public String verExpedientePersona(@RequestParam("idPaciente") Integer idPaciente, ModelMap model) {
 		model.addAttribute("user", getPrincipal());
+		model.addAttribute("tiposLaboratorio",TipoLaboratorio.values());
 		ExpedienteLaboratorio expediente = expedienteService.findByIdPaciente(idPaciente);
 		if(expediente == null){
 			Paciente paciente = pacienteService.findById(idPaciente);
@@ -225,7 +233,9 @@ public class AppController {
 	@RequestMapping(value = { "/eliminarPerfilLipidico" }, method = RequestMethod.GET)
 	public String eliminarPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPerfilLipidico") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
-		perfilLipidicoService.deletePerfilLipidico(perfilLipidicoService.findById(idPerfil));
+		PerfilLipidico nuevoPerfilLipidico = perfilLipidicoService.findById(idPerfil);
+		nuevoPerfilLipidico.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		perfilLipidicoService.updatePerfilLipidico(nuevoPerfilLipidico);
 		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
 		model.addAttribute("expediente", expediente);
 		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
@@ -273,9 +283,10 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/agregarPerfilLipidico" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/agregarperfillipidico" }, method = RequestMethod.GET)
 	public String nuevoPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
 		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
 		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
 		model.addAttribute("expediente", expediente);
 		PerfilLipidico perfilLipidico = new PerfilLipidico();
@@ -299,7 +310,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + perfilLipidico.getId() + " creado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + perfilLipidico.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 

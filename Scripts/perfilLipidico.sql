@@ -15,7 +15,10 @@ CREATE TABLE `PERFIL_LIPIDICO` (
   `trigliceridos` DOUBLE NOT NULL,
   `indice_riesgo` DOUBLE NOT NULL,
   `resistencia_insulina` DOUBLE NOT NULL,
-  `id_quimico_biologo` int(20) NOT NULL,
+  `id_quimico_biologo` bigint(20) NOT NULL,
+  `estado`  VARCHAR(30) NOT NULL,
   PRIMARY KEY (`id`),
+  CONSTRAINT `FK_PERFIL_LIPIDICO_QUIMICO` FOREIGN KEY (`id_quimico_biologo`) REFERENCES `APP_USER` (`id`),
+  CONSTRAINT `FK_PERFIL_LIPIDICO_EXPEDIENTE` FOREIGN KEY (`id_expediente`) REFERENCES `EXPEDIENTE_LABORATORIO` (`id`),
   KEY `Index110` (`id_expediente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

@@ -2,14 +2,13 @@ package com.sarel.web.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,14 +20,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="PERFIL_LIPIDICO")
 public class PerfilLipidico {
 	
-	//private User quimicoBiologo; 
-
+	private EstadoResultadoLaboratorio estado = EstadoResultadoLaboratorio.ACTIVO;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name = "id_expediente", unique=false, nullable = false)
 	private int idExpediente;
+	
+	@Column(name = "id_quimico_biologo", unique=false, nullable = false)
+	private int idQuimicoBiologo;
 	
 	@NotNull
 	@DateTimeFormat(pattern="dd/MM/yyyy") 
@@ -56,15 +58,26 @@ public class PerfilLipidico {
 	
 	@Column(name = "resistencia_insulina", unique=false, nullable = false)
 	private BigDecimal resistenciaInsulina;
-	/*
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "id_quimico_biologo", nullable=true)
-	public User getQuimicoBiologo(){
-		return this.quimicoBiologo;
+	
+	/*@ManyToOne(optional=false)
+    @JoinColumn(name="id_quimico_biologo")
+    private User quimicoBiologo;
+	
+	public User getQuimicoBiologo() {
+		return quimicoBiologo;
 	}
-	public void setQuimicoBiologo(User quimicoBiologo){
+	public void setQuimicoBiologo(User quimicoBiologo) {
 		this.quimicoBiologo = quimicoBiologo;
 	}*/
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="estado")
+	public EstadoResultadoLaboratorio getEstado(){
+		return this.estado;
+	}
+	public void setEstado(EstadoResultadoLaboratorio estado){
+		this.estado = estado;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -142,6 +155,12 @@ public class PerfilLipidico {
 	public void setFechaLaboratorio(LocalDate fechaLaboratorio) {
 		this.fechaLaboratorio = fechaLaboratorio;
 	}
+	public int getIdQuimicoBiologo() {
+		return idQuimicoBiologo;
+	}
+	public void setIdQuimicoBiologo(int idQuimicoBiologo) {
+		this.idQuimicoBiologo = idQuimicoBiologo;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -156,7 +175,8 @@ public class PerfilLipidico {
 		return "PerfilLipidico [id ="+ id +", idExpediente=" + idExpediente 
 				+", colesterolTotal=" + colesterolTotal +", colesterolAltaDensidad=" + colesterolAltaDensidad +", colesterolBajaDensidad=" + colesterolBajaDensidad 
 				+", trigliceridos=" + trigliceridos +", colesterolMuyBajaDensidad=" + colesterolMuyBajaDensidad +", indiceRiesgo=" + indiceRiesgo 
-			//	+", resistenciaInsulina=" + resistenciaInsulina +", quimicoBiologo=" + quimicoBiologo.getId() 
+				+", resistenciaInsulina=" + resistenciaInsulina +", idQuimicoBiologo=" + idQuimicoBiologo
+				//+", estado=" + EstadoResultadoLaboratorio.
 				+ "]";
 	}
 	

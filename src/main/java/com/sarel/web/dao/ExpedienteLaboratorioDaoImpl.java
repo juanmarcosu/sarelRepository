@@ -2,15 +2,11 @@ package com.sarel.web.dao;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.sarel.web.model.Employee;
 import com.sarel.web.model.ExpedienteLaboratorio;
 
 @Repository("expedienteLaboratorioDao")
