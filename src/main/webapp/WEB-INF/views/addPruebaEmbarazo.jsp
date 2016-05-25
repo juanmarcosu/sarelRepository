@@ -50,7 +50,6 @@
 			<tr>
 				<td><label for="resultado">Resultado: </label> </td>
 				<td><form:input path="resultado" id="resultado"/></td>
-				<td><label for="resultadoLabel">Hasta 150 mg/dl </label> </td> 
 				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>

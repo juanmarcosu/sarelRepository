@@ -242,8 +242,8 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/eliminarPerfilLipidico" }, method = RequestMethod.GET)
-	public String eliminarPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPerfilLipidico") int idPerfil) {
+	@RequestMapping(value = { "/eliminarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
+	public String eliminarPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PerfilLipidico nuevoPerfilLipidico = perfilLipidicoService.findById(idPerfil);
 		nuevoPerfilLipidico.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
@@ -256,8 +256,8 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/consultarPerfilLipidico" }, method = RequestMethod.GET)
-	public String consultarPerfilLipidico(ModelMap model, @RequestParam("idPerfilLipidico") int idPerfil) {
+	@RequestMapping(value = { "/consultarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
+	public String consultarPerfilLipidico(ModelMap model, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
 		model.addAttribute("perfilLipidico", perfilLipidico);
@@ -267,8 +267,8 @@ public class AppController {
 		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/editarPerfilLipidico" }, method = RequestMethod.GET)
-	public String editarPerfilLipidico(ModelMap model, @RequestParam("idPerfilLipidico") int idPerfil) {
+	@RequestMapping(value = { "/editarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
+	public String editarPerfilLipidico(ModelMap model, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
 		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
@@ -278,7 +278,7 @@ public class AppController {
 		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/editarPerfilLipidico" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/editarPERFIL_LIPIDICO" }, method = RequestMethod.POST)
 	public String modificarPerfilLipidico(ModelMap model, @Valid PerfilLipidico perfilLipidico, BindingResult result) {
 		
 		if (result.hasErrors()) {
@@ -295,7 +295,7 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/agregarperfillipidico" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/agregarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
 	public String nuevoPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
 		model.addAttribute("user", getPrincipal());
 		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
@@ -308,7 +308,7 @@ public class AppController {
 		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/agregarperfillipidico" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/agregarPERFIL_LIPIDICO" }, method = RequestMethod.POST)
 	public String guardarPerfilLipidico(@Valid PerfilLipidico perfilLipidico, BindingResult result, 
 			ModelMap model) {
 		
@@ -333,8 +333,8 @@ public class AppController {
 	@Autowired
     PruebaEmbarazoService pruebaEmbarazoService;
 	
-	@RequestMapping(value = { "/eliminarPruebaEmbarazo" }, method = RequestMethod.GET)
-	public String eliminarPruebaEmbarazo(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPruebaEmbarazo") int idPerfil) {
+	@RequestMapping(value = { "/eliminarPRUEBA_EMBARAZO" }, method = RequestMethod.GET)
+	public String eliminarPruebaEmbarazo(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPRUEBA_EMBARAZO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PruebaEmbarazo nuevoPruebaEmbarazo = pruebaEmbarazoService.findById(idPerfil);
 		nuevoPruebaEmbarazo.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
@@ -347,8 +347,8 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/consultarPruebaEmbarazo" }, method = RequestMethod.GET)
-	public String consultarPruebaEmbarazo(ModelMap model, @RequestParam("idPruebaEmbarazo") int idPerfil) {
+	@RequestMapping(value = { "/consultarPRUEBA_EMBARAZO" }, method = RequestMethod.GET)
+	public String consultarPruebaEmbarazo(ModelMap model, @RequestParam("idPRUEBA_EMBARAZO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PruebaEmbarazo pruebaEmbarazo = pruebaEmbarazoService.findById(idPerfil);
 		model.addAttribute("pruebaEmbarazo", pruebaEmbarazo);
@@ -358,8 +358,8 @@ public class AppController {
 		return "addPruebaEmbarazo";
 	}
 	
-	@RequestMapping(value = { "/editarPruebaEmbarazo" }, method = RequestMethod.GET)
-	public String editarPruebaEmbarazo(ModelMap model, @RequestParam("idPruebaEmbarazo") int idPerfil) {
+	@RequestMapping(value = { "/editarPRUEBA_EMBARAZO" }, method = RequestMethod.GET)
+	public String editarPruebaEmbarazo(ModelMap model, @RequestParam("idPRUEBA_EMBARAZO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PruebaEmbarazo pruebaEmbarazo = pruebaEmbarazoService.findById(idPerfil);
 		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaEmbarazo.getIdExpediente());
@@ -369,7 +369,7 @@ public class AppController {
 		return "addPruebaEmbarazo";
 	}
 	
-	@RequestMapping(value = { "/editarPruebaEmbarazo" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/editarPRUEBA_EMBARAZO" }, method = RequestMethod.POST)
 	public String modificarPruebaEmbarazo(ModelMap model, @Valid PruebaEmbarazo pruebaEmbarazo, BindingResult result) {
 		
 		if (result.hasErrors()) {
@@ -386,7 +386,7 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/agregarpruebaembarazo" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/agregarPRUEBA_EMBARAZO" }, method = RequestMethod.GET)
 	public String nuevoPruebaEmbarazo(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
 		model.addAttribute("user", getPrincipal());
 		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
@@ -399,7 +399,7 @@ public class AppController {
 		return "addPruebaEmbarazo";
 	}
 	
-	@RequestMapping(value = { "/agregarpruebaembarazo" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/agregarPRUEBA_EMBARAZO" }, method = RequestMethod.POST)
 	public String guardarPruebaEmbarazo(@Valid PruebaEmbarazo pruebaEmbarazo, BindingResult result, 
 			ModelMap model) {
 		
@@ -413,7 +413,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + pruebaEmbarazo.getId() + " creado Exitosamente...");
+		model.addAttribute("message", "Resultado de Prueba de Embarazo Numero: " + pruebaEmbarazo.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	

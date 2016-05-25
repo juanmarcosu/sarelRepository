@@ -22,8 +22,6 @@
 			url = "?idExpediente="+${expediente.id};
 			indiceSelect = document.getElementById('selectTipoLaboratorio');
 			tipo = indiceSelect.options[indiceSelect.selectedIndex].value;
-			tipo = tipo.toLowerCase();
-			tipo = tipo.replace("_","");
 			nuevaRuta = context+"/agregar"+tipo+url;
 		 	window.location.href = nuevaRuta;
 		 }
@@ -88,9 +86,9 @@
 			<td>${unLaboratorio.tipoLaboratorio}</td>
 			<td>${unLaboratorio.quimicoBiologo}</td>
 			<td>${unLaboratorio.fechaLaboratorio}</td>
-			<td><a href="<c:url value='/consultarPerfilLipidico?idPerfilLipidico=${unLaboratorio.id}' />">Consultar</a></td>
-			<td><a href="<c:url value='/editarPerfilLipidico?idPerfilLipidico=${unLaboratorio.id}' />">Editar</a></td>
-			<td><a href="<c:url value='/eliminarPerfilLipidico?idPerfilLipidico=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Eliminar</a></td>
+			<td><a href="<c:url value='/consultar${unLaboratorio.tipoLaboratorio}?id${unLaboratorio.tipoLaboratorio}=${unLaboratorio.id}' />">Consultar</a></td>
+			<td><a href="<c:url value='/editar${unLaboratorio.tipoLaboratorio}?id${unLaboratorio.tipoLaboratorio}=${unLaboratorio.id}' />">Editar</a></td>
+			<td><a href="<c:url value='/eliminar${unLaboratorio.tipoLaboratorio}?id${unLaboratorio.tipoLaboratorio}=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Eliminar</a></td>
 			<td>IMPRIMIR</td>
 			</tr>
 		</c:forEach>

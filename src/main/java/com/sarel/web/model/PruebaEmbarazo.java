@@ -76,10 +76,10 @@ public class PruebaEmbarazo {
 	public void setIdExpediente(int idExpediente) {
 		this.idExpediente = idExpediente;
 	}
-	public String getColesterolTotal() {
+	public String getResultado() {
 		return resultado;
 	}
-	public void setColesterolTotal(String resultado) {
+	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
 	public LocalDate getFechaLaboratorio() {
