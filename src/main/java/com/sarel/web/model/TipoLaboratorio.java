@@ -3,7 +3,9 @@ package com.sarel.web.model;
 public enum TipoLaboratorio {
 	
 	PERFIL_LIPIDICO("Perfil Lipidico"),
-	PRUEBA_EMBARAZO("Prueba de Embarazo");
+	PRUEBA_EMBARAZO("Prueba de Embarazo"),
+	ACIDO_URICO("Acido Urico"),
+	PRUEBA_VDRL("Prueba VDRL");
 	
 	private String tipoLaboratorio;
 	

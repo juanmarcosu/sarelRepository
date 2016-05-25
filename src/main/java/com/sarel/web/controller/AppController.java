@@ -22,20 +22,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
+import com.sarel.web.model.AcidoUrico;
 import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.PruebaEmbarazo;
+import com.sarel.web.model.PruebaVDRL;
 import com.sarel.web.model.ResultadoLaboratorioVO;
 import com.sarel.web.model.Sexo;
 import com.sarel.web.model.TipoLaboratorio;
 import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
+import com.sarel.web.service.AcidoUricoService;
 import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.PerfilLipidicoService;
 import com.sarel.web.service.PruebaEmbarazoService;
+import com.sarel.web.service.PruebaVDRLService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
 
@@ -242,6 +246,8 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
+	/* Fin Perfil Lipidico */
+	
 	@RequestMapping(value = { "/eliminarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
 	public String eliminarPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
@@ -326,7 +332,7 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
-	/* Fin Prueba Embarazo */
+	/* Fin Perfil Lipidico */
 
 	/* Inicia Prueba Embarazo */
 	
@@ -420,9 +426,187 @@ public class AppController {
 	/* Fin Prueba Embarazo */
 	
 	
+	/* Fin Acido Urico */
+
+	@Autowired
+    	AcidoUricoService acidoUricoService;
 	
+	@RequestMapping(value = { "/eliminarACIDO_URICO" }, method = RequestMethod.GET)
+	public String eliminarAcidoUrico(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idACIDO_URICO") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		AcidoUrico nuevoAcidoUrico = acidoUricoService.findById(idPerfil);
+		nuevoAcidoUrico.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		acidoUricoService.updateAcidoUrico(nuevoAcidoUrico);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Acido Urico Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
 	
+	@RequestMapping(value = { "/consultarACIDO_URICO" }, method = RequestMethod.GET)
+	public String consultarAcidoUrico(ModelMap model, @RequestParam("idACIDO_URICO") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		AcidoUrico acidoUrico = acidoUricoService.findById(idPerfil);
+		model.addAttribute("acidoUrico", acidoUrico);
+		ExpedienteLaboratorio expediente = expedienteService.findById(acidoUrico.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addAcidoUrico";
+	}
 	
+	@RequestMapping(value = { "/editarACIDO_URICO" }, method = RequestMethod.GET)
+	public String editarAcidoUrico(ModelMap model, @RequestParam("idACIDO_URICO") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		AcidoUrico acidoUrico = acidoUricoService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(acidoUrico.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("acidoUrico", acidoUrico);
+		model.addAttribute("edit", true);
+		return "addAcidoUrico";
+	}
+	
+	@RequestMapping(value = { "/editarACIDO_URICO" }, method = RequestMethod.POST)
+	public String modificarAcidoUrico(ModelMap model, @Valid AcidoUrico acidoUrico, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addAcidoUrico";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		acidoUricoService.updateAcidoUrico(acidoUrico);
+		ExpedienteLaboratorio expediente = expedienteService.findById(acidoUrico.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Acido Urico Numero: " + acidoUrico.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarACIDO_URICO" }, method = RequestMethod.GET)
+	public String nuevoAcidoUrico(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		AcidoUrico acidoUrico = new AcidoUrico();
+		model.addAttribute("acidoUrico", acidoUrico);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addAcidoUrico";
+	}
+	
+	@RequestMapping(value = { "/agregarACIDO_URICO" }, method = RequestMethod.POST)
+	public String guardarAcidoUrico(@Valid AcidoUrico acidoUrico, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addAcidoUrico";
+		}
+		
+		acidoUricoService.saveAcidoUrico(acidoUrico);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(acidoUrico.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Acido Urico Numero: " + acidoUrico.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	/* Fin Acido Urico */
+	
+	/* Fin Prueba VDRL */
+
+	@Autowired
+    PruebaVDRLService pruebaVDRLService;
+	
+	@RequestMapping(value = { "/eliminarPRUEBA_VDRL" }, method = RequestMethod.GET)
+	public String eliminarPruebaVDRL(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPRUEBA_VDRL") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaVDRL nuevoPruebaVDRL = pruebaVDRLService.findById(idPerfil);
+		nuevoPruebaVDRL.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebaVDRLService.updatePruebaVDRL(nuevoPruebaVDRL);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarPRUEBA_VDRL" }, method = RequestMethod.GET)
+	public String consultarPruebaVDRL(ModelMap model, @RequestParam("idPRUEBA_VDRL") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaVDRL pruebaVDRL = pruebaVDRLService.findById(idPerfil);
+		model.addAttribute("pruebaVDRL", pruebaVDRL);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaVDRL.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebaVDRL";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_VDRL" }, method = RequestMethod.GET)
+	public String editarPruebaVDRL(ModelMap model, @RequestParam("idPRUEBA_VDRL") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaVDRL pruebaVDRL = pruebaVDRLService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaVDRL.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("pruebaVDRL", pruebaVDRL);
+		model.addAttribute("edit", true);
+		return "addPruebaVDRL";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_VDRL" }, method = RequestMethod.POST)
+	public String modificarPruebaVDRL(ModelMap model, @Valid PruebaVDRL pruebaVDRL, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaVDRL";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebaVDRLService.updatePruebaVDRL(pruebaVDRL);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaVDRL.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + pruebaVDRL.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_VDRL" }, method = RequestMethod.GET)
+	public String nuevoPruebaVDRL(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		PruebaVDRL pruebaVDRL = new PruebaVDRL();
+		model.addAttribute("pruebaVDRL", pruebaVDRL);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPruebaVDRL";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_VDRL" }, method = RequestMethod.POST)
+	public String guardarPruebaVDRL(@Valid PruebaVDRL pruebaVDRL, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaVDRL";
+		}
+		
+		pruebaVDRLService.savePruebaVDRL(pruebaVDRL);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaVDRL.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Prueba VDRL Numero: " + pruebaVDRL.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	/* Fin Prueba VDRL */
 	
 	
 	
@@ -551,8 +735,7 @@ public class AppController {
 					unResultado.setTipoLaboratorio(unTipo.getName());
 					resultados.add(unResultado);
 				}
-			}
-			if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_EMBARAZO.getName())){
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_EMBARAZO.getName())){
 				List<PruebaEmbarazo> pruebaEmbarazo = pruebaEmbarazoService.findByIdExpediente(idExpediente);
 				for(PruebaEmbarazo unaPruebaEmbarazo : pruebaEmbarazo){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
@@ -561,6 +744,30 @@ public class AppController {
 					unResultado.setFechaLaboratorio(unaPruebaEmbarazo.getFechaLaboratorio());
 					unResultado.setQuimicoBiologo(userService.findById(unaPruebaEmbarazo.getIdQuimicoBiologo()).getSsoId());
 					unResultado.setEstado(unaPruebaEmbarazo.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo.getName());
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.ACIDO_URICO.getName())){
+				List<AcidoUrico> acidos = acidoUricoService.findByIdExpediente(idExpediente);
+				for(AcidoUrico unAcidoUrico : acidos){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unAcidoUrico.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unAcidoUrico.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unAcidoUrico.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unAcidoUrico.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo.getName());
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_VDRL.getName())){
+				List<PruebaVDRL> VDRLs = pruebaVDRLService.findByIdExpediente(idExpediente);
+				for(PruebaVDRL unVDRL : VDRLs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unVDRL.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unVDRL.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unVDRL.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unVDRL.getEstado().getName().replaceAll("_", " "));
 					unResultado.setTipoLaboratorio(unTipo.getName());
 					resultados.add(unResultado);
 				}

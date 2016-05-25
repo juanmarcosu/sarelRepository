@@ -1,4 +1,4 @@
-		.antMatchers("/consultarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
-	  	.antMatchers("/agregarperfillipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
-	  	.antMatchers("/editarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
-	  	.antMatchers("/eliminarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+		.antMatchers("/consultarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")

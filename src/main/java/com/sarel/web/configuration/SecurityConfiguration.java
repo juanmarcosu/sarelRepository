@@ -52,15 +52,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/db/**").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/buscarPaciente").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	
-	  	.antMatchers("/consultarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
-	  	.antMatchers("/agregarperfillipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
-	  	.antMatchers("/editarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
-	  	.antMatchers("/eliminarPerfilLipidico").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/consultarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
-	  	.antMatchers("/consultarPruebaEmbarazo").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
-	  	.antMatchers("/agregarpruebaembarazo").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
-	  	.antMatchers("/editarPruebaEmbarazo").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
-	  	.antMatchers("/eliminarPruebaEmbarazo").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/consultarPRUEBA_EMBARAZO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarPRUEBA_EMBARAZO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarPRUEBA_EMBARAZO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarPRUEBA_EMBARAZO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	
+	  	.antMatchers("/consultarACIDO_URICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarACIDO_URICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarACIDO_URICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarACIDO_URICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	
+	  	.antMatchers("/consultarPRUEBA_VDRL").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarPRUEBA_VDRL").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarPRUEBA_VDRL").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarPRUEBA_VDRL").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
 	  	.antMatchers("/verExpedienteLaboratorio").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	//.and().formLogin().loginPage("/login")
