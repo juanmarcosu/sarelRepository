@@ -56,43 +56,42 @@
 		<tr>
 			<td>
 				<div>
+					<input type="button" value="Agregar Nuevo" name="crearLaboratorio" onclick="openPage()"/>
+				</div>
+		    </td>
+			<td>
+				<div>
 					<select id="selectTipoLaboratorio" class="form-control input-sm">
 					    	<c:forEach items="${tiposLaboratorio}" var="tipo">
 					    		<option value="${tipo}">${tipo.toString()}</option>
 					    	</c:forEach>
-					    	</select>
+					</select>
 				</div>
 			</td>
-			<td>
-				<div>
-					<input type="button" value="Agregar Nuevo Resultado" name="crearLaboratorio" onclick="openPage()"/>
-				</div>
-		    </td>
 	    </tr>
     </table>
 	
 	<hr size="3">
 	<div id="laboratorios">
 		<table class="table table-hover">
-		<thead>
+
 		<tr>
 			<td>Tipo de Laboratorio</td><td>Responsable</td><td>Fecha</td><td>Mostrar</td><td>Modificar</td><td>Eliminar</td><td>Imprimir</td>
 		</tr>
-		</thead>
-		<tbody>
+
 		 
 		<c:forEach items="${labs}" var="unLaboratorio">
 			<tr>
-			<td>${unLaboratorio.tipoLaboratorio}</td>
+			<td>${unLaboratorio.tipoLaboratorio.toString()}</td>
 			<td>${unLaboratorio.quimicoBiologo}</td>
 			<td>${unLaboratorio.fechaLaboratorio}</td>
-			<td><a href="<c:url value='/consultar${unLaboratorio.tipoLaboratorio}?id${unLaboratorio.tipoLaboratorio}=${unLaboratorio.id}' />">Consultar</a></td>
-			<td><a href="<c:url value='/editar${unLaboratorio.tipoLaboratorio}?id${unLaboratorio.tipoLaboratorio}=${unLaboratorio.id}' />">Editar</a></td>
-			<td><a href="<c:url value='/eliminar${unLaboratorio.tipoLaboratorio}?id${unLaboratorio.tipoLaboratorio}=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Eliminar</a></td>
+			<td><a href="<c:url value='/consultar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}' />">Consultar</a></td>
+			<td><a href="<c:url value='/editar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}' />">Editar</a></td>
+			<td><a href="<c:url value='/eliminar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Eliminar</a></td>
 			<td>IMPRIMIR</td>
 			</tr>
 		</c:forEach>
-		</tbody>
+
 	</table>
 	</div>
 	</form>

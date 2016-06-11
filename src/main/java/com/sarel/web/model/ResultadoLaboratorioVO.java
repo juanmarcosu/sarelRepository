@@ -9,7 +9,7 @@ public class ResultadoLaboratorioVO {
 	private String quimicoBiologo;
 	private LocalDate fechaLaboratorio;
 	private String estado;
-	private String tipoLaboratorio;
+	private TipoLaboratorio tipoLaboratorio;
 	
 	public int getId() {
 		return id;
@@ -41,10 +41,10 @@ public class ResultadoLaboratorioVO {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public String getTipoLaboratorio() {
+	public TipoLaboratorio getTipoLaboratorio() {
 		return tipoLaboratorio;
 	}
-	public void setTipoLaboratorio(String tipoLaboratorio) {
+	public void setTipoLaboratorio(TipoLaboratorio tipoLaboratorio) {
 		this.tipoLaboratorio = tipoLaboratorio;
 	}
 }

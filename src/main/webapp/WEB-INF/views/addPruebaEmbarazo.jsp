@@ -21,6 +21,7 @@
 		        all[i].disabled = true;
 		    }
 		    document.getElementById('idQuimicoBiologo').disabled = true;
+		    document.getElementById('resultado').disabled = true;
 		}
 	}
 	</script>
@@ -49,21 +50,20 @@
 		<table>
 			<tr>
 				<td><label for="resultado">Resultado: </label> </td>
-				<td><form:input path="resultado" id="resultado"/></td>
+				<td>
+				<form:select path="resultado" id="resultado">
+					    	<c:forEach items="${posiblesResultados}" var="unResultado">
+					    		<option value="${unResultado}">${unResultado.toString()}</option>
+					    	</c:forEach>
+					</form:select>
+				</td>
+				<%--<td><form:select path="resultado" id="resultado" items="${posiblesResultados}" multiple="false" itemValue="id" itemLabel="ssoId" class="form-control input-sm"/></td> --%>
 				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
-		    </tr>
+		    </tr> 
+		    
 		    <tr>
 		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>
-		    	<%--
-		    	<td><form:select path="quimicoBiologo" id="quimicoBiologo" class="form-control input-sm">
-		    	<option value="" >Seleccionar</option>
-		    	<c:forEach items="${laboratoristas}" var="user">
-		    		<option value=${user}>${user.ssoId}</option>
-		    	</c:forEach>
-		    	</form:select><td>
-		    	 --%>
 		    	<td><form:select path="idQuimicoBiologo" id="idQuimicoBiologo" items="${laboratoristas}" multiple="false" itemValue="id" itemLabel="ssoId" class="form-control input-sm"/></td>
-		    	
 		    	<td><div class="has-error"><form:errors path="idQuimicoBiologo" class="help-inline"/></div></td>
 		    </tr>
 			<tr>

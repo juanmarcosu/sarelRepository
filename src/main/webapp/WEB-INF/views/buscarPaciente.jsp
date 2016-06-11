@@ -29,20 +29,20 @@
 	<table>
 			<tr>
 				<td><label for="nombre">Nombre(s): </label> </td>
-				<td><input type="text" name="nombre" path="nombre" id="nombre"/></td>
+				<td><input type="text" name="nombre"  id="nombre"/></td>
 				<%-- <td><form:errors path="name" cssClass="error"/></td> --%>
 		    </tr>
 		    <tr>
 				<td><label for="apellido">Apellido(s): </label> </td>
-				<td><input type="text" name="apellido" path="apellido" id="apellido"/></td>
+				<td><input type="text" name="apellido" id="apellido"/></td>
 		    </tr>
 	    	<tr>
 				<td><label for="carne">Carne: </label> </td>
-				<td><input type="text" name="carne" path="carne" id="carne"/></td>
+				<td><input type="text" name="carne" id="carne"/></td>
 		    </tr>
 		    <tr>
 				<td><label for="codigoPersonal">Codigo Personal: </label> </td>
-				<td><input type="text" name="codigoPersonal" path="codigoPersonal" id="codigoPersonal"/></td>
+				<td><input type="text" name="codigoPersonal" id="codigoPersonal"/></td>
 		    </tr>
 		    <tr>
 		    	<td><input type="submit" value="Buscar"/></td>
@@ -50,12 +50,9 @@
     </table>
     <h2>Resultados:</h2>
 	<table class="table table-hover">
-		<thead>
 		<tr>
 			<td>id Paciente</td><td>Nombre</td><td>Apellido</td><td>Carne</td><td>Fecha Nacimiento</td><td>Ver Perfil</td>
 		</tr>
-		</thead>
-		<tbody>
 		 
 		<c:forEach items="${pacientes}" var="unPaciente">
 			<tr>
@@ -67,7 +64,6 @@
 			<td><a href="<c:url value='/verExpedienteLaboratorio?idPaciente=${unPaciente.idPaciente}' />">Consultar</a></td>
 			</tr>
 		</c:forEach>
-		</tbody>
 	</table>
 	</div>
 	<br/>

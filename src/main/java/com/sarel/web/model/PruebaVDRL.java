@@ -21,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class PruebaVDRL {
 	
 	private EstadoResultadoLaboratorio estado = EstadoResultadoLaboratorio.ACTIVO;
+	private Resultado resultado;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +39,15 @@ public class PruebaVDRL {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaLaboratorio;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name="resultado_laboratorio")
+	public Resultado getResultado(){
+		return this.resultado;
+	}
+	public void setResultado(Resultado resultado){
+		this.resultado = resultado;
+	}
+	
 	@Column(name = "nivel_VDRL", unique=false, nullable = false)
 	private BigDecimal nivelVDRL;
 	

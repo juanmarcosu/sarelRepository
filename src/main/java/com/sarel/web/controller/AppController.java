@@ -29,6 +29,7 @@ import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.PruebaEmbarazo;
 import com.sarel.web.model.PruebaVDRL;
+import com.sarel.web.model.Resultado;
 import com.sarel.web.model.ResultadoLaboratorioVO;
 import com.sarel.web.model.Sexo;
 import com.sarel.web.model.TipoLaboratorio;
@@ -156,6 +157,15 @@ public class AppController {
 	@ModelAttribute("laboratoristas")
     public List<User> initializeLaboratoristas() {
         return userService.findAllUsersByRol("LABORATORISTA");
+    }
+	
+	@ModelAttribute("posiblesResultados")
+    public List<Resultado> initializePosiblesResultados() {
+		List<Resultado> posiblesResultados = new ArrayList<Resultado>();
+		for (Resultado unResultado :Resultado.values()){
+			posiblesResultados.add(unResultado);
+		}
+        return posiblesResultados;
     }
 	
 	@ModelAttribute("tiposLaboratorio")
@@ -732,7 +742,7 @@ public class AppController {
 					unResultado.setFechaLaboratorio(unLipido.getFechaLaboratorio());
 					unResultado.setQuimicoBiologo(userService.findById(unLipido.getIdQuimicoBiologo()).getSsoId());
 					unResultado.setEstado(unLipido.getEstado().getName().replaceAll("_", " "));
-					unResultado.setTipoLaboratorio(unTipo.getName());
+					unResultado.setTipoLaboratorio(unTipo);
 					resultados.add(unResultado);
 				}
 			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_EMBARAZO.getName())){
@@ -744,7 +754,7 @@ public class AppController {
 					unResultado.setFechaLaboratorio(unaPruebaEmbarazo.getFechaLaboratorio());
 					unResultado.setQuimicoBiologo(userService.findById(unaPruebaEmbarazo.getIdQuimicoBiologo()).getSsoId());
 					unResultado.setEstado(unaPruebaEmbarazo.getEstado().getName().replaceAll("_", " "));
-					unResultado.setTipoLaboratorio(unTipo.getName());
+					unResultado.setTipoLaboratorio(unTipo);
 					resultados.add(unResultado);
 				}
 			}else if(unTipo.getName().equals(TipoLaboratorio.ACIDO_URICO.getName())){
@@ -756,7 +766,7 @@ public class AppController {
 					unResultado.setFechaLaboratorio(unAcidoUrico.getFechaLaboratorio());
 					unResultado.setQuimicoBiologo(userService.findById(unAcidoUrico.getIdQuimicoBiologo()).getSsoId());
 					unResultado.setEstado(unAcidoUrico.getEstado().getName().replaceAll("_", " "));
-					unResultado.setTipoLaboratorio(unTipo.getName());
+					unResultado.setTipoLaboratorio(unTipo);
 					resultados.add(unResultado);
 				}
 			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_VDRL.getName())){
@@ -768,7 +778,7 @@ public class AppController {
 					unResultado.setFechaLaboratorio(unVDRL.getFechaLaboratorio());
 					unResultado.setQuimicoBiologo(userService.findById(unVDRL.getIdQuimicoBiologo()).getSsoId());
 					unResultado.setEstado(unVDRL.getEstado().getName().replaceAll("_", " "));
-					unResultado.setTipoLaboratorio(unTipo.getName());
+					unResultado.setTipoLaboratorio(unTipo);
 					resultados.add(unResultado);
 				}
 			}
