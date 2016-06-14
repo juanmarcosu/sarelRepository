@@ -7,7 +7,7 @@ if(unTipo.getName().equals(TipoLaboratorio.PERFIL_LIPIDICO.getName())){
 					unResultado.setFechaLaboratorio(unLipido.getFechaLaboratorio());
 					unResultado.setQuimicoBiologo(userService.findById(unLipido.getIdQuimicoBiologo()).getSsoId());
 					unResultado.setEstado(unLipido.getEstado().getName().replaceAll("_", " "));
-					unResultado.setTipoLaboratorio(unTipo.getName());
+					unResultado.setTipoLaboratorio(unTipo);
 					resultados.add(unResultado);
 				}
 			}

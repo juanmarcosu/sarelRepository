@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
 import com.sarel.web.model.AcidoUrico;
+import com.sarel.web.model.ColesterolTrigliceridos;
 import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.Paciente;
@@ -36,6 +37,7 @@ import com.sarel.web.model.TipoLaboratorio;
 import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.AcidoUricoService;
+import com.sarel.web.service.ColesterolTrigliceridosService;
 import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.PerfilLipidicoService;
@@ -619,7 +621,95 @@ public class AppController {
 	/* Fin Prueba VDRL */
 	
 	
+	/* Inicio Colesterol-Trigliceridos */
+
+	@Autowired
+    ColesterolTrigliceridosService colesterolTrigliceridosService;
 	
+	@RequestMapping(value = { "/eliminarCOLESTEROL_TRIGLICERIDOS" }, method = RequestMethod.GET)
+	public String eliminarColesterolTrigliceridos(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idCOLESTEROL_TRIGLICERIDOS") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ColesterolTrigliceridos nuevoColesterolTrigliceridos = colesterolTrigliceridosService.findById(idPerfil);
+		nuevoColesterolTrigliceridos.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		colesterolTrigliceridosService.updateColesterolTrigliceridos(nuevoColesterolTrigliceridos);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarCOLESTEROL_TRIGLICERIDOS" }, method = RequestMethod.GET)
+	public String consultarColesterolTrigliceridos(ModelMap model, @RequestParam("idCOLESTEROL_TRIGLICERIDOS") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ColesterolTrigliceridos colesterolTrigliceridos = colesterolTrigliceridosService.findById(idPerfil);
+		model.addAttribute("colesterolTrigliceridos", colesterolTrigliceridos);
+		ExpedienteLaboratorio expediente = expedienteService.findById(colesterolTrigliceridos.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addColesterolTrigliceridos";
+	}
+	
+	@RequestMapping(value = { "/editarCOLESTEROL_TRIGLICERIDOS" }, method = RequestMethod.GET)
+	public String editarColesterolTrigliceridos(ModelMap model, @RequestParam("idCOLESTEROL_TRIGLICERIDOS") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ColesterolTrigliceridos colesterolTrigliceridos = colesterolTrigliceridosService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(colesterolTrigliceridos.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("colesterolTrigliceridos", colesterolTrigliceridos);
+		model.addAttribute("edit", true);
+		return "addColesterolTrigliceridos";
+	}
+	
+	@RequestMapping(value = { "/editarCOLESTEROL_TRIGLICERIDOS" }, method = RequestMethod.POST)
+	public String modificarColesterolTrigliceridos(ModelMap model, @Valid ColesterolTrigliceridos colesterolTrigliceridos, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addColesterolTrigliceridos";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		colesterolTrigliceridosService.updateColesterolTrigliceridos(colesterolTrigliceridos);
+		ExpedienteLaboratorio expediente = expedienteService.findById(colesterolTrigliceridos.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + colesterolTrigliceridos.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarCOLESTEROL_TRIGLICERIDOS" }, method = RequestMethod.GET)
+	public String nuevoColesterolTrigliceridos(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		ColesterolTrigliceridos colesterolTrigliceridos = new ColesterolTrigliceridos();
+		model.addAttribute("colesterolTrigliceridos", colesterolTrigliceridos);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addColesterolTrigliceridos";
+	}
+	
+	@RequestMapping(value = { "/agregarCOLESTEROL_TRIGLICERIDOS" }, method = RequestMethod.POST)
+	public String guardarColesterolTrigliceridos(@Valid ColesterolTrigliceridos colesterolTrigliceridos, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addColesterolTrigliceridos";
+		}
+		
+		colesterolTrigliceridosService.saveColesterolTrigliceridos(colesterolTrigliceridos);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(colesterolTrigliceridos.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Cho-Tri Numero: " + colesterolTrigliceridos.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	/* Fin Colesterol-Trigliceridos */
 	
 	
 	
@@ -778,6 +868,18 @@ public class AppController {
 					unResultado.setFechaLaboratorio(unVDRL.getFechaLaboratorio());
 					unResultado.setQuimicoBiologo(userService.findById(unVDRL.getIdQuimicoBiologo()).getSsoId());
 					unResultado.setEstado(unVDRL.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.COLESTEROL_TRIGLICERIDOS.getName())){
+				List<ColesterolTrigliceridos> lipidicos = colesterolTrigliceridosService.findByIdExpediente(idExpediente);
+				for(ColesterolTrigliceridos unLipido : lipidicos){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLipido.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLipido.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLipido.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLipido.getEstado().getName().replaceAll("_", " "));
 					unResultado.setTipoLaboratorio(unTipo);
 					resultados.add(unResultado);
 				}
