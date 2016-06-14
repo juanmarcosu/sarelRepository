@@ -58,15 +58,7 @@
 		<table>
 			<tr>
 				<td><label for="resultado">Resultado: </label> </td>
-				<%--<td><form:select path="idQuimicoBiologo" id="idQuimicoBiologo" items="${posiblesResultados}" multiple="false" itemValue="resultado" itemLabel="name" class="form-control input-sm"/></td>
-				 --%>
-				<td>
-					<form:select path="resultado" id="resultado" onchange="checkResultado();">
-					    	<c:forEach items="${posiblesResultados}" var="unResultado">
-					    		<option value="${unResultado}">${unResultado.toString()}</option>
-					    	</c:forEach>
-					</form:select>
-				</td>
+				<td><form:select path="resultado" id="resultado" items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado" class="form-control input-sm" onchange="checkResultado();"/></td>
 				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
 				
 					<td><label for="nivelVDRL">Prueba VDRL: </label> </td>
