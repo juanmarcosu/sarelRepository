@@ -26,6 +26,7 @@ import com.sarel.web.model.AcidoUrico;
 import com.sarel.web.model.ColesterolTrigliceridos;
 import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExpedienteLaboratorio;
+import com.sarel.web.model.GlucosaPreYPost;
 import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.PruebaEmbarazo;
@@ -39,6 +40,7 @@ import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.AcidoUricoService;
 import com.sarel.web.service.ColesterolTrigliceridosService;
 import com.sarel.web.service.ExpedienteLaboratorioService;
+import com.sarel.web.service.GlucosaPreYPostService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.PerfilLipidicoService;
 import com.sarel.web.service.PruebaEmbarazoService;
@@ -361,7 +363,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Prueba de Embarazo Numero: " + idPerfil + " eliminado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -400,7 +402,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + pruebaEmbarazo.getId() + " editado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Prueba de Embarazo Numero: " + pruebaEmbarazo.getId() + " editado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -544,7 +546,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Prueba VDRL Numero: " + idPerfil + " eliminado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -583,7 +585,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + pruebaVDRL.getId() + " editado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Prueba VDRL Numero: " + pruebaVDRL.getId() + " editado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -636,7 +638,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Cho-Tri Numero: " + idPerfil + " eliminado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -675,7 +677,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + colesterolTrigliceridos.getId() + " editado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Cho-Tri Numero: " + colesterolTrigliceridos.getId() + " editado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -711,7 +713,96 @@ public class AppController {
 	
 	/* Fin Colesterol-Trigliceridos */
 	
+	/* Fin GlucosaPreYPost */
+
+	@Autowired
+    GlucosaPreYPostService glucosaPreYPostService;
 	
+	@RequestMapping(value = { "/eliminarGLUCOSA_PRE_Y_POST" }, method = RequestMethod.GET)
+	public String eliminarGlucosaPreYPost(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idGLUCOSA_PRE_Y_POST") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		GlucosaPreYPost nuevoGlucosaPreYPost = glucosaPreYPostService.findById(idPerfil);
+		nuevoGlucosaPreYPost.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		glucosaPreYPostService.updateGlucosaPreYPost(nuevoGlucosaPreYPost);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Glucosa Pre-Pp Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarGLUCOSA_PRE_Y_POST" }, method = RequestMethod.GET)
+	public String consultarGlucosaPreYPost(ModelMap model, @RequestParam("idGLUCOSA_PRE_Y_POST") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		GlucosaPreYPost glucosaPreYPost = glucosaPreYPostService.findById(idPerfil);
+		model.addAttribute("glucosaPreYPost", glucosaPreYPost);
+		ExpedienteLaboratorio expediente = expedienteService.findById(glucosaPreYPost.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addGlucosaPreYPost";
+	}
+	
+	@RequestMapping(value = { "/editarGLUCOSA_PRE_Y_POST" }, method = RequestMethod.GET)
+	public String editarGlucosaPreYPost(ModelMap model, @RequestParam("idGLUCOSA_PRE_Y_POST") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		GlucosaPreYPost glucosaPreYPost = glucosaPreYPostService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(glucosaPreYPost.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("glucosaPreYPost", glucosaPreYPost);
+		model.addAttribute("edit", true);
+		return "addGlucosaPreYPost";
+	}
+	
+	@RequestMapping(value = { "/editarGLUCOSA_PRE_Y_POST" }, method = RequestMethod.POST)
+	public String modificarGlucosaPreYPost(ModelMap model, @Valid GlucosaPreYPost glucosaPreYPost, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addGlucosaPreYPost";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		glucosaPreYPostService.updateGlucosaPreYPost(glucosaPreYPost);
+		ExpedienteLaboratorio expediente = expedienteService.findById(glucosaPreYPost.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Glucosa Pre-Pp Numero: " + glucosaPreYPost.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarGLUCOSA_PRE_Y_POST" }, method = RequestMethod.GET)
+	public String nuevoGlucosaPreYPost(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		GlucosaPreYPost glucosaPreYPost = new GlucosaPreYPost();
+		model.addAttribute("glucosaPreYPost", glucosaPreYPost);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addGlucosaPreYPost";
+	}
+	
+	@RequestMapping(value = { "/agregarGLUCOSA_PRE_Y_POST" }, method = RequestMethod.POST)
+	public String guardarGlucosaPreYPost(@Valid GlucosaPreYPost glucosaPreYPost, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addGlucosaPreYPost";
+		}
+		
+		glucosaPreYPostService.saveGlucosaPreYPost(glucosaPreYPost);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(glucosaPreYPost.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Glucosa Pre-Pp Numero: " + glucosaPreYPost.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	/* Fin GlucosaPreYPost */
 	
 	
 	
@@ -872,14 +963,26 @@ public class AppController {
 					resultados.add(unResultado);
 				}
 			}else if(unTipo.getName().equals(TipoLaboratorio.COLESTEROL_TRIGLICERIDOS.getName())){
-				List<ColesterolTrigliceridos> lipidicos = colesterolTrigliceridosService.findByIdExpediente(idExpediente);
-				for(ColesterolTrigliceridos unLipido : lipidicos){
+				List<ColesterolTrigliceridos> labs = colesterolTrigliceridosService.findByIdExpediente(idExpediente);
+				for(ColesterolTrigliceridos unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
-					unResultado.setId(unLipido.getId());
+					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);
-					unResultado.setFechaLaboratorio(unLipido.getFechaLaboratorio());
-					unResultado.setQuimicoBiologo(userService.findById(unLipido.getIdQuimicoBiologo()).getSsoId());
-					unResultado.setEstado(unLipido.getEstado().getName().replaceAll("_", " "));
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.GLUCOSA_PRE_Y_POST.getName())){
+				List<GlucosaPreYPost> labs = glucosaPreYPostService.findByIdExpediente(idExpediente);
+				for(GlucosaPreYPost unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
 					unResultado.setTipoLaboratorio(unTipo);
 					resultados.add(unResultado);
 				}

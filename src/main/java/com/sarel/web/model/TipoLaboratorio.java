@@ -6,7 +6,8 @@ public enum TipoLaboratorio {
 	PRUEBA_EMBARAZO("Prueba de Embarazo"),
 	ACIDO_URICO("Acido Urico"),
 	PRUEBA_VDRL("Prueba VDRL"),
-	COLESTEROL_TRIGLICERIDOS("Cho-Tri");
+	COLESTEROL_TRIGLICERIDOS("Cho-Tri"),
+	GLUCOSA_PRE_Y_POST("Gluco pre-pp");
 	
 	private String tipoLaboratorio;
 	

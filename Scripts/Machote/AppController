@@ -1,4 +1,4 @@
-	/* Fin Perfil Lipidico */
+	/* Fin PerfilLipidico */
 
 	@Autowired
     	PerfilLipidicoService perfilLipidicoService;
@@ -87,4 +87,4 @@
 		return "verExpedienteLaboratorio";
 	}
 	
-	/* Fin Perfil Lipidico */
+	/* Fin PerfilLipidico */

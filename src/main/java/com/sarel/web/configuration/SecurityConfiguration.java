@@ -77,6 +77,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/editarCOLESTEROL_TRIGLICERIDOS").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarCOLESTEROL_TRIGLICERIDOS").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
+	  	.antMatchers("/consultarGLUCOSA_PRE_Y_POST").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarGLUCOSA_PRE_Y_POST").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarGLUCOSA_PRE_Y_POST").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarGLUCOSA_PRE_Y_POST").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	
 	  	.antMatchers("/verExpedienteLaboratorio").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	//.and().formLogin().loginPage("/login")
 	  	.and().formLogin().loginPage("/login").successHandler(customSuccessHandler)
