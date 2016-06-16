@@ -30,6 +30,7 @@ import com.sarel.web.model.GlucosaPreYPost;
 import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.PruebaEmbarazo;
+import com.sarel.web.model.PruebaSerologica;
 import com.sarel.web.model.PruebaVDRL;
 import com.sarel.web.model.Resultado;
 import com.sarel.web.model.ResultadoLaboratorioVO;
@@ -44,6 +45,7 @@ import com.sarel.web.service.GlucosaPreYPostService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.PerfilLipidicoService;
 import com.sarel.web.service.PruebaEmbarazoService;
+import com.sarel.web.service.PruebaSerologicaService;
 import com.sarel.web.service.PruebaVDRLService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
@@ -805,7 +807,101 @@ public class AppController {
 	/* Fin GlucosaPreYPost */
 	
 	
+	/* Fin PruebaSerologica */
+
+	@Autowired
+    PruebaSerologicaService pruebaSerologicaService;
 	
+	@RequestMapping(value = { "/eliminarPRUEBA_SEROLOGICA" }, method = RequestMethod.GET)
+	public String eliminarPruebaSerologica(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPRUEBA_SEROLOGICA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaSerologica nuevoPruebaSerologica = pruebaSerologicaService.findById(idPerfil);
+		nuevoPruebaSerologica.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebaSerologicaService.updatePruebaSerologica(nuevoPruebaSerologica);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Pruebas Serologicas Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarPRUEBA_SEROLOGICA" }, method = RequestMethod.GET)
+	public String consultarPruebaSerologica(ModelMap model, @RequestParam("idPRUEBA_SEROLOGICA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaSerologica pruebaSerologica = pruebaSerologicaService.findById(idPerfil);
+		model.addAttribute("pruebaSerologica", pruebaSerologica);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaSerologica.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebaSerologica";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_SEROLOGICA" }, method = RequestMethod.GET)
+	public String editarPruebaSerologica(ModelMap model, @RequestParam("idPRUEBA_SEROLOGICA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaSerologica pruebaSerologica = pruebaSerologicaService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaSerologica.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("pruebaSerologica", pruebaSerologica);
+		model.addAttribute("edit", true);
+		return "addPruebaSerologica";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_SEROLOGICA" }, method = RequestMethod.POST)
+	public String modificarPruebaSerologica(ModelMap model, @Valid PruebaSerologica pruebaSerologica, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaSerologica";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebaSerologicaService.updatePruebaSerologica(pruebaSerologica);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaSerologica.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Pruebas Serologicas Numero: " + pruebaSerologica.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_SEROLOGICA" }, method = RequestMethod.GET)
+	public String nuevoPruebaSerologica(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		PruebaSerologica pruebaSerologica = new PruebaSerologica();
+		model.addAttribute("pruebaSerologica", pruebaSerologica);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPruebaSerologica";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_SEROLOGICA" }, method = RequestMethod.POST)
+	public String guardarPruebaSerologica(@Valid PruebaSerologica pruebaSerologica, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaSerologica";
+		}
+		
+		if(pruebaSerologica.getResultadoAntiEstreptolisinaO().getName().equals("NEGATIVO") && pruebaSerologica.getResultadoFactorReumatoide().getName().equals("NEGATIVO") && pruebaSerologica.getResultadoProteinaCReactiva().getName().equals("NEGATIVO")){
+			model.addAttribute("alerta", "Debe ingresar al menos uno resultado para poder guardar...");
+			return "addPruebaSerologica";
+		}
+		
+		pruebaSerologicaService.savePruebaSerologica(pruebaSerologica);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaSerologica.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Pruebas Serologicas Numero: " + pruebaSerologica.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	/* Fin PruebaSerologica */
 	
 	
 	
@@ -977,6 +1073,18 @@ public class AppController {
 			}else if(unTipo.getName().equals(TipoLaboratorio.GLUCOSA_PRE_Y_POST.getName())){
 				List<GlucosaPreYPost> labs = glucosaPreYPostService.findByIdExpediente(idExpediente);
 				for(GlucosaPreYPost unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_SEROLOGICA.getName())){
+				List<PruebaSerologica> labs = pruebaSerologicaService.findByIdExpediente(idExpediente);
+				for(PruebaSerologica unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
 					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);

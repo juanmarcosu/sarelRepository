@@ -38,7 +38,7 @@ public class AcidoUrico {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaLaboratorio;
 
-	@Column(name = "nivel_acido_urico", unique=false, nullable = false)
+	@Column(name = "nivel_acido_urico", nullable = false)
 	private BigDecimal nivelAcidoUrico;
 	
 	@Enumerated(EnumType.STRING)

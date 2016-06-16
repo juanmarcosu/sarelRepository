@@ -7,7 +7,8 @@ public enum TipoLaboratorio {
 	ACIDO_URICO("Acido Urico"),
 	PRUEBA_VDRL("Prueba VDRL"),
 	COLESTEROL_TRIGLICERIDOS("Cho-Tri"),
-	GLUCOSA_PRE_Y_POST("Gluco pre-pp");
+	GLUCOSA_PRE_Y_POST("Gluco pre-pp"),
+	PRUEBA_SEROLOGICA("Pruebas Serológicas");
 	
 	private String tipoLaboratorio;
 	
