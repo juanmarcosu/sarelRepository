@@ -56,6 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/agregarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/editarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/imprimirPERFIL_LIPIDICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
 	  	.antMatchers("/consultarPRUEBA_EMBARAZO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	.antMatchers("/agregarPRUEBA_EMBARAZO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
@@ -82,7 +83,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/editarGLUCOSA_PRE_Y_POST").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarGLUCOSA_PRE_Y_POST").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
-	  			.antMatchers("/consultarPRUEBA_SEROLOGICA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/consultarPRUEBA_SEROLOGICA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	.antMatchers("/agregarPRUEBA_SEROLOGICA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/editarPRUEBA_SEROLOGICA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarPRUEBA_SEROLOGICA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")

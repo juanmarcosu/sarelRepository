@@ -1,5 +1,7 @@
 package com.sarel.web.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,8 +10,15 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,6 +37,7 @@ import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.GlucosaPreYPost;
 import com.sarel.web.model.Paciente;
+import com.sarel.web.model.ParametroExportacion;
 import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.PruebaEmbarazo;
 import com.sarel.web.model.PruebaSerologica;
@@ -346,6 +356,35 @@ public class AppController {
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + perfilLipidico.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirPERFIL_LIPIDICO" }, method = RequestMethod.GET)
+	public String imprimirPerfilLipidico(HttpServletResponse response, ModelMap model, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/tuberculosis.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoSIGSA", new ClassPathResource("jrxml/logoSIGSA.png").getInputStream());
+		params.put("logoMSP", new ClassPathResource("jrxml/mspas2.jpg").getInputStream());
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=helloWorldReport.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
 	}
 	
 	/* Fin Perfil Lipidico */

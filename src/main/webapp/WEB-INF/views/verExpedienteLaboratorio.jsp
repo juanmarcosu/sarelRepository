@@ -88,7 +88,7 @@
 			<td><a href="<c:url value='/consultar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}' />">Consultar</a></td>
 			<td><a href="<c:url value='/editar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}' />">Editar</a></td>
 			<td><a href="<c:url value='/eliminar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Eliminar</a></td>
-			<td>IMPRIMIR</td>
+			<td><a href="<c:url value='/imprimir${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Imprimir</a></td>
 			</tr>
 		</c:forEach>
 
