@@ -9,19 +9,19 @@
 	<div class="tablecontainer">
 		<table width="100%">
 				<tr>
-					<td><label for="labelNombre">NOMBRE: </label> </td>
-					<td><laber for="nombres">${expediente.nombres} ${expediente.apellidos}</laber></td>
-					<td><label for="movil">MOVIL: ${expediente.movil} </label> </td>
+					<td><label for="labelNombre">NOMBRE:&nbsp; &nbsp;</label>${expediente.nombres} ${expediente.apellidos} </td>
+					<td><label for="sexo">SEXO:</label>&nbsp; &nbsp;${expediente.sexo} </td>
+					<td><label for="movil">MOVIL:</label>&nbsp; &nbsp;${expediente.movil} </td>
 				</tr>
 				<tr>
-					<td><label for="carne1">CARNE: ${expediente.carne} </label> </td>
-					<td><laber for="codigoPersona">CODIGO PERSONAL: - </laber></td>
-					<td><label for="fechaNac">FECHA NACIMIENTO: ${expediente.fechaNacimiento} </label> </td>
+					<td><label for="carne1">CODIGO REGISTRO:</label>&nbsp; &nbsp;${expediente.carne} </td>
+					<td><label for="email">EMAIL:</label>&nbsp; &nbsp;${expediente.email} </td>
+					<td><label for="fechaNac">FECHA NACIMIENTO:</label>&nbsp; &nbsp;${expediente.fechaNacimiento} </td>
 			    </tr>
 			    <tr>
-					<td><label for="email">EMAIL: ${expediente.email} </label> </td>
-					<td><label for="sexo">SEXO: ${expediente.sexo} </label> </td>
-					<td><label for="telefono">TELEFONO: ${expediente.telefono }</label>
+					<td><label for="telefono">TELEFONO:</label>&nbsp; &nbsp;${expediente.telefono}</td>
+					<td></td>
+			    	<td><a href="verExpedienteLaboratorio?idPaciente=${expediente.idPaciente}">Regresar Expediente</a></td>
 			    </tr>
 	    </table>
 	</div>

@@ -38,7 +38,7 @@
 	<form name="pacientes" class="form-horizontal">
 	<div class="has-success"><label>${message}</label></div>
 	<div class="tablecontainer">
-	<h2>${expediente.nombres} ${expediente.apellidos}</h2>
+	<h1>${expediente.nombres} ${expediente.apellidos}</h1>
 	<table width="600">
 			<tr>
 				<td><label for="carne1">CARNE: ${expediente.carne} </label> </td>
@@ -49,7 +49,6 @@
 				<td><label for="movil">SEXO: ${expediente.sexo} </label> </td>
 		    </tr>
     </table>
-    <label for="direccion">ID PACIENTE: ${expediente.idPaciente} </label>
 	</div>
 	<br>
 	<table align="right">
