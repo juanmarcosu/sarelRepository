@@ -49,7 +49,10 @@ public class PruebaVDRL {
 	}
 	
 	@Column(name = "nivel_VDRL", unique=false, nullable = false)
-	private BigDecimal nivelVDRL;
+	private Integer nivelVDRL;
+	
+	@Column(name = "rea_VDRL", unique=false, nullable = false)
+	private Integer reaVDRL;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="estado")
@@ -88,10 +91,16 @@ public class PruebaVDRL {
 	public void setIdExpediente(int idExpediente) {
 		this.idExpediente = idExpediente;
 	}
-	public BigDecimal getNivelVDRL() {
+	public Integer getReaVDRL() {
+		return reaVDRL;
+	}
+	public void setReaVDRL(Integer reaVDRL) {
+		this.reaVDRL = reaVDRL;
+	}
+	public Integer getNivelVDRL() {
 		return nivelVDRL;
 	}
-	public void setNivelVDRL(BigDecimal nivelVDRL) {
+	public void setNivelVDRL(Integer nivelVDRL) {
 		this.nivelVDRL = nivelVDRL;
 	}
 	public LocalDate getFechaLaboratorio() {
@@ -118,7 +127,7 @@ public class PruebaVDRL {
 	@Override
 	public String toString() {
 		return "PruebaVDRL [id ="+ id +", idExpediente=" + idExpediente 
-				+", nivelVDRL=" + nivelVDRL +", idQuimicoBiologo=" + idQuimicoBiologo
+				+", reaVDRL="+reaVDRL+", nivelVDRL=" + nivelVDRL +", idQuimicoBiologo=" + idQuimicoBiologo
 				//+", estado=" + EstadoResultadoLaboratorio.
 				+ "]";
 	}
