@@ -75,7 +75,7 @@
 		<table class="table table-hover">
 
 		<tr>
-			<td>Tipo de Laboratorio</td><td>Responsable</td><td>Fecha</td><td>Mostrar</td><td>Modificar</td><td>Eliminar</td><td>Imprimir</td>
+			<td>Tipo de Laboratorio</td><td>Responsable</td><td>Fecha</td><td>Consultar</td><td>Editar</td><td>Eliminar</td><td>Imprimir</td>
 		</tr>
 
 		 

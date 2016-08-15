@@ -1,0 +1,200 @@
+package com.sarel.web.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name="EXPEDIENTE_PACIENTE")
+public class ExpedienteLaboratorio {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Column(name = "ID_PACIENTE", unique=true, nullable = false)
+	private Integer idPaciente;
+
+	@Size(min=3, max=100)
+	@Column(name = "NOMBRES", nullable = false)
+	private String nombres;
+
+	@Size(min=3, max=100)
+	@Column(name = "APELLIDOS", nullable = false)
+	private String apellidos;
+	
+	@NotNull
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
+	@Column(name = "FECHA_NACIMIENTO", nullable = false)
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+	private LocalDate fechaNacimiento;
+	
+	@Column(name = "carne", unique=true, nullable = true)
+	private Integer carne;
+	
+	@Size(min=3, max=300)
+	@Column(name = "direccion", nullable = false)
+	private String direccion;
+
+	@Size(min=3, max=50)
+	@Column(name = "telefono", nullable = false)
+	private String telefono;
+	
+	@Size(min=3, max=50)
+	@Column(name = "movil", nullable = false)
+	private String movil;
+
+	@Size(min=3, max=80)
+	@Column(name = "email", nullable = false)
+	private String email;
+	
+	@Column(name = "tipo_sangreidtipo_sangre", nullable = true)
+	private Integer tipoSangreIdTipoSangre;
+	
+	@Column(name = "sexo", nullable = false)
+	private Integer sexo;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idPaciente;
+		result = prime * result + ((carne == null) ? 0 : carne);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Paciente))
+			return false;
+		Paciente other = (Paciente) obj;
+		if (idPaciente != other.idPaciente)
+			return false;
+		if (carne == null) {
+			if (other.carne != null)
+				return false;
+		} else if (carne != other.carne)
+			return false;
+		return true;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Integer getIdPaciente() {
+		return idPaciente;
+	}
+
+	public void setIdPaciente(Integer idPaciente) {
+		this.idPaciente = idPaciente;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Integer getCarne() {
+		return carne;
+	}
+
+	public void setCarne(Integer carne) {
+		this.carne = carne;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getMovil() {
+		return movil;
+	}
+
+	public void setMovil(String movil) {
+		this.movil = movil;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Integer getTipoSangreIdTipoSangre() {
+		return tipoSangreIdTipoSangre;
+	}
+
+	public void setTipoSangreIdTipoSangre(Integer tipoSangreIdTipoSangre) {
+		this.tipoSangreIdTipoSangre = tipoSangreIdTipoSangre;
+	}
+
+	public Integer getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Integer sexo) {
+		this.sexo = sexo;
+	}
+
+	@Override
+	public String toString() {
+		return "ExpedienteLaboratorio [idPaciente=" + idPaciente + ", nombres=" + nombres + ", apellidos=" + apellidos + ", fechaNacimiento="
+				+ fechaNacimiento + ", carne=" + carne 
+				+ ", direccion=" + direccion + ", telefono=" + telefono 
+				+ ", movil=" + movil + ", email=" + email 
+				+ ", tipoSangreIdTipoSangre=" + tipoSangreIdTipoSangre
+				+ "]";
+	}	
+
+}

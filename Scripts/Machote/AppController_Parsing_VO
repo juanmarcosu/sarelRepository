@@ -1,4 +1,4 @@
-if(unTipo.getName().equals(TipoLaboratorio.PERFIL_LIPIDICO.getName())){
+else if(unTipo.getName().equals(TipoLaboratorio.PERFIL_LIPIDICO.getName())){
 				List<PerfilLipidico> labs = perfilLipidicoService.findByIdExpediente(idExpediente);
 				for(PerfilLipidico unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();

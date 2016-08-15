@@ -8,7 +8,9 @@ public enum TipoLaboratorio {
 	PRUEBA_VDRL("Prueba VDRL"),
 	COLESTEROL_TRIGLICERIDOS("Cho-Tri"),
 	GLUCOSA_PRE_Y_POST("Gluco pre-pp"),
-	PRUEBA_SEROLOGICA("Pruebas Serológicas");
+	PRUEBA_SEROLOGICA("Pruebas Serológicas"),
+	PRUEBAS_HEMATOLOGICAS("Pruebas Hematológicas"),
+	HEMATOLOGIA_COMPLETA("Hematología Completa");
 	
 	private String tipoLaboratorio;
 	

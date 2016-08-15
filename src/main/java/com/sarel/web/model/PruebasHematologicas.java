@@ -15,11 +15,10 @@ import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="PRUEBA_VDRL")
-public class PruebaVDRL {
+@Table(name="PRUEBAS_HEMATOLOGICAS")
+public class PruebasHematologicas {
 	
 	private EstadoResultadoLaboratorio estado = EstadoResultadoLaboratorio.ACTIVO;
-	private Resultado resultado;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,26 +30,18 @@ public class PruebaVDRL {
 	@Column(name = "id_quimico_biologo", unique=false, nullable = false)
 	private int idQuimicoBiologo;
 	
+	@Column(name = "velocidad_sedimentacion", unique=false, nullable = false)
+	private Integer velocidadSedimentacion;
+	
+	@Column(name = "hematocrito", unique=false, nullable = false)
+	private Integer hematocrito;
+	
 	@NotNull
 	@DateTimeFormat(pattern="dd/MM/yyyy") 
 	@Column(name = "fecha_laboratorio", nullable = false)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaLaboratorio;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name="resultado_laboratorio")
-	public Resultado getResultado(){
-		return this.resultado;
-	}
-	public void setResultado(Resultado resultado){
-		this.resultado = resultado;
-	}
-	
-	@Column(name = "nivel_VDRL", unique=false, nullable = false)
-	private Integer nivelVDRL;
-	
-	@Column(name = "rea_VDRL", unique=false, nullable = false)
-	private Integer reaVDRL;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="estado")
@@ -67,9 +58,9 @@ public class PruebaVDRL {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof PruebaVDRL))
+		if (!(obj instanceof PruebasHematologicas))
 			return false;
-		PruebaVDRL other = (PruebaVDRL) obj;
+		PruebasHematologicas other = (PruebasHematologicas) obj;
 		if (id != other.id)
 			return false;
 		if (idExpediente != other.idExpediente)
@@ -89,17 +80,17 @@ public class PruebaVDRL {
 	public void setIdExpediente(int idExpediente) {
 		this.idExpediente = idExpediente;
 	}
-	public Integer getReaVDRL() {
-		return reaVDRL;
+	public Integer getVelocidadSedimentacion() {
+		return velocidadSedimentacion;
 	}
-	public void setReaVDRL(Integer reaVDRL) {
-		this.reaVDRL = reaVDRL;
+	public void setVelocidadSedimentacion(Integer velocidadSedimentacion) {
+		this.velocidadSedimentacion = velocidadSedimentacion;
 	}
-	public Integer getNivelVDRL() {
-		return nivelVDRL;
+	public Integer getHematocrito() {
+		return hematocrito;
 	}
-	public void setNivelVDRL(Integer nivelVDRL) {
-		this.nivelVDRL = nivelVDRL;
+	public void setHematocrito(Integer hematocrito) {
+		this.hematocrito = hematocrito;
 	}
 	public LocalDate getFechaLaboratorio() {
 		return fechaLaboratorio;
@@ -124,8 +115,8 @@ public class PruebaVDRL {
 	
 	@Override
 	public String toString() {
-		return "PruebaVDRL [id ="+ id +", idExpediente=" + idExpediente 
-				+", reaVDRL="+reaVDRL+", nivelVDRL=" + nivelVDRL +", idQuimicoBiologo=" + idQuimicoBiologo
+		return "PruebasHematologicas [id ="+ id +", idExpediente=" + idExpediente 
+				+", velocidadSedimentacion=" + velocidadSedimentacion +", hematocrito=" + hematocrito  +", idQuimicoBiologo=" + idQuimicoBiologo
 				//+", estado=" + EstadoResultadoLaboratorio.
 				+ "]";
 	}

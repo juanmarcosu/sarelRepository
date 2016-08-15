@@ -40,7 +40,7 @@
 <body onload="checkMod()">
 	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	<h2>Perfil Lipidico</h2>
- 
+ 	<div class="has-error"><label>${alerta}</label></div>
 	<form:form method="POST" modelAttribute="perfilLipidico">
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
