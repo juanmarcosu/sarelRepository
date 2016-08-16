@@ -33,8 +33,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
 import com.sarel.web.model.AcidoUrico;
+import com.sarel.web.model.AspectoOrina;
+import com.sarel.web.model.CantidadPresente;
 import com.sarel.web.model.ColesterolTrigliceridos;
+import com.sarel.web.model.ColorOrina;
 import com.sarel.web.model.EstadoResultadoLaboratorio;
+import com.sarel.web.model.ExamenOrina;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.GlucosaPreYPost;
 import com.sarel.web.model.HematologiaCompleta;
@@ -53,6 +57,7 @@ import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.AcidoUricoService;
 import com.sarel.web.service.ColesterolTrigliceridosService;
+import com.sarel.web.service.ExamenOrinaService;
 import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.GlucosaPreYPostService;
 import com.sarel.web.service.HematologiaCompletaService;
@@ -197,6 +202,33 @@ public class AppController {
 		}
         return tipos;
     }
+	
+	@ModelAttribute("coloresOrina")
+    public List<ColorOrina> initializeColoresOrina() {
+		List<ColorOrina> colores = new ArrayList<ColorOrina>();
+		for (ColorOrina unColorOrina :ColorOrina.values()){
+			colores.add(unColorOrina);
+		}
+		return colores;
+	}
+
+	@ModelAttribute("aspectosOrina")
+    public List<AspectoOrina> initializeAspectosOrina() {
+		List<AspectoOrina> aspectos = new ArrayList<AspectoOrina>();
+		for (AspectoOrina unAspectoOrina :AspectoOrina.values()){
+			aspectos.add(unAspectoOrina);
+		}
+		return aspectos;
+	}
+	
+	@ModelAttribute("cantidadPresente")
+    public List<CantidadPresente> initializeCantidadPresente() {
+		List<CantidadPresente> cantidad = new ArrayList<CantidadPresente>();
+		for (CantidadPresente unaCantidadPresente :CantidadPresente.values()){
+			cantidad.add(unaCantidadPresente);
+		}
+		return cantidad;
+	}
 
 	@Autowired
 	EmployeeService service;
@@ -1146,6 +1178,107 @@ public class AppController {
 	
 	/* Fin HematologiaCompleta */
 	
+	/* Fin ExamenOrina */
+
+	@Autowired
+    ExamenOrinaService examenOrinaService;
+	
+	@RequestMapping(value = { "/eliminarEXAMEN_ORINA" }, method = RequestMethod.GET)
+	public String eliminarExamenOrina(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idEXAMEN_ORINA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ExamenOrina nuevoExamenOrina = examenOrinaService.findById(idPerfil);
+		nuevoExamenOrina.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		examenOrinaService.updateExamenOrina(nuevoExamenOrina);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Examen Orina Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarEXAMEN_ORINA" }, method = RequestMethod.GET)
+	public String consultarExamenOrina(ModelMap model, @RequestParam("idEXAMEN_ORINA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ExamenOrina examenOrina = examenOrinaService.findById(idPerfil);
+		model.addAttribute("examenOrina", examenOrina);
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenOrina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addExamenOrina";
+	}
+	
+	@RequestMapping(value = { "/editarEXAMEN_ORINA" }, method = RequestMethod.GET)
+	public String editarExamenOrina(ModelMap model, @RequestParam("idEXAMEN_ORINA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ExamenOrina examenOrina = examenOrinaService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenOrina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("examenOrina", examenOrina);
+		model.addAttribute("edit", true);
+		return "addExamenOrina";
+	}
+	
+	@RequestMapping(value = { "/editarEXAMEN_ORINA" }, method = RequestMethod.POST)
+	public String modificarExamenOrina(ModelMap model, @Valid ExamenOrina examenOrina, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addExamenOrina";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		examenOrinaService.updateExamenOrina(examenOrina);
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenOrina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Examen Orina Numero: " + examenOrina.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarEXAMEN_ORINA" }, method = RequestMethod.GET)
+	public String nuevoExamenOrina(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		ExamenOrina examenOrina = new ExamenOrina();
+		model.addAttribute("examenOrina", examenOrina);
+		model.addAttribute("idExpediente", idExpediente);
+		List<ColorOrina> colores = new ArrayList<ColorOrina>();
+		for (ColorOrina unColorOrina :ColorOrina.values()){
+			colores.add(unColorOrina);
+		}
+		model.addAttribute("colores",colores);
+		List<AspectoOrina> aspectos = new ArrayList<AspectoOrina>();
+		for (AspectoOrina unAspectoOrina :AspectoOrina.values()){
+			aspectos.add(unAspectoOrina);
+		}
+		model.addAttribute("colores",aspectos);
+		model.addAttribute("edit", false);
+		return "addExamenOrina";
+	}
+	
+	@RequestMapping(value = { "/agregarEXAMEN_ORINA" }, method = RequestMethod.POST)
+	public String guardarExamenOrina(@Valid ExamenOrina examenOrina, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addExamenOrina";
+		}
+		
+		examenOrinaService.saveExamenOrina(examenOrina);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenOrina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Examen Orina Numero: " + examenOrina.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	/* Fin ExamenOrina */
+	
 	
 	
 	
@@ -1352,6 +1485,18 @@ public class AppController {
 			}else if(unTipo.getName().equals(TipoLaboratorio.HEMATOLOGIA_COMPLETA.getName())){
 				List<HematologiaCompleta> labs = hematologiaCompletaService.findByIdExpediente(idExpediente);
 				for(HematologiaCompleta unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.EXAMEN_ORINA.getName())){
+				List<ExamenOrina> labs = examenOrinaService.findByIdExpediente(idExpediente);
+				for(ExamenOrina unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
 					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);

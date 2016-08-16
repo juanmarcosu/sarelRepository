@@ -65,6 +65,7 @@
 				
 					<td><label for="nivelVDRL">Prueba VDRL: </label> </td>
 					<td><form:input path="reaVDRL" id="reaVDRL" style="width: 20px;" value="1"/></td>
+					<td><div class="has-error"><form:errors path="reaVDRL" class="help-inline"/></div></td>
 					<td><label for="reaVDRL">:</label> </td>
 					<td><form:input path="nivelVDRL" id="nivelVDRL"/></td> 
 					<td><div class="has-error"><form:errors path="nivelVDRL" class="help-inline"/></div></td>

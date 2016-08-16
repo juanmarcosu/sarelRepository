@@ -10,7 +10,8 @@ public enum TipoLaboratorio {
 	GLUCOSA_PRE_Y_POST("Gluco pre-pp"),
 	PRUEBA_SEROLOGICA("Pruebas Serológicas"),
 	PRUEBAS_HEMATOLOGICAS("Pruebas Hematológicas"),
-	HEMATOLOGIA_COMPLETA("Hematología Completa");
+	HEMATOLOGIA_COMPLETA("Hematología Completa"),
+	EXAMEN_ORINA("Examen de Orina");
 	
 	private String tipoLaboratorio;
 	

@@ -2,9 +2,11 @@ package com.sarel.web.model;
 
 public enum ColorOrina {
 
-	LIMPIDO("Limpido"),
-	LIGERAMENTE_TURBIA("Ligeramente Turbia"),
-	TURBIA("Turbia");
+	CAFE("Café"),
+	AMARILLO("Amarillo"),
+	AMBAR("Ambar"),
+	ROJIZA("Rojiza"),
+	OTRO("Otro");
 	
 	private String colorOrina;
 	
@@ -24,4 +26,5 @@ public enum ColorOrina {
 	public String getName(){
 		return this.name();
 	}
+	
 }
