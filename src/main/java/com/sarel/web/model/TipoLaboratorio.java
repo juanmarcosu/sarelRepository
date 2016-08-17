@@ -11,7 +11,8 @@ public enum TipoLaboratorio {
 	PRUEBA_SEROLOGICA("Pruebas Serológicas"),
 	PRUEBAS_HEMATOLOGICAS("Pruebas Hematológicas"),
 	HEMATOLOGIA_COMPLETA("Hematología Completa"),
-	EXAMEN_ORINA("Examen de Orina");
+	EXAMEN_ORINA("Examen de Orina"),
+	EXAMEN_HECES("Examen de Heces Fecales");
 	
 	private String tipoLaboratorio;
 	

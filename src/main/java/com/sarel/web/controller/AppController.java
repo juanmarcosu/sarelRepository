@@ -34,10 +34,12 @@ import com.sarel.web.model.Employee;
 import com.sarel.web.service.EmployeeService;
 import com.sarel.web.model.AcidoUrico;
 import com.sarel.web.model.AspectoOrina;
+import com.sarel.web.model.AspectoHeces;
 import com.sarel.web.model.CantidadPresente;
 import com.sarel.web.model.ColesterolTrigliceridos;
 import com.sarel.web.model.ColorOrina;
 import com.sarel.web.model.EstadoResultadoLaboratorio;
+import com.sarel.web.model.ExamenHeces;
 import com.sarel.web.model.ExamenOrina;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.GlucosaPreYPost;
@@ -57,6 +59,7 @@ import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.AcidoUricoService;
 import com.sarel.web.service.ColesterolTrigliceridosService;
+import com.sarel.web.service.ExamenHecesService;
 import com.sarel.web.service.ExamenOrinaService;
 import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.GlucosaPreYPostService;
@@ -217,6 +220,15 @@ public class AppController {
 		List<AspectoOrina> aspectos = new ArrayList<AspectoOrina>();
 		for (AspectoOrina unAspectoOrina :AspectoOrina.values()){
 			aspectos.add(unAspectoOrina);
+		}
+		return aspectos;
+	}
+	
+	@ModelAttribute("aspectosHeces")
+    public List<AspectoHeces> initializeAspectoHeces() {
+		List<AspectoHeces> aspectos = new ArrayList<AspectoHeces>();
+		for (AspectoHeces unAspectoHeces :AspectoHeces.values()){
+			aspectos.add(unAspectoHeces);
 		}
 		return aspectos;
 	}
@@ -1249,12 +1261,6 @@ public class AppController {
 		for (ColorOrina unColorOrina :ColorOrina.values()){
 			colores.add(unColorOrina);
 		}
-		model.addAttribute("colores",colores);
-		List<AspectoOrina> aspectos = new ArrayList<AspectoOrina>();
-		for (AspectoOrina unAspectoOrina :AspectoOrina.values()){
-			aspectos.add(unAspectoOrina);
-		}
-		model.addAttribute("colores",aspectos);
 		model.addAttribute("edit", false);
 		return "addExamenOrina";
 	}
@@ -1279,7 +1285,96 @@ public class AppController {
 	
 	/* Fin ExamenOrina */
 	
+	/* Fin ExamenHeces */
+
+	@Autowired
+    ExamenHecesService examenHecesService;
 	
+	@RequestMapping(value = { "/eliminarEXAMEN_HECES" }, method = RequestMethod.GET)
+	public String eliminarExamenHeces(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idEXAMEN_HECES") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ExamenHeces nuevoExamenHeces = examenHecesService.findById(idPerfil);
+		nuevoExamenHeces.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		examenHecesService.updateExamenHeces(nuevoExamenHeces);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Examen de Heces Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarEXAMEN_HECES" }, method = RequestMethod.GET)
+	public String consultarExamenHeces(ModelMap model, @RequestParam("idEXAMEN_HECES") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ExamenHeces examenHeces = examenHecesService.findById(idPerfil);
+		model.addAttribute("examenHeces", examenHeces);
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenHeces.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addExamenHeces";
+	}
+	
+	@RequestMapping(value = { "/editarEXAMEN_HECES" }, method = RequestMethod.GET)
+	public String editarExamenHeces(ModelMap model, @RequestParam("idEXAMEN_HECES") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		ExamenHeces examenHeces = examenHecesService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenHeces.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("examenHeces", examenHeces);
+		model.addAttribute("edit", true);
+		return "addExamenHeces";
+	}
+	
+	@RequestMapping(value = { "/editarEXAMEN_HECES" }, method = RequestMethod.POST)
+	public String modificarExamenHeces(ModelMap model, @Valid ExamenHeces examenHeces, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addExamenHeces";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		examenHecesService.updateExamenHeces(examenHeces);
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenHeces.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Examen de Heces Numero: " + examenHeces.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarEXAMEN_HECES" }, method = RequestMethod.GET)
+	public String nuevoExamenHeces(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		ExamenHeces examenHeces = new ExamenHeces();
+		model.addAttribute("examenHeces", examenHeces);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addExamenHeces";
+	}
+	
+	@RequestMapping(value = { "/agregarEXAMEN_HECES" }, method = RequestMethod.POST)
+	public String guardarExamenHeces(@Valid ExamenHeces examenHeces, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addExamenHeces";
+		}
+		
+		examenHecesService.saveExamenHeces(examenHeces);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenHeces.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Examen de Heces Numero: " + examenHeces.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	/* Fin ExamenHeces */
 	
 	
 	/*
@@ -1497,6 +1592,18 @@ public class AppController {
 			}else if(unTipo.getName().equals(TipoLaboratorio.EXAMEN_ORINA.getName())){
 				List<ExamenOrina> labs = examenOrinaService.findByIdExpediente(idExpediente);
 				for(ExamenOrina unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.EXAMEN_HECES.getName())){
+				List<ExamenHeces> labs = examenHecesService.findByIdExpediente(idExpediente);
+				for(ExamenHeces unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
 					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);

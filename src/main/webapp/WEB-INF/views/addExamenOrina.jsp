@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Prueba de Embarazo</title>
+	<title>Examen de Orina</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
@@ -29,7 +29,7 @@
 
 <body onload="checkMod()">
 	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
-	<h2>Prueba de Embarazo</h2>
+	<h2>Examen de Orina</h2>
  
 	<form:form method="POST" modelAttribute="examenOrina">
 	<div id = "wholeForm">
@@ -97,7 +97,7 @@
 				<td><form:input path="textoCilindros" id="textoCilindros"/></td>
 				<td><form:select path="cilindros" id="cilindros" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td> 
 				<td><div class="has-error"><form:errors path="textoCilindros" class="help-inline"/></div></td>
-				<td><div class="has-error"><form:errors path="Cilindros" class="help-inline"/></div></td>
+				<td><div class="has-error"><form:errors path="cilindros" class="help-inline"/></div></td>
 		    </tr>  
 		    <tr>
 				<td><label for="textoBacterias">Bacterias: </label> </td>
