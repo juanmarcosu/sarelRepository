@@ -1,0 +1,35 @@
+@RequestMapping(value = { "/imprimirPERFIL_LIPIDICO" }, method = RequestMethod.GET)
+	public String imprimirPerfilLipidico(HttpServletResponse response, ModelMap model, @RequestParam("idPERFIL_LIPIDICO") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(perfilLipidico.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PerfilLipidico.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Perfil Lipídico".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = perfilLipidico.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PerfilLipidico_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}

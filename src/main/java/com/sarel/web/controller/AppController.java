@@ -2,7 +2,6 @@ package com.sarel.web.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +19,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
@@ -412,9 +410,9 @@ public class AppController {
 	}
 	
 	@RequestMapping(value = { "/imprimirPERFIL_LIPIDICO" }, method = RequestMethod.GET)
-	public String imprimirPerfilLipidico(HttpServletResponse response, ModelMap model, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) throws JRException, IOException {
+	public String imprimirPerfilLipidico(HttpServletResponse response, ModelMap model, @RequestParam("idPERFIL_LIPIDICO") int idLaboratorio) throws JRException, IOException {
 		model.addAttribute("user", getPrincipal());
-		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
+		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idLaboratorio);
 		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
 		model.addAttribute("expediente", expediente);
 		User quimicoBiologo = userService.findById(perfilLipidico.getIdQuimicoBiologo());
@@ -439,7 +437,7 @@ public class AppController {
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=PefilLipidico_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PerfilLipidico_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
 
 	    final OutputStream outStream = response.getOutputStream();
 	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
@@ -538,6 +536,42 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
+	@RequestMapping(value = { "/imprimirPRUEBA_EMBARAZO" }, method = RequestMethod.GET)
+	public String imprimirPruebaEmbarazo(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBA_EMBARAZO") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebaEmbarazo pruebaEmbarazo = pruebaEmbarazoService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaEmbarazo.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebaEmbarazo.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebaEmbarazo.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Prueba de Embarazo".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebaEmbarazo.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebaEmbarazo_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	
 	/* Fin Prueba Embarazo */
 	
 	
@@ -628,6 +662,42 @@ public class AppController {
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Acido Urico Numero: " + acidoUrico.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirACIDO_URICO" }, method = RequestMethod.GET)
+	public String imprimirAcidoUrico(HttpServletResponse response, ModelMap model, @RequestParam("idACIDO_URICO") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		AcidoUrico acidoUrico = acidoUricoService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(acidoUrico.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(acidoUrico.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/AcidoUrico.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Ácido Úrico".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = acidoUrico.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=AcidoUrico_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
 	}
 	
 	/* Fin Acido Urico */
@@ -721,6 +791,42 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
+	@RequestMapping(value = { "/imprimirPRUEBA_VDRL" }, method = RequestMethod.GET)
+	public String imprimirPruebaVDRL(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBA_VDRL") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebaVDRL pruebaVDRL = pruebaVDRLService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaVDRL.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebaVDRL.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebaVDRL.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Prueba VDRL".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebaVDRL.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebaVDRL_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	
 	/* Fin Prueba VDRL */
 	
 	
@@ -812,6 +918,42 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
+	@RequestMapping(value = { "/imprimirCOLESTEROL_TRIGLICERIDOS" }, method = RequestMethod.GET)
+	public String imprimirColesterolTrigliceridos(HttpServletResponse response, ModelMap model, @RequestParam("idCOLESTEROL_TRIGLICERIDOS") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		ColesterolTrigliceridos colesterolTrigliceridos = colesterolTrigliceridosService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(colesterolTrigliceridos.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(colesterolTrigliceridos.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/ColesterolTrigliceridos.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Cho-Tri".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = colesterolTrigliceridos.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=ColesterolTrigliceridos_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	
 	/* Fin Colesterol-Trigliceridos */
 	
 	/* Fin GlucosaPreYPost */
@@ -901,6 +1043,42 @@ public class AppController {
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Glucosa Pre-Pp Numero: " + glucosaPreYPost.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirGLUCOSA_PRE_Y_POST" }, method = RequestMethod.GET)
+	public String imprimirGlucosaPreYPost(HttpServletResponse response, ModelMap model, @RequestParam("idGLUCOSA_PRE_Y_POST") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		GlucosaPreYPost glucosaPreYPost = glucosaPreYPostService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(glucosaPreYPost.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(glucosaPreYPost.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/GlucosaPreYPost.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Gluco pre-pp".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = glucosaPreYPost.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=GlucosaPreYPost_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
 	}
 	
 	/* Fin GlucosaPreYPost */
@@ -1006,6 +1184,42 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
+	@RequestMapping(value = { "/imprimirPRUEBA_SEROLOGICA" }, method = RequestMethod.GET)
+	public String imprimirPruebaSerologica(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBA_SEROLOGICA") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebaSerologica pruebaSerologica = pruebaSerologicaService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaSerologica.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebaSerologica.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebaSerologica.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Pruebas Serológicas".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebaSerologica.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebaSerologica_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	
 	/* Fin PruebaSerologica */
 	
 	/* Fin PruebasHematologicas */
@@ -1108,6 +1322,42 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
+	@RequestMapping(value = { "/imprimirPRUEBAS_HEMATOLOGICAS" }, method = RequestMethod.GET)
+	public String imprimirPruebasHematologicas(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBAS_HEMATOLOGICAS") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebasHematologicas pruebasHematologicas = pruebasHematologicasService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebasHematologicas.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebasHematologicas.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebasHematologicas.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Pruebas Hematológicas".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebasHematologicas.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebasHematologicas_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	
 	/* Fin PruebasHematologicas */
 	
 	/* Fin HematologiaCompleta */
@@ -1197,6 +1447,42 @@ public class AppController {
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Hematología Completa Numero: " + hematologiaCompleta.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirHEMATOLOGIA_COMPLETA" }, method = RequestMethod.GET)
+	public String imprimirHematologiaCompleta(HttpServletResponse response, ModelMap model, @RequestParam("idHEMATOLOGIA_COMPLETA") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		HematologiaCompleta hematologiaCompleta = hematologiaCompletaService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(hematologiaCompleta.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(hematologiaCompleta.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/HematologiaCompleta.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Hematología Completa".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = hematologiaCompleta.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=HematologiaCompleta_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
 	}
 	
 	/* Fin HematologiaCompleta */
@@ -1294,6 +1580,42 @@ public class AppController {
 		return "verExpedienteLaboratorio";
 	}
 	
+	@RequestMapping(value = { "/imprimirEXAMEN_ORINA" }, method = RequestMethod.GET)
+	public String imprimirExamenOrina(HttpServletResponse response, ModelMap model, @RequestParam("idEXAMEN_ORINA") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		ExamenOrina examenOrina = examenOrinaService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenOrina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(examenOrina.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/ExamenOrina.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Examen de Orina".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = examenOrina.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=ExamenOrina_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	
 	/* Fin ExamenOrina */
 	
 	/* Fin ExamenHeces */
@@ -1383,6 +1705,42 @@ public class AppController {
 		model.addAttribute("labs", labs);
 		model.addAttribute("message", "Laboratorio Examen de Heces Numero: " + examenHeces.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirEXAMEN_HECES" }, method = RequestMethod.GET)
+	public String imprimirExamenHeces(HttpServletResponse response, ModelMap model, @RequestParam("idEXAMEN_HECES") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		ExamenHeces examenHeces = examenHecesService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(examenHeces.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(examenHeces.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/ExamenHeces.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Examen de Heces Fecales".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = examenHeces.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=ExamenHeces_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
 	}
 	
 	/* Fin ExamenHeces */
