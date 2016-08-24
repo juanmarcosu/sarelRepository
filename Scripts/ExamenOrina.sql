@@ -13,6 +13,7 @@ CREATE TABLE `EXAMEN_ORINA` (
   `aspecto`  VARCHAR(50) NOT NULL,
   `ph` DOUBLE NOT NULL,
   `densidad` DOUBLE NOT NULL,
+  `bioquimico`  VARCHAR(250),
   `leucositos`  VARCHAR(50) NOT NULL,
   `eritrositos`  VARCHAR(50) NOT NULL,
   `celulas_epiteliales`  VARCHAR(50) NOT NULL,

@@ -50,11 +50,15 @@
 		<table>
 			<tr>
 				<td><label for="color">Color: </label> </td>
-				<td><form:select path="color" id="color" items="${coloresOrina}" multiple="false" itemValue="name" itemLabel="colorOrina" class="form-control input-sm"/></td> 
+				<td><form:select path="color" id="color" items="${coloresOrina}" multiple="false" itemValue="name" itemLabel="colorOrina" class="form-control input-sm"/> </td>
 				<td><label for="aspecto">Aspecto: </label> </td>
 				<td><form:select path="aspecto" id="aspecto" items="${aspectosOrina}" multiple="false" itemValue="name" itemLabel="aspectoOrina" class="form-control input-sm"/></td> 
 				<td><div class="has-error"><form:errors path="color" class="help-inline"/></div></td>
 				<td><div class="has-error"><form:errors path="aspecto" class="help-inline"/></div></td>
+		    </tr>
+		    <tr>
+		    	<td><label for="otroColor">Otro color: </label> </td>
+		    	<form:input path="otroColor" id="otroColor"/></td>
 		    </tr> 
 		    <tr>
 				<td><label for="ph">Ph: </label> </td>
@@ -63,6 +67,11 @@
 				<td><form:input path="densidad" id="densidad"/></td>
 				<td><div class="has-error"><form:errors path="ph" class="help-inline"/></div></td>
 				<td><div class="has-error"><form:errors path="densidad" cssClass="error"/></div></td>
+		    </tr>
+		    <tr>
+		    	<td><label for="bioquimico">Bioqu&iacute;mico: </label> </td>
+		    	<td><textarea path="bioquimico" id="bioquimico" rows="5" cols="25">Leucitos:&#13;&#10;Nitritos:&#13;&#10;Urobilim&oacute;geno:&#13;&#10;Prote&iacute;nas:&#13;&#10;Sangre:&#13;&#10;Cetonas:&#13;&#10;Bilirrubina:&#13;&#10;Grlucosa:&#13;&#10;ph:&#13;&#10;
+		    	</textarea></td>
 		    </tr>
 		    <tr>
 				<td><label for="leucositos">Leucocitos: </label> </td>

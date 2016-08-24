@@ -53,6 +53,9 @@ public class ExamenOrina {
 	@Column(name = "densidad", unique=false, nullable = false)
 	private BigDecimal densidad;
 	
+	@Column(name = "bioquimico", unique=false, nullable = false)
+	private String bioquimico;
+	
 	@Column(name = "leucositos", unique=false, nullable = false)
 	private String leucositos;
 	

@@ -2,7 +2,10 @@ package com.sarel.web.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +20,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
@@ -413,6 +417,7 @@ public class AppController {
 		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
 		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
 		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(perfilLipidico.getIdQuimicoBiologo());
 		
 		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
 		ParametroExportacion mpe = new ParametroExportacion();
@@ -420,15 +425,21 @@ public class AppController {
 			mpe.setParameters(new HashMap<String,Object>());
 		}
 		exportacion.add(mpe);
-		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/tuberculosis.jrxml").getInputStream());
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PerfilLipidico.jrxml").getInputStream());
 		
 		HashMap<String, Object> params = new HashMap<String,Object>();
-		params.put("logoSIGSA", new ClassPathResource("jrxml/logoSIGSA.png").getInputStream());
-		params.put("logoMSP", new ClassPathResource("jrxml/mspas2.jpg").getInputStream());
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Perfil Lipídico".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = perfilLipidico.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=helloWorldReport.pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PefilLipidico_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
 
 	    final OutputStream outStream = response.getOutputStream();
 	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
