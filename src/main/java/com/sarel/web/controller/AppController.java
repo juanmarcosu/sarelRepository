@@ -953,8 +953,8 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = colesterolTrigliceridos.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
-		params.put("colesterol", colesterolTrigliceridos.getColesterol());
-		params.put("trigliceridos", colesterolTrigliceridos.getTrigliceridos());
+		params.put("colesterol", colesterolTrigliceridos.getColesterol().toString());
+		params.put("trigliceridos", colesterolTrigliceridos.getTrigliceridos().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
@@ -1223,9 +1223,9 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebaSerologica.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
-		params.put("factorReumatoide", (pruebaSerologica.getFactorReumatoide()!=null)?"":pruebaSerologica.getFactorReumatoide().toString());
-		params.put("proteinaCReactiva", (pruebaSerologica.getProteinaCReactiva()!=null)?"":pruebaSerologica.getProteinaCReactiva().toString());
-		params.put("antiEstreptolisinaO", (pruebaSerologica.getAntiEstreptolisinaO()!=null)?"":pruebaSerologica.getAntiEstreptolisinaO().toString());
+		params.put("factorReumatoide", (pruebaSerologica.getFactorReumatoide()==null)?"":pruebaSerologica.getFactorReumatoide().toString());
+		params.put("proteinaCReactiva", (pruebaSerologica.getProteinaCReactiva()==null)?"":pruebaSerologica.getProteinaCReactiva().toString());
+		params.put("antiEstreptolisinaO", (pruebaSerologica.getAntiEstreptolisinaO()==null)?"":pruebaSerologica.getAntiEstreptolisinaO().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
