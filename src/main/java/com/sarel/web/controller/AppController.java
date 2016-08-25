@@ -432,6 +432,13 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = perfilLipidico.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("colesterolTotal", (perfilLipidico.getColesterolTotal()==null)?"":perfilLipidico.getColesterolTotal().toString());
+		params.put("colesterolAltaDensidad", (perfilLipidico.getColesterolAltaDensidad()==null)?"":perfilLipidico.getColesterolAltaDensidad().toString());
+		params.put("colesterolBajaDensidad", (perfilLipidico.getColesterolBajaDensidad()==null)?"":perfilLipidico.getColesterolBajaDensidad().toString());
+		params.put("colesterolMuyBajaDensidad", (perfilLipidico.getColesterolMuyBajaDensidad()==null)?"":perfilLipidico.getColesterolMuyBajaDensidad().toString());
+		params.put("trigliceridos", (perfilLipidico.getTrigliceridos()==null)?"":perfilLipidico.getTrigliceridos().toString());
+		params.put("indiceRiesgo", (perfilLipidico.getIndiceRiesgo()==null)?"":perfilLipidico.getIndiceRiesgo().toString());
+		params.put("resistenciaInsulina", (perfilLipidico.getResistenciaInsulina()==null)?"":perfilLipidico.getResistenciaInsulina().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
@@ -559,6 +566,7 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebaEmbarazo.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("resultado", pruebaEmbarazo.getResultado());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
@@ -689,6 +697,7 @@ public class AppController {
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("acidoUrico", acidoUrico.getNivelAcidoUrico().toString());
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -814,6 +823,9 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebaVDRL.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("resultado", pruebaVDRL.getResultado().getResultado());
+		params.put("reaVDRL", (pruebaVDRL.getReaVDRL()==null)?"":pruebaVDRL.getReaVDRL().toString());
+		params.put("nivelVDRL", (pruebaVDRL.getNivelVDRL()==null)?"":pruebaVDRL.getNivelVDRL().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
@@ -941,6 +953,8 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = colesterolTrigliceridos.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("colesterol", colesterolTrigliceridos.getColesterol());
+		params.put("trigliceridos", colesterolTrigliceridos.getTrigliceridos());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
@@ -1068,6 +1082,8 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = glucosaPreYPost.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("prePrandial", (glucosaPreYPost.getPrePrandial()==null)?"":glucosaPreYPost.getPrePrandial().toString());
+		params.put("postPrandial", (glucosaPreYPost.getPostPrandial()==null)?"":glucosaPreYPost.getPostPrandial().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
@@ -1207,6 +1223,9 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebaSerologica.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("factorReumatoide", (pruebaSerologica.getFactorReumatoide()!=null)?"":pruebaSerologica.getFactorReumatoide().toString());
+		params.put("proteinaCReactiva", (pruebaSerologica.getProteinaCReactiva()!=null)?"":pruebaSerologica.getProteinaCReactiva().toString());
+		params.put("antiEstreptolisinaO", (pruebaSerologica.getAntiEstreptolisinaO()!=null)?"":pruebaSerologica.getAntiEstreptolisinaO().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
@@ -1345,6 +1364,8 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebasHematologicas.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("velocidadSedimentacion", (pruebasHematologicas.getVelocidadSedimentacion()==null)?"":pruebasHematologicas.getVelocidadSedimentacion().toString());
+		params.put("hematocrito", (pruebasHematologicas.getHematocrito()==null)?"":pruebasHematologicas.getHematocrito().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
