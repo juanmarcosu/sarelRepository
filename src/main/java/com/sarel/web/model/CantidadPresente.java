@@ -2,10 +2,10 @@ package com.sarel.web.model;
 
 public enum CantidadPresente {
 
-	
-	ESCASA("(+)Escasa"),
-	REGULAR_CANTIDAD("(++)Regular Cantidad"),
-	ABUNDANTE("(+++)Abundante");
+	NINGUNA("Ninguna"),
+	ESCASA("Escasa"),
+	REGULAR_CANTIDAD("Regular Cantidad"),
+	ABUNDANTE("Abundante");
 	
 	private String cantidadPresente;
 	

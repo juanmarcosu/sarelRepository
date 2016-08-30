@@ -70,7 +70,7 @@
 		    </tr>
 		    <tr>
 		    	<td><label for="bioquimico">Bioqu&iacute;mico: </label> </td>
-		    	<td><textarea path="bioquimico" id="bioquimico" rows="5" cols="25">Leucitos:&#13;&#10;Nitritos:&#13;&#10;Urobilim&oacute;geno:&#13;&#10;Prote&iacute;nas:&#13;&#10;Sangre:&#13;&#10;Cetonas:&#13;&#10;Bilirrubina:&#13;&#10;Grlucosa:&#13;&#10;ph:&#13;&#10;
+		    	<td><textarea path="bioquimico" id="bioquimico" rows="5" cols="25">Leucitos:&#13;&#10;Nitritos:&#13;&#10;Urobilim&oacute;geno:&#13;&#10;Prote&iacute;nas:&#13;&#10;Sangre:&#13;&#10;Cetonas:&#13;&#10;Bilirrubina:&#13;&#10;Grlucosa:&#13;&#10;
 		    	</textarea></td>
 		    </tr>
 		    <tr>
@@ -78,7 +78,7 @@
 				<td><form:input path="leucositos" id="leucositos"/></td>
 				<td><label for="leucositosLabel">x campo </label> </td>
 				
-				<td><label for="eritrositos">&nbsp; &nbsp;Eritrositos: </label> </td>
+				<td><label for="eritrositos">&nbsp; &nbsp;Eritrocitos: </label> </td>
 				<td><form:input path="eritrositos" id="eritrositos"/></td>
 				<td><label for="eritrositosLabel">x campo </label> </td>
 				<td><div class="has-error"><form:errors path="eritrositos" cssClass="error"/></div></td>
@@ -95,10 +95,8 @@
 				<td><div class="has-error"><form:errors path="moco" class="help-inline"/></div></td>
 		    </tr> 
 		    <tr>
-				<td><label for="textoCristales">Cristales: </label> </td>
-				<td><form:input path="textoCristales" id="textoCristales"/></td>
-				<td><form:select path="cristales" id="cristales" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td> 
-				<td><div class="has-error"><form:errors path="textoCristales" class="help-inline"/></div></td>
+				<td><label for="cristales">Cristales: </label> </td>
+				<td><textarea path="cristales" id="cristales" rows="5" cols="25"></textarea> 
 				<td><div class="has-error"><form:errors path="cristales" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>

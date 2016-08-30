@@ -58,7 +58,7 @@
 				<td><div class="has-error"><form:errors path="prePrandial" class="help-inline"/></div></td>
 			</tr>
 			<tr>
-				<td><label for="postPrandial">Trigliceridos: </label> </td>
+				<td><label for="postPrandial">Glucosa post-prandial: </label> </td>
 				<td><form:input path="postPrandial" id="postPrandial"/></td>
 				<td><label for="postPrandialLabel1">mg/dl </label> </td>
 				<td></td> 
@@ -67,7 +67,7 @@
 				<td><div class="has-error"><form:errors path="postPrandial" class="help-inline"/></div></td>
 			</tr>
 		    <tr>
-		    	<td><label for="quimicoBiologo">Glucosa post-prandial: </label> </td>
+		    	<td><label for="quimicoBiologo"></label>Quimico Biologo: </td>
 		    	<td><form:select path="idQuimicoBiologo" id="idQuimicoBiologo" items="${laboratoristas}" multiple="false" itemValue="id" itemLabel="ssoId" class="form-control input-sm"/></td>		    	
 		    	<td><div class="has-error"><form:errors path="idQuimicoBiologo" class="help-inline"/></div></td>
 		    </tr>

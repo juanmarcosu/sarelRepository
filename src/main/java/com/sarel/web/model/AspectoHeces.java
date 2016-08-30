@@ -4,7 +4,8 @@ public enum AspectoHeces {
 
 	PASTOSA("Pastosa"),
 	SEMI_DIARREICA("Semidiarreica"),
-	DIARREICA("Diarreica");
+	DIARREICA("Diarreica"),
+	OTRO("Otro");
 	
 	private String AspectoHeces;
 	

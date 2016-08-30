@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sigsa7" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="210"/>
+	<property name="ireport.y" value="229"/>
 	<parameter name="logoUSAC" class="java.io.InputStream"/>
 	<parameter name="logoUSALUD" class="java.io.InputStream"/>
 	<parameter name="titulo" class="java.lang.String"/>
@@ -24,7 +24,7 @@
 	<title>
 		<band height="385" splitType="Stretch">
 			<rectangle radius="10">
-				<reportElement x="143" y="0" width="307" height="72"/>
+				<reportElement x="143" y="0" width="307" height="70"/>
 				<graphicElement>
 					<pen lineWidth="1.5"/>
 				</graphicElement>
@@ -37,13 +37,13 @@
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logoUSALUD}]]></imageExpression>
 			</image>
 			<image isUsingCache="true" isLazy="true">
-				<reportElement stretchType="RelativeToBandHeight" x="45" y="18" width="94" height="54"/>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="143" height="70"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logoUSAC}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="156" y="0" width="283" height="18"/>
+				<reportElement x="156" y="0" width="283" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Universidad de San Carlos De Guatemala]]></text>
 			</staticText>
@@ -55,32 +55,32 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{nombrePaciente}+" "]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="143" y="86" width="307" height="22"/>
+				<reportElement x="143" y="91" width="307" height="22"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="Arial" size="18" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="143" y="18" width="307" height="18" isRemoveLineWhenBlank="true"/>
+				<reportElement x="143" y="14" width="307" height="14" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dirección General de Docencia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="143" y="36" width="307" height="18" isRemoveLineWhenBlank="true"/>
+				<reportElement x="143" y="28" width="307" height="14" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[División de Bienestar Estudiantil Universitario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="143" y="54" width="307" height="18" isRemoveLineWhenBlank="true"/>
+				<reportElement x="143" y="42" width="307" height="14" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Unidad de Salud Laboratorio]]></text>
+				<text><![CDATA[Unidad de Salud]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="125" width="55" height="18"/>
@@ -118,21 +118,21 @@
 				<text><![CDATA[REGISTRO: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="157" width="114" height="18"/>
+				<reportElement x="157" y="356" width="114" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[QUÍMICO BIOLOGO: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="114" y="157" width="179" height="18"/>
+				<reportElement x="271" y="356" width="179" height="18"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isUnderline="true" isStrikeThrough="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{quimicoBiologo}+" "]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="400" y="205" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="400" y="175" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -146,7 +146,7 @@
 				<text><![CDATA[Hasta 150 mg/dl]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="29" y="205" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="29" y="175" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -157,10 +157,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Colesterol Total:]]></text>
+				<text><![CDATA[Colesterol Total: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="340" y="205" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="340" y="175" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -174,14 +174,14 @@
 				<text><![CDATA[mg/dl]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="198" y="205" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="198" y="175" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{colesterolTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="340" y="229" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="340" y="199" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -195,14 +195,14 @@
 				<text><![CDATA[mg/dl]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="198" y="229" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="198" y="199" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{colesterolAltaDensidad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="400" y="229" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="400" y="199" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -216,7 +216,7 @@
 				<text><![CDATA[Mayor de 40 mg/dl]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="29" y="229" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="29" y="199" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -227,17 +227,17 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Colesterol Alta Densidad (HDL):]]></text>
+				<text><![CDATA[Colesterol Alta Densidad (HDL): ]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="198" y="253" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="198" y="223" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{colesterolBajaDensidad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="400" y="253" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="400" y="223" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -251,7 +251,7 @@
 				<text><![CDATA[65 - 175 mg/dl]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="340" y="253" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="340" y="223" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -265,7 +265,7 @@
 				<text><![CDATA[mg/dl]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="29" y="253" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="29" y="223" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -276,17 +276,17 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Colesterol Baja Densidad (LDL):]]></text>
+				<text><![CDATA[Colesterol Baja Densidad (LDL): ]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="198" y="277" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="198" y="247" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{colesterolMuyBajaDensidad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="400" y="277" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="400" y="247" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -300,7 +300,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="340" y="277" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="340" y="247" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -314,7 +314,7 @@
 				<text><![CDATA[mg/dl]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="29" y="277" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="29" y="247" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -325,17 +325,17 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Colesterol de Muy Baja Densidad (VLDL):]]></text>
+				<text><![CDATA[Colesterol de Muy Baja Densidad (VLDL): ]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="198" y="325" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="198" y="295" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{indiceRiesgo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="29" y="325" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="29" y="295" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -346,17 +346,17 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Índice de Riesgo:]]></text>
+				<text><![CDATA[Índice de Riesgo: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="198" y="349" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="198" y="319" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{resistenciaInsulina}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="29" y="349" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="29" y="319" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -367,10 +367,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Resistencia a la Insulina:]]></text>
+				<text><![CDATA[Resistencia a la Insulina: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="400" y="301" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="400" y="271" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -384,14 +384,14 @@
 				<text><![CDATA[Hasta 150 mg/dl]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="198" y="301" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="198" y="271" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{trigliceridos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="29" y="301" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="29" y="271" width="169" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -402,10 +402,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Trigliceridos:]]></text>
+				<text><![CDATA[Trigliceridos: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="340" y="301" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="340" y="271" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -417,6 +417,13 @@
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[mg/dl]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="56" width="307" height="14" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laboratorio]]></text>
 			</staticText>
 		</band>
 	</title>

@@ -33,6 +33,9 @@ public class ExamenHeces {
 	@Column(name = "aspecto", unique=false, nullable = false)
 	private String aspecto;
 	
+	@Column(name = "otro_aspecto", unique=false, nullable = false)
+	private String otroAspecto;
+	
 	@Column(name = "moco", unique=false, nullable = false)
 	private String moco;
 	
@@ -41,9 +44,6 @@ public class ExamenHeces {
 	
 	@Column(name = "restos_alimenticios", unique=false, nullable = false)
 	private String restosAlimenticios;
-
-	@Column(name = "texto_parasitos", unique=false, nullable = false)
-	private String textoParasitos;
 	
 	@Column(name = "parasitos", unique=false, nullable = false)
 	private String parasitos;
@@ -115,6 +115,12 @@ public class ExamenHeces {
 	public void setAspecto(String aspecto) {
 		this.aspecto = aspecto;
 	}
+	public String getOtroAspecto() {
+		return otroAspecto;
+	}
+	public void setOtroAspecto(String otroAspecto) {
+		this.otroAspecto = otroAspecto;
+	}
 	public String getMoco() {
 		return moco;
 	}
@@ -132,12 +138,6 @@ public class ExamenHeces {
 	}
 	public void setRestosAlimenticios(String restosAlimenticios) {
 		this.restosAlimenticios = restosAlimenticios;
-	}
-	public String getTextoParasitos() {
-		return textoParasitos;
-	}
-	public void setTextoParasitos(String textoParasitos) {
-		this.textoParasitos = textoParasitos;
 	}
 	public String getParasitos() {
 		return parasitos;

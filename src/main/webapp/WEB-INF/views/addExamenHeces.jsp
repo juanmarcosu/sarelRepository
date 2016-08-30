@@ -51,11 +51,14 @@
 			<tr>
 				<td><label for="aspecto">Aspecto: </label> </td>
 				<td><form:select path="aspecto" id="aspecto" items="${aspectosHeces}" multiple="false" itemValue="name" itemLabel="aspectoHeces" class="form-control input-sm"/></td> 
+				<td><label for="otroAspecto">Otro: </label> </td>
+				<td><form:input path="otroAspecto" id="otroAspecto"/></td>
 				<td><label for="moco">Moco: </label> </td>
 				<td><form:select path="moco" id="moco" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>
 				<td><label for="sangre">Sangre: </label> </td>
 				<td><form:select path="sangre" id="sangre" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>  
 				<td><div class="has-error"><form:errors path="aspecto" class="help-inline"/></div>
+				<div class="has-error"><form:errors path="otroAspecto" class="help-inline"/></div>
 				<div class="has-error"><form:errors path="moco" class="help-inline"/></div>
 				<div class="has-error"><form:errors path="sangre" class="help-inline"/></div></td>
 		    </tr> 
@@ -65,10 +68,8 @@
 		    	<td><div class="has-error"><form:errors path="restosAlimenticios" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>
-				<td><label for="textoParasitos">Parasitos: </label> </td>
-				<td><form:input path="textoParasitos" id="textoParasitos"/></td>
-				<td><form:select path="parasitos" id="parasitos" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td> 
-				<td><div class="has-error"><form:errors path="textoParasitos" class="help-inline"/></div></td>
+				<td><label for="parasitos">Parasitos: </label> </td>
+				<td><textarea path="parasitos" id="parasitos" rows="5" cols="25"></textarea></td> 
 				<td><div class="has-error"><form:errors path="parasitos" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>
@@ -83,7 +84,9 @@
 				<td><label for="fibrasMusculares">Fibras Musculares: </label> </td>
 				<td><form:select path="fibrasMusculares" id="fibrasMusculares" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td> 
 				<td><label for="jabones">Jabones: </label> </td>
-				<td><form:select path="jabones" id="jabones" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>
+				<td><form:select path="jabones" id="jabones" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm">
+				<form:option value="" selected="true">Seleccionar</form:option>
+				</form:select></td>
 				<td><div class="has-error"><form:errors path="fibrasMusculares" class="help-inline"/></div>
 				<div class="has-error"><form:errors path="jabones" class="help-inline"/></div></td>
 		    </tr>    

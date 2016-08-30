@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sigsa7" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="100"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="logoUSAC" class="java.io.InputStream"/>
 	<parameter name="logoUSALUD" class="java.io.InputStream"/>
 	<parameter name="titulo" class="java.lang.String"/>
@@ -22,7 +22,7 @@
 	<title>
 		<band height="299" splitType="Stretch">
 			<rectangle radius="10">
-				<reportElement x="143" y="0" width="307" height="72"/>
+				<reportElement x="143" y="0" width="307" height="70"/>
 				<graphicElement>
 					<pen lineWidth="1.5"/>
 				</graphicElement>
@@ -35,13 +35,13 @@
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logoUSALUD}]]></imageExpression>
 			</image>
 			<image isUsingCache="true" isLazy="true">
-				<reportElement stretchType="RelativeToBandHeight" x="45" y="18" width="94" height="54"/>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="143" height="70"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logoUSAC}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="156" y="0" width="283" height="18"/>
+				<reportElement x="156" y="0" width="283" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Universidad de San Carlos De Guatemala]]></text>
 			</staticText>
@@ -60,25 +60,25 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="143" y="18" width="307" height="18" isRemoveLineWhenBlank="true"/>
+				<reportElement x="143" y="14" width="307" height="14" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dirección General de Docencia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="143" y="36" width="307" height="18" isRemoveLineWhenBlank="true"/>
+				<reportElement x="143" y="28" width="307" height="14" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[División de Bienestar Estudiantil Universitario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="143" y="54" width="307" height="18" isRemoveLineWhenBlank="true"/>
+				<reportElement x="143" y="42" width="307" height="14" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Unidad de Salud Laboratorio]]></text>
+				<text><![CDATA[Unidad de Salud]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="125" width="55" height="18"/>
@@ -116,21 +116,21 @@
 				<text><![CDATA[REGISTRO: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="157" width="114" height="18"/>
+				<reportElement x="167" y="269" width="114" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[QUÍMICO BIOLOGO: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="114" y="157" width="179" height="18"/>
+				<reportElement x="281" y="269" width="179" height="18"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isUnderline="true" isStrikeThrough="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{quimicoBiologo}+" "]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="345" y="205" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="345" y="175" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -144,7 +144,7 @@
 				<text><![CDATA[Referencia:	hasta 8 UI/ml ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="229" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="0" y="199" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -155,10 +155,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Proteína "C" Reactiva:]]></text>
+				<text><![CDATA[Proteína "C" Reactiva: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="281" y="229" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="281" y="199" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -172,14 +172,14 @@
 				<text><![CDATA[mg/l]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="139" y="229" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="139" y="199" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{proteinaCReactiva}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="345" y="229" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="345" y="199" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -193,7 +193,7 @@
 				<text><![CDATA[		hasta 6 mg/l]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="281" y="205" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="281" y="175" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -207,14 +207,14 @@
 				<text><![CDATA[UI/ml]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="139" y="205" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="139" y="175" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{factorReumatoide}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="205" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="0" y="175" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -225,10 +225,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Factor Reumatoide:]]></text>
+				<text><![CDATA[Factor Reumatoide: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="281" y="253" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="281" y="223" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -242,14 +242,14 @@
 				<text><![CDATA[UI/ml]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="139" y="253" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="139" y="223" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{antiEstreptolisinaO}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="253" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="0" y="223" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -260,10 +260,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Anti Estreptolisina "O":]]></text>
+				<text><![CDATA[Anti Estreptolisina "O": ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="345" y="253" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="345" y="223" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -275,6 +275,13 @@
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[		hasta 200 UI/ml]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="143" y="56" width="307" height="14" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laboratorio]]></text>
 			</staticText>
 		</band>
 	</title>
