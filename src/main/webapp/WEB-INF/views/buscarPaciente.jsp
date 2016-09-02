@@ -7,14 +7,13 @@
 	<title>Listado de Pacientes</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
+	<%--<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>--%>
 	<style>
 		tr:first-child{
 			font-weight: bold;
 			background-color: #C6C9C4;
 		}
 	</style>
-
 </head>
 
 
@@ -37,12 +36,8 @@
 				<td><input type="text" name="apellido" id="apellido"/></td>
 		    </tr>
 	    	<tr>
-				<td><label for="carne">Carne: </label> </td>
+				<td><label for="carne">Numero de Registro: </label> </td>
 				<td><input type="text" name="carne" id="carne"/></td>
-		    </tr>
-		    <tr>
-				<td><label for="codigoPersonal">Codigo Personal: </label> </td>
-				<td><input type="text" name="codigoPersonal" id="codigoPersonal"/></td>
 		    </tr>
 		    <tr>
 		    	<td><input type="submit" value="Buscar"/></td>

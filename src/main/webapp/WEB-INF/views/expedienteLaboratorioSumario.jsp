@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-	<div class="tablecontainer">
+	<div>
 		<table width="100%">
 				<tr>
 					<td><label for="labelNombre">NOMBRE:&nbsp; &nbsp;</label>${expediente.nombres} ${expediente.apellidos} </td>

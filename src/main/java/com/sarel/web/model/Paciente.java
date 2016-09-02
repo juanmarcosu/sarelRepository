@@ -1,11 +1,14 @@
 package com.sarel.web.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,6 +19,175 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="paciente")
 public class Paciente {
+	/*
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int idPaciente;
+	
+	@Column(name = "id_tipo_paciente", unique=true, nullable = true)
+	private Integer idTipoPaciente;
+	
+	@Column(name = "id_dependencia", unique=true, nullable = true)
+	private Integer idDependencia;
+	
+	@Size(min=3, max=100)
+	@Column(name = "nombre", nullable = false)
+	private String nombre;
+	
+	@NotNull
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
+	@Column(name = "fecha_nacimiento", nullable = false)
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+	private LocalDate fechaNac;
+	
+	@Column(name = "sexo", nullable = false)
+	private Integer sexo;
+	
+	@Column(name = "carne", unique=true, nullable = true)
+	private Integer carne;
+	
+	@Column(name = "dpi", unique=true, nullable = true)
+	private Integer dpi;
+	
+	@Size(min=3, max=50)
+	@Column(name = "telefono", nullable = false)
+	private String telefono;
+	
+	@Size(min=3, max=80)
+	@Column(name = "correo", nullable = false)
+	private String email;
+	
+	@NotNull
+	@Digits(integer=8, fraction=2)
+	@Column(name = "talla", nullable = false)
+	private BigDecimal talla;
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idPaciente;
+		result = prime * result + ((carne == null) ? 0 : carne);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Paciente))
+			return false;
+		Paciente other = (Paciente) obj;
+		if (idPaciente != other.idPaciente)
+			return false;
+		if (carne == null) {
+			if (other.carne != null)
+				return false;
+		} else if (carne != other.carne)
+			return false;
+		return true;
+	}
+
+	public int getIdPaciente() {
+		return idPaciente;
+	}
+
+	public void setIdPaciente(int idPaciente) {
+		this.idPaciente = idPaciente;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public LocalDate getFechaNac() {
+		return fechaNac;
+	}
+
+	public void setFechaNac(LocalDate fechaNac) {
+		this.fechaNac = fechaNac;
+	}
+
+	public Integer getCarne() {
+		return carne;
+	}
+
+	public void setCarne(Integer carne) {
+		this.carne = carne;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Integer getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Integer sexo) {
+		this.sexo = sexo;
+	}
+
+	public Integer getIdTipoPaciente() {
+		return idTipoPaciente;
+	}
+
+	public void setIdTipoPaciente(Integer idTipoPaciente) {
+		this.idTipoPaciente = idTipoPaciente;
+	}
+
+	public Integer getIdDependencia() {
+		return idDependencia;
+	}
+
+	public void setIdDependencia(Integer idDependencia) {
+		this.idDependencia = idDependencia;
+	}
+
+	public Integer getDpi() {
+		return dpi;
+	}
+
+	public void setDpi(Integer dpi) {
+		this.dpi = dpi;
+	}
+
+	public BigDecimal getTalla() {
+		return talla;
+	}
+
+	public void setTalla(BigDecimal talla) {
+		this.talla = talla;
+	}
+
+	@Override
+	public String toString() {
+		return "Paciente [idPaciente=" + idPaciente + ", nombre=" + nombre + ", fechaNac="
+				+ fechaNac + ", carne=" + carne 
+				+ ", telefono=" + telefono 
+				+ ", email=" + email 
+				+ ", sexo=" + sexo  
+				+ "]";
+	}*/
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +208,10 @@ public class Paciente {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaNac;
 
-	/*@NotNull
-	@Digits(integer=8, fraction=2)
-	@Column(name = "SALARY", nullable = false)
-	private BigDecimal salary;*/
+	//@NotNull
+	//@Digits(integer=8, fraction=2)
+	//@Column(name = "SALARY", nullable = false)
+	//private BigDecimal salary;
 	
 	@Column(name = "carne", unique=true, nullable = true)
 	private Integer carne;
@@ -114,7 +286,7 @@ public class Paciente {
 	@Size(min=3, max=45)
 	@Column(name = "fecha_exam", nullable = true)
 	private String fechaExam;
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -346,7 +518,9 @@ public class Paciente {
 	@Override
 	public String toString() {
 		return "Paciente [idPaciente=" + idPaciente + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac="
-				+ fechaNac + /*", salary=" + salary +*/ ", carne=" + carne 
+				+ fechaNac + 
+				//", salary=" + salary + 
+				", carne=" + carne 
 				+ ", direccion=" + direccion + ", telefono=" + telefono 
 				+ ", movil=" + movil + ", email=" + email 
 				+ ", emerNombre=" + emerNombre + ", idEmerParentesco=" + idEmerParentesco + ", emerTelefono=" + emerTelefono + ", emerMovil=" + emerMovil 
@@ -355,5 +529,4 @@ public class Paciente {
 				+ ", examenLinea=" + examenLinea + ", idUnidadAcademica=" + idUnidadAcademica + ", fechaExam=" + fechaExam 
 				+ "]";
 	}	
-
 }

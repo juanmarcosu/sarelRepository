@@ -5,41 +5,35 @@
 <head>
 <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 </head>
-<body background="<c:url value='/recursos/imagenes/background.jpg' />">
-	<div>
-	<table class="table">
-		<tr>
-			<td><img src="<c:url value='/recursos/imagenes/logousac_small.png' />" /></td>
-			<td>
-				<h2 style="color:#000050;">Sistema de Administracion de REsultados de Laboratorio - SAREL</h2> 
-			</td>
-		</tr>
-	</table>
+<body >
 	<div align="center">
-	<table width="500">
-		<tr>
-			<td><a href="<c:url value='/home' />">Pagina de Inicio</a></td>
+			<img src="<c:url value='/recursos/imagenes/logousac_small.png' />" />
+			<label style="color:#000050; font-size:200%;">Sistema de Administracion de REsultados de Laboratorio - SAREL</label> 
+	</div>
+	<div style="width:100%">
+	<div align="center">
+		<nav>
+			<a href="<c:url value='/home' />">Pagina de Inicio</a>&nbsp; &nbsp; - &nbsp; &nbsp;
 			<sec:authorize access="hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')">
-				<td><a href="<c:url value='/buscarPaciente?nombre=&apellido=&carne=' />">Buscar Paciente</a></td>
+				<a href="<c:url value='/buscarPaciente?nombre=&apellido=&carne=' />">Buscar Paciente</a>&nbsp; &nbsp; - &nbsp; &nbsp;
 			</sec:authorize>
-			<c:if test="${user == 'anonymousUser'}">
-				<td><a href="<c:url value='/login' />">Iniciar Sesion</a></td>
-			</c:if>
 			<sec:authorize access="hasRole('ADMINISTRADOR')">
-            			<td><a href="<c:url value='/newUser' />">Crear Usuario</a></td>
-        		</sec:authorize>
-			<c:if test="${user != 'anonymousUser'}">
-				<td><a href="<c:url value="/logout" />">Cerrar Sesi&oacute;n</a></td>
+           		<a href="<c:url value='/newUser' />">Crear Usuario</a>&nbsp; &nbsp; - &nbsp; &nbsp;
+       		</sec:authorize>
+			<c:if test="${user == 'anonymousUser'}">
+				<a href="<c:url value='/login' />">Iniciar Sesion</a>
 			</c:if>
-		</tr>
-	</table>
+			<c:if test="${user != 'anonymousUser'}">
+				<a href="<c:url value="/logout" />">Cerrar Sesi&oacute;n</a>
+			</c:if>
+		</nav>
 	</div>
 	<div align="right">
 		<c:if test="${user != 'anonymousUser'}">
 			<label>Usuario: ${user} &nbsp; &nbsp; &nbsp;</label>
 		</c:if>
 	</div>
-	<hr size="1">
 	</div>
+	<hr size="1">
 </body>
 </html>

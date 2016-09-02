@@ -30,7 +30,7 @@
 	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	<h2>Acido Urico</h2>
  
-	<form:form method="POST" modelAttribute="acidoUrico">
+	<form:form method="POST" modelAttribute="acidoUrico" class="form-horizontal">
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
@@ -50,7 +50,7 @@
 			<tr>
 				<td><label for="nivelAcidoUrico">Acido Urico: </label> </td>
 				<td><form:input path="nivelAcidoUrico" id="colesterolTotal"/></td>
-				<td><label for="nivelAcidoUrico"> mg/dl </label> </td> 
+				<td><label for="nivelAcidoUrico"> mg/dl &nbsp; &nbsp; - &nbsp;</label> </td> 
 				<td><div class="has-error"><form:errors path="nivelAcidoUrico" class="help-inline"/></div></td>
 				<td><label>Referencia: </label></td>
 				<td><label>Hombres 3.4 - 7.0 mg/dl </label> </td>
