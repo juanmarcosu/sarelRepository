@@ -2,11 +2,13 @@ package com.sarel.web.dao;
 
 import java.util.List;
 import java.util.Map;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExpedienteLaboratorio;
 
 @Repository("expedienteLaboratorioDao")
@@ -20,6 +22,14 @@ public class ExpedienteLaboratorioDaoImpl extends AbstractDao<Integer, Expedient
 		persist(expediente);
 	}
 	
+	public void updateExpedienteLaboratorio(ExpedienteLaboratorio expedienteLaboratorio) {
+		update(expedienteLaboratorio);
+	}
+	
+	public void deleteExpedienteLaboratorio(ExpedienteLaboratorio expedienteLaboratorio){
+		delete(expedienteLaboratorio);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<ExpedienteLaboratorio> findAll() {
 		Criteria criteria = createEntityCriteria();
@@ -29,12 +39,16 @@ public class ExpedienteLaboratorioDaoImpl extends AbstractDao<Integer, Expedient
 	public ExpedienteLaboratorio findByCarnet(Integer carne) {
 		Criteria criteria = createEntityCriteria();
 		criteria.add(Restrictions.eq("carne", carne));
+		criteria.add(Restrictions.eq("estado", EstadoResultadoLaboratorio.ACTIVO));
+		criteria.setMaxResults(1);
 		return (ExpedienteLaboratorio) criteria.uniqueResult();
 	}
 	
 	public ExpedienteLaboratorio findByIdPaciente(Integer idPaciente) {
 		Criteria criteria = createEntityCriteria();
 		criteria.add(Restrictions.eq("idPaciente", idPaciente));
+		criteria.add(Restrictions.eq("estado", EstadoResultadoLaboratorio.ACTIVO));
+		criteria.setMaxResults(1);
 		return (ExpedienteLaboratorio) criteria.uniqueResult();
 	}
 	
@@ -61,6 +75,10 @@ public class ExpedienteLaboratorioDaoImpl extends AbstractDao<Integer, Expedient
 		if(params.containsKey("apellidos"))
 		{
 			criteria.add(Restrictions.ilike("apellidos", (String) params.get("apellidos"), MatchMode.ANYWHERE));
+		}
+		if(params.containsKey("estado"))
+		{
+			criteria.add(Restrictions.eq("estado", (EstadoResultadoLaboratorio)params.get("estado")));
 		}
 		return (List<ExpedienteLaboratorio>) criteria.list();
 	}

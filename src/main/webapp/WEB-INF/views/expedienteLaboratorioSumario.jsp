@@ -21,7 +21,7 @@
 			    <tr>
 					<td><label for="telefono">TELEFONO:</label>&nbsp; &nbsp;${expediente.telefono}</td>
 					<td></td>
-			    	<td><a href="verExpedienteLaboratorio?idPaciente=${expediente.idPaciente}">Regresar Expediente</a></td>
+			    	<td><a href="verExpedienteLaboratorio?idPaciente=${expediente.idPaciente}&&carne=${expediente.carne}">Regresar Expediente</a></td>
 			    </tr>
 	    </table>
 	</div>

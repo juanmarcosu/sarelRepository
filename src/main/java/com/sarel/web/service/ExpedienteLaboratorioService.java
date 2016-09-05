@@ -11,6 +11,10 @@ public interface ExpedienteLaboratorioService {
 	
 	void saveExpedienteLaboratorio(ExpedienteLaboratorio expediente);
 	
+	void updateExpedienteLaboratorio(ExpedienteLaboratorio expediente);
+	
+	void deleteExpedienteLaboratorio(ExpedienteLaboratorio expediente);
+	
 	List<ExpedienteLaboratorio> findAll();
 	
 	List<ExpedienteLaboratorio> findVeinte();

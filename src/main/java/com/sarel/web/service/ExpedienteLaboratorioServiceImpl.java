@@ -25,6 +25,14 @@ public class ExpedienteLaboratorioServiceImpl implements ExpedienteLaboratorioSe
 		dao.saveExpedienteLaboratorio(expediente); 
 	}
 	
+	public void updateExpedienteLaboratorio(ExpedienteLaboratorio expediente) {
+		dao.updateExpedienteLaboratorio(expediente); 
+	}
+	
+	public void deleteExpedienteLaboratorio(ExpedienteLaboratorio expediente) {
+		dao.deleteExpedienteLaboratorio(expediente); 
+	}
+	
 	public List<ExpedienteLaboratorio> findAll() {
 		return dao.findAll();
 	}

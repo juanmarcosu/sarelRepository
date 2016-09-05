@@ -2,6 +2,8 @@ package com.sarel.web.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,11 +19,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="EXPEDIENTE_LABORATORIO")
 public class ExpedienteLaboratorio {
 
+	private EstadoResultadoLaboratorio estado = EstadoResultadoLaboratorio.ACTIVO;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "id_paciente", unique=true, nullable = false)
+	@Column(name = "id_paciente")
 	private Integer idPaciente;
 
 	@Size(min=3, max=100)
@@ -38,7 +42,7 @@ public class ExpedienteLaboratorio {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaNacimiento;
 	
-	@Column(name = "carne", unique=true, nullable = false)
+	@Column(name = "no_registro", unique=true, nullable = false)
 	private Integer carne;
 	
 	@Column(name = "direccion", nullable = true)
@@ -52,6 +56,15 @@ public class ExpedienteLaboratorio {
 
 	@Column(name = "email", nullable = true)
 	private String email;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="estado")
+	public EstadoResultadoLaboratorio getEstado(){
+		return this.estado;
+	}
+	public void setEstado(EstadoResultadoLaboratorio estado){
+		this.estado = estado;
+	}
 	
 	@Column(name = "sexo", nullable = false)
 	private Sexo sexo;

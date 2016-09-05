@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -49,6 +50,12 @@
 				<td><label for="movil">SEXO: ${expediente.sexo} </label> </td>
 		    </tr>
     </table>
+    <sec:authorize access="hasRole('ADMINISTRADOR')">
+    	<div align="right"><strong><a href="<c:url value='/editarEXPEDIENTE_LABORATORIO?idEXPEDIENTE_LABORATORIO=${expediente.id}' />">Modificar Expediente Laboratorio</a></strong></div>
+    </sec:authorize>
+    <sec:authorize access="hasRole('ADMINISTRADOR')">
+    	<div align="right"><strong><a href="<c:url value='/eliminarEXPEDIENTE_LABORATORIO?idExpediente=${expediente.id}' />">Eliminar Expediente Laboratorio</a></strong></div>
+    </sec:authorize>
 	</div>
 	<br>
 	<table align="right">

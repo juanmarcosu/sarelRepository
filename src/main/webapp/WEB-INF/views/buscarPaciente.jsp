@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -43,6 +44,9 @@
 		    	<td><input type="submit" value="Buscar"/></td>
 		    </tr>
     </table>
+    <sec:authorize access="hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')">
+    	<div align="right"><strong><a href="<c:url value='/agregarEXPEDIENTE_LABORATORIO' />">Crear Expediente Laboratorio</a></strong></div>
+    </sec:authorize>
     <h2>Resultados:</h2>
 	<table class="table table-hover">
 		<tr>
@@ -56,7 +60,7 @@
 			<td>${unPaciente.apellido}</td>
 			<td>${unPaciente.carne}</td>
 			<td>${unPaciente.fechaNac}</td>
-			<td><a href="<c:url value='/verExpedienteLaboratorio?idPaciente=${unPaciente.idPaciente}' />">Consultar</a></td>
+			<td><a href="<c:url value='/verExpedienteLaboratorio?idPaciente=${unPaciente.idPaciente}&carne=${unPaciente.carne}' />">Consultar</a></td>
 			</tr>
 		</c:forEach>
 	</table>

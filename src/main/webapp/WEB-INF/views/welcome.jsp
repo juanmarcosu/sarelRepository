@@ -8,6 +8,7 @@
     <title>Pagina de Bienvenida</title>
 </head>
 <body>
+	<div class="has-success"><label>${message}</label></div>
 	<div align ="center">
 		<img src="<c:url value='/recursos/imagenes/tricentenaria.jpg' />" /></td>
 	</div>

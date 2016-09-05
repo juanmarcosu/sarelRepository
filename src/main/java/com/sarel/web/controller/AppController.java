@@ -243,6 +243,15 @@ public class AppController {
 		}
 		return cantidad;
 	}
+	
+	@ModelAttribute("sexos")
+    public List<Sexo> initializeSexos() {
+		List<Sexo> sexos = new ArrayList<Sexo>();
+		for (Sexo unSexo :Sexo.values()){
+			sexos.add(unSexo);
+		}
+		return sexos;
+	}
 
 	@Autowired
 	EmployeeService service;
@@ -267,24 +276,57 @@ public class AppController {
 		model.addAttribute("user", getPrincipal());
 		boolean parameters = false;
 		List<Paciente> pacientes = null;
-		Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> paramsPaciente = new HashMap<String, Object>();
+		Map<String, Object> paramsExpediente = new HashMap<String, Object>();
 		if(pNombre!=null && !pNombre.isEmpty()){
-			params.put("nombre", pNombre);
+			paramsPaciente.put("nombre", pNombre);
+			paramsExpediente.put("nombres", pNombre);
 			parameters = true;
 		}
 		if(pApellido!=null && !pApellido.isEmpty()){
-			params.put("apellido", pApellido);
+			paramsPaciente.put("apellido", pApellido);
+			paramsExpediente.put("apellidos", pApellido);
 			parameters = true;
 		}
 		if(pCarne!=null && !pCarne.isEmpty()){
-			params.put("carne", pCarne);
+			paramsPaciente.put("carne", pCarne);
+			paramsExpediente.put("carne", pCarne);
 			parameters = true;
 		}
 		if(parameters){
-			pacientes = pacienteService.findByCriteria(params);
+			pacientes = new ArrayList<Paciente>();
+			paramsExpediente.put("estado", EstadoResultadoLaboratorio.ACTIVO);
+			List<ExpedienteLaboratorio> expedientes = expedienteService.findByCriteria(paramsExpediente);
+			for (ExpedienteLaboratorio unExpediente: expedientes){
+				Paciente unPacienteTemp = new Paciente();
+				unPacienteTemp.setIdPaciente(unExpediente.getIdPaciente());
+				unPacienteTemp.setCarne(unExpediente.getCarne());
+				unPacienteTemp.setNombre(unExpediente.getNombres());
+				unPacienteTemp.setApellido(unExpediente.getApellidos());
+				unPacienteTemp.setFechaNac(unExpediente.getFechaNacimiento());
+				pacientes.add(unPacienteTemp);
+			}
+			List<Paciente> pacientesOld = pacienteService.findByCriteria(paramsPaciente);
+			for(Paciente unPaciente: pacientesOld){
+				if(!contains(pacientes, unPaciente)){
+					pacientes.add(unPaciente);
+				}
+			}
 		}
 		model.addAttribute("pacientes", pacientes);
 		return "buscarPaciente";
+	}
+	
+	private Boolean contains(List<Paciente> destino, Paciente pacienteChecked){
+		for(Paciente unPaciente: destino){
+			if(unPaciente.getIdPaciente()==pacienteChecked.getIdPaciente()){
+				return true;
+			}
+			if(unPaciente.getCarne() != null && unPaciente.getCarne()==pacienteChecked.getCarne()){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Autowired
@@ -294,9 +336,12 @@ public class AppController {
     ExpedienteLaboratorioService expedienteService;
 	
 	@RequestMapping(value = { "/verExpedienteLaboratorio" }, method = RequestMethod.GET)
-	public String verExpedientePersona(@RequestParam("idPaciente") Integer idPaciente, ModelMap model) {
+	public String verExpedientePersona(@RequestParam("idPaciente") Integer idPaciente, @RequestParam("carne") Integer carne, ModelMap model) {
 		model.addAttribute("user", getPrincipal());
-		ExpedienteLaboratorio expediente = expedienteService.findByIdPaciente(idPaciente);
+		ExpedienteLaboratorio expediente = expedienteService.findByCarnet(carne);
+		if(expediente == null){
+			expediente = expedienteService.findByIdPaciente(idPaciente);
+		}
 		if(expediente == null){
 			Paciente paciente = pacienteService.findById(idPaciente);
 			ExpedienteLaboratorio expedienteTemp = new ExpedienteLaboratorio();
@@ -322,6 +367,62 @@ public class AppController {
 		model.addAttribute("labs", labs);
 		return "verExpedienteLaboratorio";
 	}
+	
+	@RequestMapping(value = { "/eliminarEXPEDIENTE_LABORATORIO" }, method = RequestMethod.GET)
+	public String eliminarExpedienteLaboratorio(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio nuevoExpedienteLaboratorio = expedienteService.findById(idExpediente);
+		nuevoExpedienteLaboratorio.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		expedienteService.updateExpedienteLaboratorio(nuevoExpedienteLaboratorio);
+		model.addAttribute("message", "Expediente Laboratorio Numero: " + idExpediente + " eliminado Exitosamente...");
+		return "welcome";
+	}
+	
+	@RequestMapping(value = { "/editarEXPEDIENTE_LABORATORIO" }, method = RequestMethod.GET)
+	public String editarExpedienteLaboratorio(ModelMap model, @RequestParam("idEXPEDIENTE_LABORATORIO") int idExpedienteLaboratorio) {
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expedienteLaboratorio = expedienteService.findById(idExpedienteLaboratorio);
+		model.addAttribute("expedienteLaboratorio", expedienteLaboratorio);
+		model.addAttribute("edit", true);
+		return "addExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/editarEXPEDIENTE_LABORATORIO" }, method = RequestMethod.POST)
+	public String modificarExpedienteLaboratorio(ModelMap model, @Valid ExpedienteLaboratorio expedienteLaboratorio, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addExpedienteLaboratorio";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		expedienteService.updateExpedienteLaboratorio(expedienteLaboratorio);
+		model.addAttribute("message", "Expediente Laboratorio Numero: " + expedienteLaboratorio.getId() + " editado Exitosamente...");
+		return "welcome";
+	}
+	
+	@RequestMapping(value = { "/agregarEXPEDIENTE_LABORATORIO" }, method = RequestMethod.GET)
+	public String nuevoExpedienteLaboratorio(ModelMap model) {
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expedienteLaboratorio = new ExpedienteLaboratorio();
+		model.addAttribute("expedienteLaboratorio", expedienteLaboratorio);
+		model.addAttribute("edit", false);
+		return "addExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarEXPEDIENTE_LABORATORIO" }, method = RequestMethod.POST)
+	public String guardarExpedienteLaboratorio(@Valid ExpedienteLaboratorio expedienteLaboratorio, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addExpedienteLaboratorio";
+		}
+		expedienteService.saveExpedienteLaboratorio(expedienteLaboratorio);
+		model.addAttribute("user", getPrincipal());
+		model.addAttribute("message", "Expediente Laboratorio Numero: " + expedienteLaboratorio.getId() + " creado Exitosamente...");
+		return "welcome";
+	}
+	
+	/* Fin ExpedienteLaboratorio */
 	
 	/* Fin Perfil Lipidico */
 	
