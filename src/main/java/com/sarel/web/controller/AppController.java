@@ -52,6 +52,7 @@ import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.PruebaEmbarazo;
 import com.sarel.web.model.PruebaSerologica;
 import com.sarel.web.model.PruebaVDRL;
+import com.sarel.web.model.PruebaVIH;
 import com.sarel.web.model.PruebasHematologicas;
 import com.sarel.web.model.Resultado;
 import com.sarel.web.model.ResultadoLaboratorioVO;
@@ -71,6 +72,7 @@ import com.sarel.web.service.PerfilLipidicoService;
 import com.sarel.web.service.PruebaEmbarazoService;
 import com.sarel.web.service.PruebaSerologicaService;
 import com.sarel.web.service.PruebaVDRLService;
+import com.sarel.web.service.PruebaVIHService;
 import com.sarel.web.service.PruebasHematologicasService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
@@ -1866,6 +1868,112 @@ public class AppController {
 	}
 	
 	/* Fin ExamenHeces */
+	
+	/* Inicio PruebaVIH */
+
+	@Autowired
+    PruebaVIHService pruebaVIHService;
+	
+	@RequestMapping(value = { "/eliminarPRUEBA_VIH" }, method = RequestMethod.GET)
+	public String eliminarPruebaVIH(ModelMap model, @RequestParam("idPRUEBA_VIH") int idPruebaVIH) {
+		model.addAttribute("user", getPrincipal());
+		PruebaVIH nuevoPruebaVIH = pruebaVIHService.findById(idPruebaVIH);
+		nuevoPruebaVIH.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebaVIHService.updatePruebaVIH(nuevoPruebaVIH);
+		model.addAttribute("message", "Prueba VIH Numero: " + idPruebaVIH + " eliminado Exitosamente...");
+		return "welcome";
+	}
+	
+	@RequestMapping(value = { "/consultarPRUEBA_VIH" }, method = RequestMethod.GET)
+	public String consultarPruebaVIH(ModelMap model, @RequestParam("idPRUEBA_VIH") int idPruebaVIH) {
+		model.addAttribute("user", getPrincipal());
+		PruebaVIH pruebaVIH = pruebaVIHService.findById(idPruebaVIH);
+		model.addAttribute("pruebaVIH", pruebaVIH);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebaVIH";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_VIH" }, method = RequestMethod.GET)
+	public String editarPruebaVIH(ModelMap model, @RequestParam("idPRUEBA_VIH") int idPruebaVIH) {
+		model.addAttribute("user", getPrincipal());
+		PruebaVIH pruebaVIH = pruebaVIHService.findById(idPruebaVIH);
+		model.addAttribute("pruebaVIH", pruebaVIH);
+		model.addAttribute("edit", true);
+		return "addPruebaVIH";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_VIH" }, method = RequestMethod.POST)
+	public String modificarPruebaVIH(ModelMap model, @Valid PruebaVIH pruebaVIH, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaVIH";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebaVIHService.updatePruebaVIH(pruebaVIH);
+		model.addAttribute("message", "Prueba VIH Numero: " + pruebaVIH.getId() + " editada Exitosamente...");
+		return "welcome";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_VIH" }, method = RequestMethod.GET)
+	public String nuevoPruebaVIH(ModelMap model) {
+		model.addAttribute("user", getPrincipal());
+		PruebaVIH pruebaVIH = new PruebaVIH();
+		model.addAttribute("pruebaVIH", pruebaVIH);
+		model.addAttribute("edit", false);
+		return "addPruebaVIH";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_VIH" }, method = RequestMethod.POST)
+	public String guardarPruebaVIH(@Valid PruebaVIH pruebaVIH, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaVIH";
+		}
+
+		pruebaVIHService.savePruebaVIH(pruebaVIH);
+		model.addAttribute("user", getPrincipal());
+		model.addAttribute("message", "Prueba VIH Numero: " + pruebaVIH.getId() + " creado Exitosamente...");
+		return "welcome";
+	}
+	
+	@RequestMapping(value = { "/imprimirPRUEBA_VIH" }, method = RequestMethod.GET)
+	public String imprimirPruebaVIH(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBA_VIH") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebaVIH pruebaVIH = pruebaVIHService.findById(idLaboratorio);
+		User quimicoBiologo = userService.findById(pruebaVIH.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebaVIH.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Prueba VIH".toUpperCase());
+		params.put("orientador", pruebaVIH.getOrientador().toUpperCase()+" ");
+		Date fecha = pruebaVIH.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigo", pruebaVIH.getCodigo().toUpperCase()+" ");
+		params.put("resultado", pruebaVIH.getResultado()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebaVIH_"+pruebaVIH.getCodigo()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	
+	/* Fin PruebaVIH */
 	
 	
 	/*
