@@ -20,6 +20,9 @@
 			<sec:authorize access="hasRole('ADMINISTRADOR')">
            		<a href="<c:url value='/newUser' />">Crear Usuario</a>&nbsp; &nbsp; - &nbsp; &nbsp;
        		</sec:authorize>
+       		<sec:authorize access="hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')">
+				<a href="<c:url value='/buscarPruebaVIH?orientador=&fechaLaboratorio=&codigo=' />">Pruebas VIH</a>&nbsp; &nbsp; - &nbsp; &nbsp;
+			</sec:authorize>
 			<c:if test="${user == 'anonymousUser'}">
 				<a href="<c:url value='/login' />">Iniciar Sesion</a>
 			</c:if>

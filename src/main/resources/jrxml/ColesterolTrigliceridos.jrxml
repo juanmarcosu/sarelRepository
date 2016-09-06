@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sigsa7" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="16"/>
 	<parameter name="logoUSAC" class="java.io.InputStream"/>
 	<parameter name="logoUSALUD" class="java.io.InputStream"/>
 	<parameter name="titulo" class="java.lang.String"/>
@@ -31,7 +31,7 @@
 				<reportElement x="0" y="125" width="572" height="18"/>
 			</rectangle>
 			<image isUsingCache="true" isLazy="true">
-				<reportElement x="450" y="0" width="81" height="72"/>
+				<reportElement x="452" y="0" width="81" height="72"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logoUSALUD}]]></imageExpression>
 			</image>
 			<image isUsingCache="true" isLazy="true">
@@ -116,14 +116,14 @@
 				<text><![CDATA[REGISTRO: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="156" y="263" width="114" height="18"/>
+				<reportElement x="170" y="263" width="114" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[QUÍMICO BIOLOGO: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="270" y="263" width="179" height="18"/>
+				<reportElement x="284" y="263" width="179" height="18"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isUnderline="true" isStrikeThrough="false"/>
 				</textElement>

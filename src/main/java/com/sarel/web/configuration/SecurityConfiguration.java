@@ -111,6 +111,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/editarEXAMEN_HECES").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarEXAMEN_HECES").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
+	  	.antMatchers("/buscarPruebaVIH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	.antMatchers("/consultarPRUEBA_VIH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	.antMatchers("/agregarPRUEBA_VIH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/editarPRUEBA_VIH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")

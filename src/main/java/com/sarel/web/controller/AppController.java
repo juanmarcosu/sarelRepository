@@ -19,6 +19,10 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
@@ -1873,6 +1877,37 @@ public class AppController {
 
 	@Autowired
     PruebaVIHService pruebaVIHService;
+	
+	@RequestMapping(value = { "/buscarPruebaVIH" }, method = RequestMethod.GET)
+	public String listaPruebasVIH(ModelMap model, @RequestParam("orientador") String pOrientador, @RequestParam("fechaLaboratorio") String pFecha
+			, @RequestParam("codigo") String pCodigo ) {
+		model.addAttribute("user", getPrincipal());
+		boolean parameters = false;
+		List<PruebaVIH> resultados = null;
+		Map<String, Object> params = new HashMap<String, Object>();
+		if(pOrientador!=null && !pOrientador.isEmpty()){
+			params.put("orientador", pOrientador);
+			parameters = true;
+		}
+		if(pFecha!=null && !pFecha.isEmpty()){
+			try{
+				DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyy");
+				LocalDate dt = formatter.parseLocalDate(pFecha);
+				params.put("fechaLaboratorio", dt);
+				parameters = true;
+			}catch(Exception e){}
+		}
+		if(pCodigo!=null && !pCodigo.isEmpty()){
+			params.put("codigo", pCodigo);
+			parameters = true;
+		}
+		if(parameters){
+			params.put("estado", EstadoResultadoLaboratorio.ACTIVO);
+			resultados = pruebaVIHService.findByCriteria(params);
+		}
+		model.addAttribute("resultados", resultados);
+		return "buscarPruebaVIH";
+	}
 	
 	@RequestMapping(value = { "/eliminarPRUEBA_VIH" }, method = RequestMethod.GET)
 	public String eliminarPruebaVIH(ModelMap model, @RequestParam("idPRUEBA_VIH") int idPruebaVIH) {

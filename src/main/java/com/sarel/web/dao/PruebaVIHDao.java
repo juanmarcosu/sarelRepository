@@ -1,6 +1,7 @@
 package com.sarel.web.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sarel.web.model.PruebaVIH;
 
@@ -12,5 +13,5 @@ public interface PruebaVIHDao {
 	void deletePruebaVIH(PruebaVIH pruebaVIH);
 	List<PruebaVIH> findAll();
 	List<PruebaVIH> findByCodigo(String pCodigo);
-
+	List<PruebaVIH> findByCriteria(Map<String, Object> params);
 }

@@ -1,6 +1,7 @@
 package com.sarel.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,8 @@ public class PruebaVIHServiceImpl implements PruebaVIHService {
 	}
 	public List<PruebaVIH> findByCodigo(String pCodigo) {
 		return dao.findByCodigo(pCodigo);
+	}
+	public List<PruebaVIH> findByCriteria(Map<String, Object> params) {
+		return dao.findByCriteria(params);
 	}
 }

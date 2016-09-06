@@ -31,7 +31,7 @@
 				<reportElement x="0" y="125" width="572" height="18"/>
 			</rectangle>
 			<image isUsingCache="true" isLazy="true">
-				<reportElement x="450" y="0" width="81" height="72"/>
+				<reportElement x="453" y="0" width="81" height="72"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logoUSALUD}]]></imageExpression>
 			</image>
 			<image isUsingCache="true" isLazy="true">
@@ -116,14 +116,14 @@
 				<text><![CDATA[REGISTRO: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="156" y="231" width="114" height="18"/>
+				<reportElement x="171" y="231" width="114" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[QUÍMICO BIOLOGO: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="270" y="231" width="179" height="18"/>
+				<reportElement x="286" y="231" width="179" height="18"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isUnderline="true" isStrikeThrough="false"/>
 				</textElement>

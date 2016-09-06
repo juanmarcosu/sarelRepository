@@ -70,7 +70,7 @@
 		    </tr>
 		    <tr>
 		    	<td><label for="bioquimico">Bioqu&iacute;mico: </label> </td>
-		    	<td><textarea path="bioquimico" id="bioquimico" rows="5" cols="25">Leucitos:&#13;&#10;Nitritos:&#13;&#10;Urobilim&oacute;geno:&#13;&#10;Prote&iacute;nas:&#13;&#10;Sangre:&#13;&#10;Cetonas:&#13;&#10;Bilirrubina:&#13;&#10;Grlucosa:&#13;&#10;
+		    	<td><textarea path="bioquimico" id="bioquimico" rows="5" cols="25">Leucocitos:&#13;&#10;Nitritos:&#13;&#10;Urobilin&oacute;geno:&#13;&#10;Prote&iacute;nas:&#13;&#10;Sangre:&#13;&#10;Cetonas:&#13;&#10;Bilirrubina:&#13;&#10;Glucosa:&#13;&#10;
 		    	</textarea></td>
 		    </tr>
 		    <tr>
