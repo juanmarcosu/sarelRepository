@@ -58,7 +58,7 @@
 				<td><label for="hct">HCT:</label> </td>
 				<td><form:input path="hct" id="hct"/></td>
 				<td><label for="dimentionalhct"> % </label> </td>
-				<td><label for="hct2"></label>Hematocrito </td> 
+				<td><label for="hct2">Hematocrito</label> </td> 
 				<td><div class="has-error"><form:errors path="hct" class="help-inline"/></div></td>
 			</tr>
 			<tr>
@@ -72,7 +72,7 @@
 				<td><label for="hgb">HGB:</label> </td>	
 				<td><form:input path="hgb" id="hgb"/></td>
 				<td><label for="dimentionalhgb"> g/dl </label> </td>
-				<td><label for="hgb2"></label>Hemoglobina </td> 
+				<td><label for="hgb2">Hemoglobina</label> </td> 
 				<td><div class="has-error"><form:errors path="hgb" class="help-inline"/></div></td>
 			</tr>
 			<tr>
@@ -93,14 +93,14 @@
 				<td><label for="plt">PLT:</label> </td>
 				<td><form:input path="plt" id="plt"/></td>
 				<td><label for="dimentionalplt"> x10<SUP>9</SUP> /L </label> </td> 
-				<td><label for="plt2"></label>Plaquetas </td>
+				<td><label for="plt2">Plaquetas</label> </td>
 				<td><div class="has-error"><form:errors path="plt" class="help-inline"/></div></td>
 			</tr>
 			<tr>
 				<td><label for="wbc">WBC:</label> </td>
 				<td><form:input path="wbc" id="wbc"/></td>
 				<td><label for="dimentionalwbc"> x10<SUP>9</SUP> /L </label> </td> 
-				<td><label for="wbc2"></label>Recuento de Globulos Blancos </td>
+				<td><label for="wbc2">Recuento de Globulos Blancos</label></td>
 				<td><div class="has-error"><form:errors path="wbc" class="help-inline"/></div></td>
 			</tr>
 			<tr>

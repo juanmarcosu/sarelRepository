@@ -1602,6 +1602,18 @@ public class AppController {
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("gran", hematologiaCompleta.getGran().toString());
+		params.put("hct", hematologiaCompleta.getHct().toString());
+		params.put("hgb", hematologiaCompleta.getHgb().toString());
+		params.put("lym", hematologiaCompleta.getLym().toString());
+		params.put("mch", hematologiaCompleta.getMch().toString());
+		params.put("mchc", hematologiaCompleta.getMchc().toString());
+		params.put("mcv", hematologiaCompleta.getMcv().toString());
+		params.put("mid", hematologiaCompleta.getMid().toString());
+		params.put("plt", hematologiaCompleta.getPlt().toString());
+		params.put("rbc", hematologiaCompleta.getRbc().toString());
+		params.put("vse", hematologiaCompleta.getVse().toString());
+		params.put("wbc", hematologiaCompleta.getWbc().toString());
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
