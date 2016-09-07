@@ -170,8 +170,8 @@ public class AppController {
             }
         }
          
-        model.addAttribute("success", "Usuario " + user.getFirstName() + " a sido creado exitosamente");
-        return "registrationsuccess";
+        model.addAttribute("message", "Usuario " + user.getFirstName() + " a sido creado exitosamente");
+        return "welcome";
     }
 
 	private String getPrincipal(){
