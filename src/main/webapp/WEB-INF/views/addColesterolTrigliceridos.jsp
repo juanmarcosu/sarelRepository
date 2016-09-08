@@ -10,7 +10,6 @@
 	<title>Cho-Tri</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
 	<script>
 	function checkMod(){
 		checkResultado();
@@ -27,11 +26,15 @@
 	</script>
 </head>
 
-<body onload="checkMod()">
+<body class="ng-cloak" onload="checkMod()">
+	<div class="generic-container" >
+          <div class="panel panel-default">
+	<div class="panel-heading"><span class="lead">Cho-Tri</span></div>
+     	<div class="formcontainer">
+     	<div class="tablecontainer">
+	<form:form modelAttribute="colesterolTrigliceridos" method="POST" class="form-horizontal"  >
 	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
-	<h2>Cho-Tri</h2>
  
-	<form:form method="POST" modelAttribute="colesterolTrigliceridos">
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
@@ -44,9 +47,7 @@
 				<td><div class="has-error"><form:errors path="fechaLaboratorio" class="help-inline"/></div></td>
 		    </tr>
 		</table>
-		<br>
 		<hr size=3>
-		<br>
 		<table>
 			<tr>
 				<td><label for="colesterol">Colesterol: </label> </td>
@@ -86,5 +87,9 @@
 		</table>
 		</div>
 	</form:form>
+	</div>     
+	</div>
+	</div>
+	</div>
 </body>
 </html>

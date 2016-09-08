@@ -10,7 +10,6 @@
 	<title>Glucosa pre-pp</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
 	<script>
 	function checkMod(){
 		checkResultado();
@@ -27,11 +26,14 @@
 	</script>
 </head>
 
-<body onload="checkMod()">
-	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
-	<h2>Glucosa pre-pp</h2>
- 
-	<form:form method="POST" modelAttribute="glucosaPreYPost">
+<body class="ng-cloak" onload="checkMod()">
+	<div class="generic-container" >
+          <div class="panel panel-default">
+	<div class="panel-heading"><span class="lead">Glucosa pre-pp</span></div>
+     	<div class="formcontainer">
+     	<div class="tablecontainer">
+     	<form:form modelAttribute="glucosaPreYPost" method="POST" class="form-horizontal"  >
+     	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
@@ -44,9 +46,7 @@
 				<td><div class="has-error"><form:errors path="fechaLaboratorio" class="help-inline"/></div></td>
 		    </tr>
 		</table>
-		<br>
 		<hr size=3>
-		<br>
 		<table>
 			<tr>
 				<td><label for="prePrandial">Glucosa pre-prandial: </label> </td>
@@ -86,5 +86,9 @@
 		</table>
 		</div>
 	</form:form>
+	</div>     
+	</div>
+	</div>
+	</div>
 </body>
 </html>

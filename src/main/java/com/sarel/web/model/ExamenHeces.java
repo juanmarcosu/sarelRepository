@@ -15,7 +15,7 @@ import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="EXAMEN_HECES")
+@Table(name="EXAMEN_HECES", schema="laboratorio")
 public class ExamenHeces {
 	
 	private EstadoResultadoLaboratorio estado = EstadoResultadoLaboratorio.ACTIVO;

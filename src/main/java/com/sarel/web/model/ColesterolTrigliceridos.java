@@ -17,7 +17,7 @@ import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="COLESTEROL_TRIGLICERIDOS")
+@Table(name="COLESTEROL_TRIGLICERIDOS", schema="laboratorio")
 public class ColesterolTrigliceridos {
 	
 	private EstadoResultadoLaboratorio estado = EstadoResultadoLaboratorio.ACTIVO;
@@ -38,10 +38,10 @@ public class ColesterolTrigliceridos {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaLaboratorio;
 	
-	@Column(name = "colesterol", unique=false, nullable = false)
+	@Column(name = "colesterol", unique=false, nullable = true)
 	private BigDecimal colesterol;
 	
-	@Column(name = "trigliceridos", unique=false, nullable = false)
+	@Column(name = "trigliceridos", unique=false, nullable = true)
 	private BigDecimal trigliceridos;
 	
 	@Enumerated(EnumType.STRING)

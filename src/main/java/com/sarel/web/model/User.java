@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="APP_USER")
+@Table(name="APP_USER", schema="laboratorio")
 public class User {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -10,7 +10,7 @@
 	<title>Acido Urico</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
+	<%-- <link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>--%>
 	<script>
 	function checkMod(){
 		if ("${soloConsulta}" == "true") {
@@ -26,11 +26,15 @@
 	</script>
 </head>
 
-<body onload="checkMod()">
+<body class="ng-cloak" onload="checkMod()">
+	<div class="generic-container" >
+          <div class="panel panel-default">
+	<div class="panel-heading"><span class="lead">Acido Urico </span></div>
+     	<div class="formcontainer">
+     	<div class="tablecontainer">
+	<form:form modelAttribute="acidoUrico" method="POST" class="form-horizontal"  >
 	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
-	<h2>Acido Urico</h2>
- 
-	<form:form method="POST" modelAttribute="acidoUrico" class="form-horizontal">
+	
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
@@ -43,9 +47,7 @@
 				<td><div class="has-error"><form:errors path="fechaLaboratorio" class="help-inline"/></div></td>
 		    </tr>
 		</table>
-		<br>
 		<hr size=3>
-		<br>
 		<table>
 			<tr>
 				<td><label for="nivelAcidoUrico">Acido Urico: </label> </td>
@@ -65,14 +67,6 @@
 		    </tr>
 		    <tr>
 		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>
-		    	<%--
-		    	<td><form:select path="quimicoBiologo" id="quimicoBiologo" class="form-control input-sm">
-		    	<option value="" >Seleccionar</option>
-		    	<c:forEach items="${laboratoristas}" var="user">
-		    		<option value=${user}>${user.ssoId}</option>
-		    	</c:forEach>
-		    	</form:select><td>
-		    	 --%>
 		    	<td><form:select path="idQuimicoBiologo" id="idQuimicoBiologo" items="${laboratoristas}" multiple="false" itemValue="id" itemLabel="ssoId" class="form-control input-sm"/></td>
 		    	
 		    	<td><div class="has-error"><form:errors path="idQuimicoBiologo" class="help-inline"/></div></td>
@@ -92,5 +86,9 @@
 		</table>
 		</div>
 	</form:form>
+	</div>     
+	</div>
+	</div>
+	</div>
 </body>
 </html>
