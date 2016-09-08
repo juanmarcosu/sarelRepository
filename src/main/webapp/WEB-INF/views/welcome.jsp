@@ -10,9 +10,10 @@
     <title>Pagina de Bienvenida</title>
 </head>
 <body>
-	<div class="has-success"><label>${message}</label></div>
+	<div class="has-success" align="center"><label>${message}</label></div>
+	<div class="has-error" align="center"><label>${alert}</label></div>
 	<div align ="center">
-		<img src="<c:url value='/recursos/imagenes/tricentenaria.jpg' />" /></td>
+		<img src="<c:url value='/recursos/imagenes/tricentenaria.jpg' />" />
 	</div>
 	<%-- 
     <div>
@@ -21,4 +22,5 @@
         </sec:authorize>
     </div>
     --%>
+    </body>
 </html>

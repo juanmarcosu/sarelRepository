@@ -120,7 +120,8 @@ public class AppController {
 	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
 	public String accessDeniedPage(ModelMap model) {
 		model.addAttribute("user", getPrincipal());
-		return "accessDenied";
+		model.addAttribute("alert", "ACESSO DENEGADO... Consulte a su administrador");
+		return "welcome";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -153,24 +154,11 @@ public class AppController {
             BindingResult result, ModelMap model) {
  
         if (result.hasErrors()) {
-            System.out.println("Se encontraron errores");
             return "newuser";
         }
         userService.save(user);
-         
-        System.out.println("First Name : "+user.getFirstName());
-        System.out.println("Last Name : "+user.getLastName());
-        System.out.println("SSO ID : "+user.getSsoId());
-        System.out.println("Password : "+user.getPassword());
-        System.out.println("Email : "+user.getEmail());
-        System.out.println("Checking UsrProfiles....");
-        if(user.getUserProfiles()!=null){
-            for(UserProfile profile : user.getUserProfiles()){
-                System.out.println("Profile : "+ profile.getType());
-            }
-        }
-         
-        model.addAttribute("message", "Usuario " + user.getFirstName() + " a sido creado exitosamente");
+        model.addAttribute("user", getPrincipal());
+        model.addAttribute("message", "Usuario " + user.getSsoId() + " a sido creado exitosamente");
         return "welcome";
     }
 
