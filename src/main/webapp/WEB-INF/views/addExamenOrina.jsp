@@ -10,7 +10,6 @@
 	<title>Examen de Orina</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
 	<script>
 	function checkMod(){
 		if ("${soloConsulta}" == "true") {
@@ -27,11 +26,16 @@
 	</script>
 </head>
 
-<body onload="checkMod()">
-	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
-	<h2>Examen de Orina</h2>
+<body class="ng-cloak" onload="checkMod()">
+	<div class="generic-container" >
+          <div class="panel panel-default">
+	<div class="panel-heading"><span class="lead">Examen de Orina</span></div>
+     	<div class="formcontainer">
+     	<div class="tablecontainer">
+     	<form:form modelAttribute="examenOrina" method="POST" class="form-horizontal"  >
+     	<div class="has-error"><label>${alerta}</label></div>
+     	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
  
-	<form:form method="POST" modelAttribute="examenOrina">
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
@@ -44,13 +48,12 @@
 				<td><div class="has-error"><form:errors path="fechaLaboratorio" class="help-inline"/></div></td>
 		    </tr>
 		</table>
-		<br>
 		<hr size=3>
-		<br>
 		<table>
 			<tr>
 				<td><label for="color">Color: </label> </td>
 				<td><form:select path="color" id="color" items="${coloresOrina}" multiple="false" itemValue="name" itemLabel="colorOrina" class="form-control input-sm"/> </td>
+				<td></td>
 				<td><label for="aspecto">Aspecto: </label> </td>
 				<td><form:select path="aspecto" id="aspecto" items="${aspectosOrina}" multiple="false" itemValue="name" itemLabel="aspectoOrina" class="form-control input-sm"/></td> 
 				<td><div class="has-error"><form:errors path="color" class="help-inline"/></div></td>
@@ -58,11 +61,12 @@
 		    </tr>
 		    <tr>
 		    	<td><label for="otroColor">Otro color: </label> </td>
-		    	<form:input path="otroColor" id="otroColor"/></td>
+		    	<td><form:input path="otroColor" id="otroColor"/></td>
 		    </tr> 
 		    <tr>
 				<td><label for="ph">Ph: </label> </td>
 				<td><form:input path="ph" id="ph"/></td>
+				<td></td>
 				<td><label for="densidad">Densidad: </label> </td>
 				<td><form:input path="densidad" id="densidad"/></td>
 				<td><div class="has-error"><form:errors path="ph" class="help-inline"/></div></td>
@@ -141,5 +145,9 @@
 		</table>
 		</div>
 	</form:form>
+	</div>     
+	</div>
+	</div>
+	</div>
 </body>
 </html>

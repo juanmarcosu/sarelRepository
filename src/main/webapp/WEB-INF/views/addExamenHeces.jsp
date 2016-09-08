@@ -10,7 +10,6 @@
 	<title>Examen de Heces Fecales</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
 	<script>
 	function checkMod(){
 		if ("${soloConsulta}" == "true") {
@@ -27,11 +26,16 @@
 	</script>
 </head>
 
-<body onload="checkMod()">
-	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
-	<h2>Examen de Heces Fecales</h2>
+<body class="ng-cloak" onload="checkMod()">
+	<div class="generic-container" >
+          <div class="panel panel-default">
+	<div class="panel-heading"><span class="lead">Examen de Heces Fecales</span></div>
+     	<div class="formcontainer">
+     	<div class="tablecontainer">
+     	<form:form modelAttribute="examenHeces" method="POST" class="form-horizontal"  >
+     	<div class="has-error"><label>${alerta}</label></div>
+     	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
  
-	<form:form method="POST" modelAttribute="examenHeces">
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
@@ -44,24 +48,24 @@
 				<td><div class="has-error"><form:errors path="fechaLaboratorio" class="help-inline"/></div></td>
 		    </tr>
 		</table>
-		<br>
 		<hr size=3>
-		<br>
 		<table>
 			<tr>
 				<td><label for="aspecto">Aspecto: </label> </td>
 				<td><form:select path="aspecto" id="aspecto" items="${aspectosHeces}" multiple="false" itemValue="name" itemLabel="aspectoHeces" class="form-control input-sm"/></td> 
 				<td><label for="otroAspecto">Otro: </label> </td>
 				<td><form:input path="otroAspecto" id="otroAspecto"/></td>
-				<td><label for="moco">Moco: </label> </td>
-				<td><form:select path="moco" id="moco" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>
-				<td><label for="sangre">Sangre: </label> </td>
-				<td><form:select path="sangre" id="sangre" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>  
 				<td><div class="has-error"><form:errors path="aspecto" class="help-inline"/></div>
 				<div class="has-error"><form:errors path="otroAspecto" class="help-inline"/></div>
+		    </tr> 
+		    <tr>
+		    	<td><label for="moco">Moco: </label> </td>
+				<td><form:select path="moco" id="moco" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>
+				<td><label for="sangre">Sangre: </label> </td>
+				<td><form:select path="sangre" id="sangre" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>
 				<div class="has-error"><form:errors path="moco" class="help-inline"/></div>
 				<div class="has-error"><form:errors path="sangre" class="help-inline"/></div></td>
-		    </tr> 
+		    </tr>
 		    <tr>
 		    	<td><label for="textoCilindros">Restos Alimenticios: </label> </td>
 		    	<td><form:select path="restosAlimenticios" id="restosAlimenticios" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>
@@ -118,5 +122,9 @@
 		</table>
 		</div>
 	</form:form>
+	</div>     
+	</div>
+	</div>
+	</div>
 </body>
 </html>

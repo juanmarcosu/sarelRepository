@@ -12,7 +12,6 @@
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 	<script>
 	function checkMod(){
-		checkResultado();
 		if ("${soloConsulta}" == "true") {
 			var el = document.getElementById('wholeForm'),
 		        all = el.getElementsByTagName('input'),

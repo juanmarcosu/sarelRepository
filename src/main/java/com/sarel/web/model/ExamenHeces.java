@@ -33,7 +33,7 @@ public class ExamenHeces {
 	@Column(name = "aspecto", unique=false, nullable = false)
 	private String aspecto;
 	
-	@Column(name = "otro_aspecto", unique=false, nullable = false)
+	@Column(name = "otro_aspecto", unique=false, nullable = true)
 	private String otroAspecto;
 	
 	@Column(name = "moco", unique=false, nullable = false)
@@ -42,28 +42,28 @@ public class ExamenHeces {
 	@Column(name = "sangre", unique=false, nullable = false)
 	private String sangre;
 	
-	@Column(name = "restos_alimenticios", unique=false, nullable = false)
+	@Column(name = "restos_alimenticios", unique=false, nullable = true)
 	private String restosAlimenticios;
 	
-	@Column(name = "parasitos", unique=false, nullable = false)
+	@Column(name = "parasitos", unique=false, nullable = true)
 	private String parasitos;
 	
-	@Column(name = "almidones", unique=false, nullable = false)
+	@Column(name = "almidones", unique=false, nullable = true)
 	private String almidones;
 	
-	@Column(name = "grasas", unique=false, nullable = false)
+	@Column(name = "grasas", unique=false, nullable = true)
 	private String grasas;
 	
-	@Column(name = "fibras_musculares", unique=false, nullable = false)
+	@Column(name = "fibras_musculares", unique=false, nullable = true)
 	private String fibrasMusculares;
 	
-	@Column(name = "jabones", unique=false, nullable = false)
+	@Column(name = "jabones", unique=false, nullable = true)
 	private String jabones;
 	
-	@Column(name = "texto_otros", unique=false, nullable = false)
+	@Column(name = "texto_otros", unique=false, nullable = true)
 	private String textoOtros;
 	
-	@Column(name = "otros", unique=false, nullable = false)
+	@Column(name = "otros", unique=false, nullable = true)
 	private String otros;
 	
 	@NotNull

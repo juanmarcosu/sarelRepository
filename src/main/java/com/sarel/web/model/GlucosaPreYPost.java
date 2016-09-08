@@ -38,10 +38,10 @@ public class GlucosaPreYPost {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaLaboratorio;
 
-	@Column(name = "pre_prandial", unique=false, nullable = false)
+	@Column(name = "pre_prandial", unique=false, nullable = true)
 	private BigDecimal prePrandial;
 	
-	@Column(name = "post_prandial", unique=false, nullable = false)
+	@Column(name = "post_prandial", unique=false, nullable = true)
 	private BigDecimal postPrandial;
 	
 	@Enumerated(EnumType.STRING)

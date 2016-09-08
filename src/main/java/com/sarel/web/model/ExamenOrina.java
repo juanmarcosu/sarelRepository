@@ -41,55 +41,55 @@ public class ExamenOrina {
 	@Column(name = "color", unique=false, nullable = false)
 	private String color;
 	
-	@Column(name = "otro_color", unique=false, nullable = false)
+	@Column(name = "otro_color", unique=false, nullable = true)
 	private String otroColor;
 	
-	@Column(name = "aspecto", unique=false, nullable = false)
+	@Column(name = "aspecto", unique=false, nullable = true)
 	private String aspecto;
 	
-	@Column(name = "ph", unique=false, nullable = false)
+	@Column(name = "ph", unique=false, nullable = true)
 	private BigDecimal ph;
 	
-	@Column(name = "densidad", unique=false, nullable = false)
+	@Column(name = "densidad", unique=false, nullable = true)
 	private BigDecimal densidad;
 	
-	@Column(name = "bioquimico", unique=false, nullable = false)
+	@Column(name = "bioquimico", unique=false, nullable = true)
 	private String bioquimico;
 	
-	@Column(name = "leucositos", unique=false, nullable = false)
+	@Column(name = "leucositos", unique=false, nullable = true)
 	private String leucositos;
 	
-	@Column(name = "eritrositos", unique=false, nullable = false)
+	@Column(name = "eritrositos", unique=false, nullable = true)
 	private String eritrositos;
 	
-	@Column(name = "celulas_epiteliales", unique=false, nullable = false)
+	@Column(name = "celulas_epiteliales", unique=false, nullable = true)
 	private String celulasEpiteliales;
 	
-	@Column(name = "moco", unique=false, nullable = false)
+	@Column(name = "moco", unique=false, nullable = true)
 	private String moco;
 	
-	@Column(name = "texto_cristales", unique=false, nullable = false)
+	@Column(name = "texto_cristales", unique=false, nullable = true)
 	private String textoCristales;
 	
-	@Column(name = "cristales", unique=false, nullable = false)
+	@Column(name = "cristales", unique=false, nullable = true)
 	private String cristales;
 	
-	@Column(name = "texto_cilindros", unique=false, nullable = false)
+	@Column(name = "texto_cilindros", unique=false, nullable = true)
 	private String textoCilindros;
 	
-	@Column(name = "cilindros", unique=false, nullable = false)
+	@Column(name = "cilindros", unique=false, nullable = true)
 	private String cilindros;
 	
-	@Column(name = "bacterias", unique=false, nullable = false)
+	@Column(name = "bacterias", unique=false, nullable = true)
 	private String bacterias;
 	
-	@Column(name = "texto_bacterias", unique=false, nullable = false)
+	@Column(name = "texto_bacterias", unique=false, nullable = true)
 	private String textoBacterias;
 	
-	@Column(name = "otros", unique=false, nullable = false)
+	@Column(name = "otros", unique=false, nullable = true)
 	private String otros;
 	
-	@Column(name = "texto_otros", unique=false, nullable = false)
+	@Column(name = "texto_otros", unique=false, nullable = true)
 	private String textoOtros;
 	
 	@Enumerated(EnumType.STRING)

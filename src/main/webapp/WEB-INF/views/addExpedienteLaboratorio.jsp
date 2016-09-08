@@ -10,7 +10,6 @@
 	<title>Expediente Laboratorio</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
 	<script>
 	function checkMod(){
 		if ("${soloConsulta}" == "true") {
@@ -27,10 +26,15 @@
 	</script>
 </head>
 
-<body onload="checkMod()">
-	<h2>Expediente Laboratorio</h2>
- 
-	<form:form method="POST" modelAttribute="expedienteLaboratorio">
+<body class="ng-cloak" onload="checkMod()">
+	<div class="generic-container" >
+          <div class="panel panel-default">
+	<div class="panel-heading"><span class="lead">Expediente Laboratorio</span></div>
+     	<div class="formcontainer">
+     	<div class="tablecontainer">
+     	<form:form modelAttribute="expedienteLaboratorio" method="POST" class="form-horizontal"  >
+     	<div class="has-error"><label>${alerta}</label></div>
+     	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idPaciente" id="idPaciente" value="0"/>
@@ -47,7 +51,7 @@
 				<td><div class="has-error"><form:errors path="apellidos" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>
-				<td><label for="fechaNacimiento">Fecha de Nacimiento (dd/MM/yyyy): </label> </td>
+				<td><label for="fechaNacimiento">Fecha de Nacimiento (yyyy-mm-dd): </label> </td>
 				<td><form:input path="fechaNacimiento" id="fechaNacimiento"/></td>
 				<td><div class="has-error"><form:errors path="fechaNacimiento" class="help-inline"/></div></td>
 		    </tr> 
@@ -96,5 +100,9 @@
 		</table>
 		</div>
 	</form:form>
+	</div>     
+	</div>
+	</div>
+	</div>
 </body>
 </html>

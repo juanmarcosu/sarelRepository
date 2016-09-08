@@ -39,7 +39,7 @@
 	<form name="pacientes" class="form-horizontal">
 	<div class="has-success"><label>${message}</label></div>
 	<div class="tablecontainer">
-	<h1>${expediente.nombres} ${expediente.apellidos}</h1>
+	<h3>${expediente.nombres} ${expediente.apellidos}</h3>
 	<table width="600">
 			<tr>
 				<td><label for="carne1">CARNE: ${expediente.carne} </label> </td>

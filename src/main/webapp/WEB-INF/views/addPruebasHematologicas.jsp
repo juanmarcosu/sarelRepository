@@ -10,7 +10,6 @@
 	<title>Pruebas Hematológicas</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
 	<script>
 	function checkMod(){
 		if ("${soloConsulta}" == "true") {
@@ -26,11 +25,15 @@
 	</script>
 </head>
 
-<body onload="checkMod()">
-	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
-	<h2>Pruebas Hematológicas</h2>
- 	<div class="has-error"><label>${alerta}</label></div>
-	<form:form method="POST" modelAttribute="pruebasHematologicas">
+<body class="ng-cloak" onload="checkMod()">
+	<div class="generic-container" >
+          <div class="panel panel-default">
+	<div class="panel-heading"><span class="lead">Pruebas Hematológicas</span></div>
+     	<div class="formcontainer">
+     	<div class="tablecontainer">
+     	<form:form modelAttribute="pruebasHematologicas" method="POST" class="form-horizontal"  >
+     	<div class="has-error"><label>${alerta}</label></div>
+     	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
@@ -43,9 +46,7 @@
 				<td><div class="has-error"><form:errors path="fechaLaboratorio" class="help-inline"/></div></td>
 		    </tr>
 		</table>
-		<br>
 		<hr size=3>
-		<br>
 		<table>
 			<tr>
 				<td><label for="velocidadSedimentacion">Velocidad de Sedimentación: </label> </td>
@@ -100,5 +101,9 @@
 		</table>
 		</div>
 	</form:form>
+	</div>     
+	</div>
+	</div>
+	</div>
 </body>
 </html>

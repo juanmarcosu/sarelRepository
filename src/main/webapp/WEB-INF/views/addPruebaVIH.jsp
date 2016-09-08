@@ -33,7 +33,6 @@
      	<div class="formcontainer">
      	<div class="tablecontainer">
      	<form:form modelAttribute="pruebaVIH" method="POST" class="form-horizontal">
-     	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<table>
