@@ -68,9 +68,6 @@ public class ExamenOrina {
 	@Column(name = "moco", unique=false, nullable = true)
 	private String moco;
 	
-	@Column(name = "texto_cristales", unique=false, nullable = true)
-	private String textoCristales;
-	
 	@Column(name = "cristales", unique=false, nullable = true)
 	private String cristales;
 	
@@ -183,12 +180,6 @@ public class ExamenOrina {
 	public void setMoco(String moco) {
 		this.moco = moco;
 	}
-	public String getTextoCristales() {
-		return textoCristales;
-	}
-	public void setTextoCristales(String textoCristales) {
-		this.textoCristales = textoCristales;
-	}
 	public String getCristales() {
 		return cristales;
 	}
@@ -203,6 +194,12 @@ public class ExamenOrina {
 	}
 	public String getCilindros() {
 		return cilindros;
+	}
+	public String getBioquimico() {
+		return bioquimico;
+	}
+	public void setBioquimico(String bioquimico) {
+		this.bioquimico = bioquimico;
 	}
 	public void setCilindros(String cilindros) {
 		this.cilindros = cilindros;

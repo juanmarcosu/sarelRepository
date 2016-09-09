@@ -25,7 +25,7 @@
      	<div class="formcontainer">
 	<form name="pacientes" class="form-horizontal">
 	<div class="tablecontainer">
-	<h2>Buscar Paciente:</h2>
+	<h3>Buscar Paciente:</h3>
 	<table>
 			<tr>
 				<td><label for="nombre">Nombre(s): </label> </td>
@@ -47,7 +47,7 @@
     <sec:authorize access="hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')">
     	<div align="right"><strong><a href="<c:url value='/agregarEXPEDIENTE_LABORATORIO' />">Crear Expediente Laboratorio</a></strong></div>
     </sec:authorize>
-    <h2>Resultados:</h2>
+    <h3>Resultados:</h3>
 	<table class="table table-hover">
 		<tr>
 			<td>id Paciente</td><td>Nombre</td><td>Apellido</td><td>Carne</td><td>Fecha Nacimiento</td><td>Ver Perfil</td>

@@ -19,8 +19,18 @@
 		    for (i = 0; i < all.length; i++) {
 		        all[i].disabled = true;
 		    }
-		    document.getElementById('idQuimicoBiologo').disabled = true;
-		    document.getElementById('resultado').disabled = true;
+		    var els = document.getElementById('wholeForm'),
+		        alls = els.getElementsByTagName('select'),
+		        is;
+		    for (is = 0; is < alls.length; is++) {
+		        alls[is].disabled = true;
+		    }
+		    var elt = document.getElementById('wholeForm'),
+		        allt = elt.getElementsByTagName('textarea'),
+		        it;
+		    for (it = 0; it < allt.length; it++) {
+		        allt[it].disabled = true;
+		    }
 		}
 	}
 	</script>
@@ -63,7 +73,7 @@
 				<td><form:select path="moco" id="moco" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>
 				<td><label for="sangre">Sangre: </label> </td>
 				<td><form:select path="sangre" id="sangre" items="${cantidadPresente}" multiple="false" itemValue="name" itemLabel="cantidadPresente" class="form-control input-sm"/></td>
-				<div class="has-error"><form:errors path="moco" class="help-inline"/></div>
+				<td><div class="has-error"><form:errors path="moco" class="help-inline"/></div>
 				<div class="has-error"><form:errors path="sangre" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>
@@ -73,7 +83,7 @@
 		    </tr>
 		    <tr>
 				<td><label for="parasitos">Parasitos: </label> </td>
-				<td><textarea path="parasitos" id="parasitos" rows="5" cols="25"></textarea></td> 
+				<td><form:textarea path="parasitos" id="parasitos" rows="5" cols="25"></form:textarea></td> 
 				<td><div class="has-error"><form:errors path="parasitos" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>

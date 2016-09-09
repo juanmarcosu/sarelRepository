@@ -19,8 +19,18 @@
 		    for (i = 0; i < all.length; i++) {
 		        all[i].disabled = true;
 		    }
-		    document.getElementById('idQuimicoBiologo').disabled = true;
-		    document.getElementById('resultado').disabled = true;
+		    var els = document.getElementById('wholeForm'),
+		        alls = els.getElementsByTagName('select'),
+		        is;
+		    for (is = 0; is < alls.length; is++) {
+		        alls[is].disabled = true;
+		    }
+		    var elt = document.getElementById('wholeForm'),
+		        allt = elt.getElementsByTagName('textarea'),
+		        it;
+		    for (it = 0; it < allt.length; it++) {
+		        allt[it].disabled = true;
+		    }
 		}
 	}
 	</script>
@@ -74,8 +84,7 @@
 		    </tr>
 		    <tr>
 		    	<td><label for="bioquimico">Bioqu&iacute;mico: </label> </td>
-		    	<td><textarea path="bioquimico" id="bioquimico" rows="5" cols="25">Leucocitos:&#13;&#10;Nitritos:&#13;&#10;Urobilin&oacute;geno:&#13;&#10;Prote&iacute;nas:&#13;&#10;Sangre:&#13;&#10;Cetonas:&#13;&#10;Bilirrubina:&#13;&#10;Glucosa:&#13;&#10;
-		    	</textarea></td>
+		    	<td><form:textarea path="bioquimico" id="bioquimico" rows="5" cols="25"></form:textarea></td>
 		    </tr>
 		    <tr>
 				<td><label for="leucositos">Leucocitos: </label> </td>
@@ -100,7 +109,7 @@
 		    </tr> 
 		    <tr>
 				<td><label for="cristales">Cristales: </label> </td>
-				<td><textarea path="cristales" id="cristales" rows="5" cols="25"></textarea> 
+				<td><form:textarea path="cristales" id="cristales" rows="5" cols="25"></form:textarea> 
 				<td><div class="has-error"><form:errors path="cristales" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>
