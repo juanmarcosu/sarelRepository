@@ -2,9 +2,9 @@
 -- Table structure for table `EXAMEN_ORINA`
 --
 
-DROP TABLE IF EXISTS `EXAMEN_ORINA`;
+DROP TABLE IF EXISTS laboratorio.`EXAMEN_ORINA`;
 
-CREATE TABLE `EXAMEN_ORINA` (
+CREATE TABLE laboratorio.`EXAMEN_ORINA` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `id_expediente` int(20) NOT NULL,
   `fecha_laboratorio` DATE NOT NULL,

@@ -34,7 +34,6 @@
      	<div class="tablecontainer">
      	<form:form modelAttribute="expedienteLaboratorio" method="POST" class="form-horizontal"  >
      	<div class="has-error"><label>${alerta}</label></div>
-     	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	<div id = "wholeForm">
 		<form:input type="hidden" path="id" id="id"/>
 		<form:input type="hidden" path="idPaciente" id="idPaciente" value="0"/>

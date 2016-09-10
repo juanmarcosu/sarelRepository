@@ -35,13 +35,13 @@
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logoUSALUD}]]></imageExpression>
 			</image>
 			<image isUsingCache="true" isLazy="true">
-				<reportElement stretchType="RelativeToBandHeight" x="45" y="18" width="94" height="54"/>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="143" height="72"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{logoUSAC}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="156" y="0" width="283" height="18"/>
+				<reportElement x="143" y="0" width="307" height="18"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Universidad de San Carlos De Guatemala]]></text>
 			</staticText>
@@ -55,28 +55,28 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="143" y="86" width="307" height="22"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-					<font fontName="Arial" size="18" isBold="true" isUnderline="false"/>
+					<font fontName="SansSerif" size="18" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{titulo}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="143" y="18" width="307" height="18" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dirección General de Docencia]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="143" y="36" width="307" height="18" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[División de Bienestar Estudiantil Universitario]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="143" y="54" width="307" height="18" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Unidad de Salud Laboratorio]]></text>
 			</staticText>
