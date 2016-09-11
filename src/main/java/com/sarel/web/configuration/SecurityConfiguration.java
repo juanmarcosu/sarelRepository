@@ -117,6 +117,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/editarPRUEBA_VIH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarPRUEBA_VIH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
+	  	.antMatchers("/descargarManualdeUsuario").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	
 	  	.antMatchers("/verExpedienteLaboratorio").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	//.and().formLogin().loginPage("/login")
 	  	.and().formLogin().loginPage("/login").successHandler(customSuccessHandler)

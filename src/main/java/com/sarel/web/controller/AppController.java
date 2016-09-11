@@ -1,6 +1,7 @@
 package com.sarel.web.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1589,18 +1590,18 @@ public class AppController {
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
-		params.put("gran", hematologiaCompleta.getGran().toString());
-		params.put("hct", hematologiaCompleta.getHct().toString());
-		params.put("hgb", hematologiaCompleta.getHgb().toString());
-		params.put("lym", hematologiaCompleta.getLym().toString());
-		params.put("mch", hematologiaCompleta.getMch().toString());
-		params.put("mchc", hematologiaCompleta.getMchc().toString());
-		params.put("mcv", hematologiaCompleta.getMcv().toString());
-		params.put("mid", hematologiaCompleta.getMid().toString());
-		params.put("plt", hematologiaCompleta.getPlt().toString());
-		params.put("rbc", hematologiaCompleta.getRbc().toString());
-		params.put("vse", hematologiaCompleta.getVse().toString());
-		params.put("wbc", hematologiaCompleta.getWbc().toString());
+		params.put("gran", (hematologiaCompleta.getGran()==null)?"":hematologiaCompleta.getGran().toString());
+		params.put("hct", (hematologiaCompleta.getHct()==null)?"":hematologiaCompleta.getHct().toString());
+		params.put("hgb", (hematologiaCompleta.getHgb()==null)?"":hematologiaCompleta.getHgb().toString());
+		params.put("lym", (hematologiaCompleta.getLym()==null)?"":hematologiaCompleta.getLym().toString());
+		params.put("mch", (hematologiaCompleta.getMch()==null)?"":hematologiaCompleta.getMch().toString());
+		params.put("mchc", (hematologiaCompleta.getMchc()==null)?"":hematologiaCompleta.getMchc().toString());
+		params.put("mcv", (hematologiaCompleta.getMcv()==null)?"":hematologiaCompleta.getMcv().toString());
+		params.put("mid", (hematologiaCompleta.getMid()==null)?"":hematologiaCompleta.getMid().toString());
+		params.put("plt", (hematologiaCompleta.getPlt()==null)?"":hematologiaCompleta.getPlt().toString());
+		params.put("rbc", (hematologiaCompleta.getRbc()==null)?"":hematologiaCompleta.getRbc().toString());
+		params.put("vse", (hematologiaCompleta.getVse()==null)?"":hematologiaCompleta.getVse().toString());
+		params.put("wbc", (hematologiaCompleta.getWbc()==null)?"":hematologiaCompleta.getWbc().toString());
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1731,6 +1732,23 @@ public class AppController {
 		Date fecha = examenOrina.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("aspecto", (examenOrina.getAspecto()==null)?"":examenOrina.getAspecto().toString());
+		params.put("bacterias", (examenOrina.getBacterias()==null)?"":examenOrina.getBacterias().toString());
+		params.put("bioquimico", (examenOrina.getBioquimico()==null)?"":examenOrina.getBioquimico().toString());
+		params.put("celulasEpiteliales", (examenOrina.getCelulasEpiteliales()==null)?"":examenOrina.getCelulasEpiteliales() .toString());
+		params.put("cilindros", (examenOrina.getCilindros()==null)?"":examenOrina.getCilindros() .toString());
+		params.put("color", (examenOrina.getColor()==null)?"":examenOrina.getColor() .toString());
+		params.put("cristales", (examenOrina.getCristales()==null)?"":examenOrina.getCristales() .toString());
+		params.put("densidad", (examenOrina.getDensidad()==null)?"":examenOrina.getDensidad() .toString());
+		params.put("eritrositos", (examenOrina.getEritrositos()==null)?"":examenOrina.getEritrositos() .toString());
+		params.put("leucositos", (examenOrina.getLeucositos()==null)?"":examenOrina.getLeucositos() .toString());
+		params.put("moco", (examenOrina.getMoco()==null)?"":examenOrina.getMoco() .toString());
+		params.put("otroColor", (examenOrina.getOtroColor()==null)?"":examenOrina.getOtroColor() .toString());
+		params.put("otros", (examenOrina.getOtros()==null)?"":examenOrina.getOtros() .toString());
+		params.put("ph", (examenOrina.getPh()==null)?"":examenOrina.getPh() .toString());
+		params.put("textoBacterias", (examenOrina.getTextoBacterias()==null)?"":examenOrina.getTextoBacterias() .toString());
+		params.put("textoCilindros", (examenOrina.getTextoCilindros()==null)?"":examenOrina.getTextoCilindros() .toString());
+		params.put("textoOtros", (examenOrina.getTextoOtros()==null)?"":examenOrina.getTextoOtros() .toString());
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
@@ -1858,6 +1876,18 @@ public class AppController {
 		Date fecha = examenHeces.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("almidones", (examenHeces.getAlmidones() ==null)?"":examenHeces.getAlmidones() .toString());
+		params.put("aspecto", (examenHeces.getAspecto() ==null)?"":examenHeces.getAspecto() .toString());
+		params.put("fibrasMusculares", (examenHeces.getFibrasMusculares() ==null)?"":examenHeces.getFibrasMusculares() .toString());
+		params.put("grasas", (examenHeces.getGrasas() ==null)?"":examenHeces.getGrasas() .toString());
+		params.put("jabones", (examenHeces.getJabones() ==null)?"":examenHeces.getJabones() .toString());
+		params.put("moco", (examenHeces.getMoco() ==null)?"":examenHeces.getMoco() .toString());
+		params.put("otroAspecto", (examenHeces.getOtroAspecto() ==null)?"":examenHeces.getOtroAspecto() .toString());
+		params.put("otros", (examenHeces.getOtros() ==null)?"":examenHeces.getOtros() .toString());
+		params.put("parasitos", (examenHeces.getParasitos() ==null)?"":examenHeces.getParasitos() .toString());
+		params.put("restosAlimenticios", (examenHeces.getRestosAlimenticios() ==null)?"":examenHeces.getRestosAlimenticios() .toString());
+		params.put("sangre", (examenHeces.getSangre() ==null)?"":examenHeces.getSangre() .toString());
+		params.put("textoOtros", (examenHeces.getTextoOtros() ==null)?"":examenHeces.getTextoOtros() .toString());
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
@@ -2009,6 +2039,29 @@ public class AppController {
 	
 	/* Fin PruebaVIH */
 	
+	@RequestMapping(value = { "/descargarManualdeUsuario" }, method = RequestMethod.GET)
+	public String servirManualUsuario(HttpServletResponse response, ModelMap model){		 
+		response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Manual_Usuario_SAREL.pdf");
+	    try {
+			OutputStream outStream = response.getOutputStream();
+			InputStream in = new ClassPathResource("Manual_Usuario_SAREL.pdf").getInputStream();
+			byte[] outputByte = new byte[4096];
+			//copy binary contect to output stream
+			while(in.read(outputByte, 0, 4096) != -1)
+			{
+				outStream.write(outputByte, 0, 4096);
+			}
+			in.close();
+			outStream.flush();
+			outStream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+		return null;
+	}
 	
 	/*
 	 * This method will list all existing employees.
