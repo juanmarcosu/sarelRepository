@@ -2,7 +2,7 @@ package com.sarel.web.model;
 
 public enum CantidadPresente {
 
-	NINGUNA("Ninguna"),
+	_("_"),
 	ESCASA("Escasa"),
 	REGULAR_CANTIDAD("Regular Cantidad"),
 	ABUNDANTE("Abundante");
