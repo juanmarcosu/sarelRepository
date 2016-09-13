@@ -35,6 +35,9 @@ public class User {
 
 	@Column(name="EMAIL", nullable=false)
 	private String email;
+	
+	@Column(name="URL_SIGN", nullable=true)
+	private String urlSing;
 
 	@Column(name="STATE", nullable=false)
 	private String state=State.ACTIVE.getState();
@@ -91,6 +94,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUrlSing() {
+		return urlSing;
+	}
+
+	public void setUrlSing(String urlSing) {
+		this.urlSing = urlSing;
 	}
 
 	public String getState() {

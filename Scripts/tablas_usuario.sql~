@@ -1,5 +1,5 @@
 /*All User's are stored in APP_USER table*/
-create table laboratorio.APP_USER (
+create table APP_USER (
    id BIGINT NOT NULL AUTO_INCREMENT,
    sso_id VARCHAR(30) NOT NULL,
    password VARCHAR(100) NOT NULL,
@@ -13,7 +13,7 @@ create table laboratorio.APP_USER (
 );
   
 /* USER_PROFILE table contains all possible roles */
-create table laboratorio.USER_PROFILE(
+create table USER_PROFILE(
    id BIGINT NOT NULL AUTO_INCREMENT,
    type VARCHAR(30) NOT NULL,
    PRIMARY KEY (id),
@@ -21,12 +21,12 @@ create table laboratorio.USER_PROFILE(
 );
   
 /* JOIN TABLE for MANY-TO-MANY relationship*/ 
-CREATE TABLE laboratorio.APP_USER_USER_PROFILE (
+CREATE TABLE APP_USER_USER_PROFILE (
     user_id BIGINT NOT NULL,
     user_profile_id BIGINT NOT NULL,
     PRIMARY KEY (user_id, user_profile_id),
-    CONSTRAINT FK_APP_USER FOREIGN KEY (user_id) REFERENCES laboratorio.APP_USER (id),
-    CONSTRAINT FK_USER_PROFILE FOREIGN KEY (user_profile_id) REFERENCES laboratorio.USER_PROFILE (id)
+    CONSTRAINT FK_APP_USER FOREIGN KEY (user_id) REFERENCES APP_USER (id),
+    CONSTRAINT FK_USER_PROFILE FOREIGN KEY (user_profile_id) REFERENCES USER_PROFILE (id)
 );
 
 /* Populate CONSULTOR_PROFILE Table */
@@ -42,6 +42,6 @@ VALUES ('ADMINISTRADOR');
 INSERT INTO laboratorio.APP_USER(sso_id, password, first_name, last_name, email, url_sign, state)
 VALUES ('juanmarcos','$2a$10$70rj5fADrPb.VHuNzezwPehvghosh3cUHLWGr1shcpnZHvPEppL0G', 'juanmarcos','AdminYLaboratorista','juanmarcos@xyz.com','juan.chacon.png', 'Active');
  
-INSERT INTO laboratorio.APP_USER_USER_PROFILE (USER_id, USER_profile_id)
-  SELECT USER.id, profile.id FROM laboratorio.APP_USER USER, laboratorio.USER_PROFILE profile  
+INSERT INTO APP_USER_USER_PROFILE (USER_id, USER_profile_id)
+  SELECT USER.id, profile.id FROM APP_USER USER, USER_PROFILE profile  
   where USER.sso_id='juanmarcos' and profile.type='ADMINISTRADOR';

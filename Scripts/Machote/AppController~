@@ -1,8 +1,10 @@
+	/* Fin PerfilLipidico */
+
 	@Autowired
-    PerfilLipidicoService perfilLipidicoService;
+    	PerfilLipidicoService perfilLipidicoService;
 	
-	@RequestMapping(value = { "/eliminarPerfilLipidico" }, method = RequestMethod.GET)
-	public String eliminarPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPerfilLipidico") int idPerfil) {
+	@RequestMapping(value = { "/eliminarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
+	public String eliminarPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PerfilLipidico nuevoPerfilLipidico = perfilLipidicoService.findById(idPerfil);
 		nuevoPerfilLipidico.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
@@ -15,8 +17,8 @@
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/consultarPerfilLipidico" }, method = RequestMethod.GET)
-	public String consultarPerfilLipidico(ModelMap model, @RequestParam("idPerfilLipidico") int idPerfil) {
+	@RequestMapping(value = { "/consultarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
+	public String consultarPerfilLipidico(ModelMap model, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
 		model.addAttribute("perfilLipidico", perfilLipidico);
@@ -26,8 +28,8 @@
 		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/editarPerfilLipidico" }, method = RequestMethod.GET)
-	public String editarPerfilLipidico(ModelMap model, @RequestParam("idPerfilLipidico") int idPerfil) {
+	@RequestMapping(value = { "/editarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
+	public String editarPerfilLipidico(ModelMap model, @RequestParam("idPERFIL_LIPIDICO") int idPerfil) {
 		model.addAttribute("user", getPrincipal());
 		PerfilLipidico perfilLipidico = perfilLipidicoService.findById(idPerfil);
 		ExpedienteLaboratorio expediente = expedienteService.findById(perfilLipidico.getIdExpediente());
@@ -37,7 +39,7 @@
 		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/editarPerfilLipidico" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/editarPERFIL_LIPIDICO" }, method = RequestMethod.POST)
 	public String modificarPerfilLipidico(ModelMap model, @Valid PerfilLipidico perfilLipidico, BindingResult result) {
 		
 		if (result.hasErrors()) {
@@ -54,7 +56,7 @@
 		return "verExpedienteLaboratorio";
 	}
 	
-	@RequestMapping(value = { "/agregarperfillipidico" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/agregarPERFIL_LIPIDICO" }, method = RequestMethod.GET)
 	public String nuevoPerfilLipidico(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
 		model.addAttribute("user", getPrincipal());
 		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
@@ -67,7 +69,7 @@
 		return "addPerfilLipidico";
 	}
 	
-	@RequestMapping(value = { "/agregarperfillipidico" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/agregarPERFIL_LIPIDICO" }, method = RequestMethod.POST)
 	public String guardarPerfilLipidico(@Valid PerfilLipidico perfilLipidico, BindingResult result, 
 			ModelMap model) {
 		
@@ -84,3 +86,5 @@
 		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + perfilLipidico.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
+	
+	/* Fin PerfilLipidico */

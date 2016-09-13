@@ -536,6 +536,7 @@ public class AppController {
 		params.put("resistenciaInsulina", (perfilLipidico.getResistenciaInsulina()==null)?"":perfilLipidico.getResistenciaInsulina().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -664,6 +665,7 @@ public class AppController {
 		params.put("resultado", pruebaEmbarazo.getResultado());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -792,6 +794,7 @@ public class AppController {
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("acidoUrico", acidoUrico.getNivelAcidoUrico().toString());
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
@@ -923,6 +926,7 @@ public class AppController {
 		params.put("nivelVDRL", (pruebaVDRL.getNivelVDRL()==null)?"":pruebaVDRL.getNivelVDRL().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1052,6 +1056,7 @@ public class AppController {
 		params.put("trigliceridos", (colesterolTrigliceridos.getTrigliceridos()==null?"":colesterolTrigliceridos.getTrigliceridos().toString()));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1181,6 +1186,7 @@ public class AppController {
 		params.put("postPrandial", (glucosaPreYPost.getPostPrandial()==null)?"":glucosaPreYPost.getPostPrandial().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1323,6 +1329,7 @@ public class AppController {
 		params.put("antiEstreptolisinaO", (pruebaSerologica.getAntiEstreptolisinaO()==null)?"":pruebaSerologica.getAntiEstreptolisinaO().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1463,6 +1470,7 @@ public class AppController {
 		params.put("hematocrito", (pruebasHematologicas.getHematocrito()==null)?"":pruebasHematologicas.getHematocrito().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1602,6 +1610,7 @@ public class AppController {
 		params.put("rbc", (hematologiaCompleta.getRbc()==null)?"":hematologiaCompleta.getRbc().toString());
 		params.put("vse", (hematologiaCompleta.getVse()==null)?"":hematologiaCompleta.getVse().toString());
 		params.put("wbc", (hematologiaCompleta.getWbc()==null)?"":hematologiaCompleta.getWbc().toString());
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1750,6 +1759,7 @@ public class AppController {
 		params.put("textoCilindros", (examenOrina.getTextoCilindros()==null)?"":examenOrina.getTextoCilindros() .toString());
 		params.put("textoOtros", (examenOrina.getTextoOtros()==null)?"":examenOrina.getTextoOtros() .toString());
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1889,6 +1899,7 @@ public class AppController {
 		params.put("sangre", (examenHeces.getSangre() ==null)?"":examenHeces.getSangre() .toString());
 		params.put("textoOtros", (examenHeces.getTextoOtros() ==null)?"":examenHeces.getTextoOtros() .toString());
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -2026,6 +2037,7 @@ public class AppController {
 		params.put("codigo", pruebaVIH.getCodigo().toUpperCase()+" ");
 		params.put("resultado", pruebaVIH.getResultado()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
