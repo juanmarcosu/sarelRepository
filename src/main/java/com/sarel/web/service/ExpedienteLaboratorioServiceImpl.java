@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class ExpedienteLaboratorioServiceImpl implements ExpedienteLaboratorioSe
 		return dao.findVeinte();
 	}
 
-	public ExpedienteLaboratorio findByCarnet(Integer carne) {
+	public ExpedienteLaboratorio findByCarnet(BigInteger carne) {
 		return dao.findByCarnet(carne);
 	}
 	

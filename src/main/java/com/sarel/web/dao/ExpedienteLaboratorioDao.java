@@ -1,5 +1,6 @@
 package com.sarel.web.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public interface ExpedienteLaboratorioDao {
 	
 	List<ExpedienteLaboratorio> findVeinte();
 
-	ExpedienteLaboratorio findByCarnet(Integer carne);
+	ExpedienteLaboratorio findByCarnet(BigInteger carne);
 	
 	ExpedienteLaboratorio findByIdPaciente(Integer idPaciente);
 	

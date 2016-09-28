@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sigsa7" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="81"/>
-	<property name="ireport.y" value="110"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="98"/>
 	<parameter name="logoUSAC" class="java.io.InputStream"/>
 	<parameter name="logoUSALUD" class="java.io.InputStream"/>
 	<parameter name="titulo" class="java.lang.String"/>
@@ -16,12 +16,17 @@
 	<parameter name="anio" class="java.lang.String"/>
 	<parameter name="subreporte" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="sign" class="java.io.InputStream"/>
+	<parameter name="sello" class="java.io.InputStream"/>
 	<field name="parameters" class="java.util.Map"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="348" splitType="Stretch">
+			<image isUsingCache="true" isLazy="true">
+				<reportElement stretchType="RelativeToBandHeight" x="353" y="225" width="100" height="100"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$P{sello}]]></imageExpression>
+			</image>
 			<rectangle radius="10">
 				<reportElement x="143" y="0" width="307" height="70"/>
 				<graphicElement>
@@ -159,7 +164,7 @@
 				<text><![CDATA[Laboratorio]]></text>
 			</staticText>
 			<image isUsingCache="true" isLazy="true">
-				<reportElement stretchType="RelativeToBandHeight" x="203" y="205" width="150" height="115"/>
+				<reportElement stretchType="RelativeToBandHeight" x="203" y="210" width="150" height="115"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{sign}]]></imageExpression>
 			</image>
 		</band>

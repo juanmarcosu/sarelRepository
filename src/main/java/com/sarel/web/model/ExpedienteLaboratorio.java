@@ -1,5 +1,7 @@
 package com.sarel.web.model;
 
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,14 +38,13 @@ public class ExpedienteLaboratorio {
 	@Column(name = "apellidos", nullable = false)
 	private String apellidos;
 	
-	@NotNull
 	@DateTimeFormat(pattern="yyyy-MM-dd") 
-	@Column(name = "fecha_nacimiento", nullable = false)
+	@Column(name = "fecha_nacimiento", nullable = true)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaNacimiento;
 	
 	@Column(name = "no_registro", unique=true, nullable = false)
-	private Integer carne;
+	private BigInteger carne;
 	
 	@Column(name = "direccion", nullable = true)
 	private String direccion;
@@ -74,7 +75,7 @@ public class ExpedienteLaboratorio {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + idPaciente;
-		result = prime * result + ((carne == null) ? 0 : carne);
+		//result = prime * result + ((carne == null) ? 0 : carne);
 		return result;
 	}
 
@@ -139,11 +140,11 @@ public class ExpedienteLaboratorio {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Integer getCarne() {
+	public BigInteger getCarne() {
 		return carne;
 	}
 
-	public void setCarne(Integer carne) {
+	public void setCarne(BigInteger carne) {
 		this.carne = carne;
 	}
 

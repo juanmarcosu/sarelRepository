@@ -1,5 +1,6 @@
 package com.sarel.web.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class ExpedienteLaboratorioDaoImpl extends AbstractDao<Integer, Expedient
 		return (List<ExpedienteLaboratorio>) criteria.list();
 	}
 	
-	public ExpedienteLaboratorio findByCarnet(Integer carne) {
+	public ExpedienteLaboratorio findByCarnet(BigInteger carne) {
 		Criteria criteria = createEntityCriteria();
 		criteria.add(Restrictions.eq("carne", carne));
 		criteria.add(Restrictions.eq("estado", EstadoResultadoLaboratorio.ACTIVO));
@@ -65,7 +66,7 @@ public class ExpedienteLaboratorioDaoImpl extends AbstractDao<Integer, Expedient
 		if(params.containsKey("carne"))
 		{
 			String pCarne = (String) params.get("carne");
-			Integer carne = Integer.parseInt(pCarne);
+			BigInteger carne = new BigInteger(pCarne);
 			criteria.add(Restrictions.eq("carne", carne));
 		}
 		if(params.containsKey("nombres"))

@@ -16,6 +16,7 @@
 	<parameter name="anio" class="java.lang.String"/>
 	<parameter name="subreporte" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="sign" class="java.io.InputStream"/>
+	<parameter name="sello" class="java.io.InputStream"/>
 	<field name="parameters" class="java.util.Map"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -236,8 +237,12 @@
 				<text><![CDATA[Laboratorio]]></text>
 			</staticText>
 			<image isUsingCache="true" isLazy="true">
-				<reportElement stretchType="RelativeToBandHeight" x="203" y="230" width="150" height="115"/>
+				<reportElement stretchType="RelativeToBandHeight" x="203" y="235" width="150" height="115"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{sign}]]></imageExpression>
+			</image>
+			<image isUsingCache="true" isLazy="true">
+				<reportElement stretchType="RelativeToBandHeight" x="353" y="250" width="100" height="100"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$P{sello}]]></imageExpression>
 			</image>
 		</band>
 	</title>
