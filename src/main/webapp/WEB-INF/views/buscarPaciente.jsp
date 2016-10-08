@@ -50,7 +50,7 @@
     <h3>Resultados:</h3>
 	<table class="table table-hover">
 		<tr>
-			<td>id Paciente</td><td>Nombre</td><td>Apellido</td><td>Carne</td><td>Fecha Nacimiento</td><td>Ver Perfil</td>
+			<td>id Paciente</td><td>Nombre</td><td>Apellido</td><td>Numero de Registro</td><td>Fecha Nacimiento</td><td>Ver Perfil</td>
 		</tr>
 		 
 		<c:forEach items="${pacientes}" var="unPaciente">

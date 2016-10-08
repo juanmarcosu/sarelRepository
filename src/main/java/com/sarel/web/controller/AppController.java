@@ -52,6 +52,7 @@ import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.GlucosaPreYPost;
 import com.sarel.web.model.HematologiaCompleta;
 import com.sarel.web.model.Paciente;
+import com.sarel.web.model.PacienteVO;
 import com.sarel.web.model.ParametroExportacion;
 import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.PruebaEmbarazo;
@@ -270,7 +271,7 @@ public class AppController {
 			, @RequestParam("carne") String pCarne ) {
 		model.addAttribute("user", getPrincipal());
 		boolean parameters = false;
-		List<Paciente> pacientes = null;
+		List<PacienteVO> pacientes = null;
 		Map<String, Object> paramsPaciente = new HashMap<String, Object>();
 		Map<String, Object> paramsExpediente = new HashMap<String, Object>();
 		if(pNombre!=null && !pNombre.isEmpty()){
@@ -289,13 +290,13 @@ public class AppController {
 			parameters = true;
 		}
 		if(parameters){
-			pacientes = new ArrayList<Paciente>();
+			pacientes = new ArrayList<PacienteVO>();
 			paramsExpediente.put("estado", EstadoResultadoLaboratorio.ACTIVO);
 			List<ExpedienteLaboratorio> expedientes = expedienteService.findByCriteria(paramsExpediente);
 			for (ExpedienteLaboratorio unExpediente: expedientes){
-				Paciente unPacienteTemp = new Paciente();
+				PacienteVO unPacienteTemp = new PacienteVO();
 				unPacienteTemp.setIdPaciente(unExpediente.getIdPaciente());
-				unPacienteTemp.setCarne(unExpediente.getCarne().intValue());
+				unPacienteTemp.setCarne(unExpediente.getCarne());
 				unPacienteTemp.setNombre(unExpediente.getNombres());
 				unPacienteTemp.setApellido(unExpediente.getApellidos());
 				unPacienteTemp.setFechaNac(unExpediente.getFechaNacimiento());
@@ -306,8 +307,19 @@ public class AppController {
 			if(paramsPaciente.get("carne") != null && paramsPaciente.get("carne").toString().length() < 10){
 				List<Paciente> pacientesOld = pacienteService.findByCriteria(paramsPaciente);
 				for(Paciente unPaciente: pacientesOld){
-					if(!contains(pacientes, unPaciente)){
-						pacientes.add(unPaciente);
+					PacienteVO unPacienteVO = new PacienteVO();
+					unPacienteVO.setApellido(unPaciente.getApellido());
+					unPacienteVO.setCarne(BigInteger.valueOf(unPaciente.getCarne()));
+					unPacienteVO.setDireccion(unPaciente.getDireccion());
+					unPacienteVO.setEmail(unPaciente.getEmail());
+					unPacienteVO.setFechaNac(unPaciente.getFechaNac());
+					unPacienteVO.setIdPaciente(unPaciente.getIdPaciente());
+					unPacienteVO.setMovil(unPaciente.getMovil());
+					unPacienteVO.setNombre(unPaciente.getNombre());
+					unPacienteVO.setSexo(unPaciente.getSexo());
+					unPacienteVO.setTelefono(unPaciente.getTelefono());
+					if(!containsVO(pacientes, unPacienteVO)){
+						pacientes.add(unPacienteVO);
 					}
 				}
 			}
@@ -318,6 +330,18 @@ public class AppController {
 	
 	private Boolean contains(List<Paciente> destino, Paciente pacienteChecked){
 		for(Paciente unPaciente: destino){
+			if(unPaciente.getIdPaciente()==pacienteChecked.getIdPaciente()){
+				return true;
+			}
+			if(unPaciente.getCarne() != null && unPaciente.getCarne()==pacienteChecked.getCarne()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private Boolean containsVO(List<PacienteVO> destino, PacienteVO pacienteChecked){
+		for(PacienteVO unPaciente: destino){
 			if(unPaciente.getIdPaciente()==pacienteChecked.getIdPaciente()){
 				return true;
 			}
