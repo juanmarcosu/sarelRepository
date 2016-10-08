@@ -1236,7 +1236,7 @@ public class AppController {
 	/* Fin GlucosaPreYPost */
 	
 	
-	/* Fin PruebaSerologica */
+	/* Fin `logica */
 
 	@Autowired
     PruebaSerologicaService pruebaSerologicaService;
@@ -1284,12 +1284,6 @@ public class AppController {
 			return "addPruebaSerologica";
 		}
 		
-		if(pruebaSerologica.getResultadoAntiEstreptolisinaO().getName().equals("NEGATIVO") && pruebaSerologica.getResultadoFactorReumatoide().getName().equals("NEGATIVO") && pruebaSerologica.getResultadoProteinaCReactiva().getName().equals("NEGATIVO")){
-			model.addAttribute("alerta", "Debe ingresar al menos uno resultado para poder guardar...");
-			model.addAttribute("edit", true);
-			return "addPruebaSerologica";
-		}
-		
 		model.addAttribute("user", getPrincipal());
 		pruebaSerologicaService.updatePruebaSerologica(pruebaSerologica);
 		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaSerologica.getIdExpediente());
@@ -1318,11 +1312,6 @@ public class AppController {
 			ModelMap model) {
 		
 		if (result.hasErrors()) {
-			return "addPruebaSerologica";
-		}
-		
-		if(pruebaSerologica.getResultadoAntiEstreptolisinaO().getName().equals("NEGATIVO") && pruebaSerologica.getResultadoFactorReumatoide().getName().equals("NEGATIVO") && pruebaSerologica.getResultadoProteinaCReactiva().getName().equals("NEGATIVO")){
-			model.addAttribute("alerta", "Debe ingresar al menos uno resultado para poder guardar...");
 			return "addPruebaSerologica";
 		}
 		
