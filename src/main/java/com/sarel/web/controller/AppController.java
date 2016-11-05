@@ -304,7 +304,7 @@ public class AppController {
 			}
 			//La base de datos actual solo soporta Integers 
 			//Cuando agreguen soporte se habilitara esta parte
-			if(paramsPaciente.get("carne") != null && paramsPaciente.get("carne").toString().length() < 10){
+			if(paramsPaciente.get("carne") == null || (paramsPaciente.get("carne") != null && paramsPaciente.get("carne").toString().length() < 10)){
 				List<Paciente> pacientesOld = pacienteService.findByCriteria(paramsPaciente);
 				for(Paciente unPaciente: pacientesOld){
 					PacienteVO unPacienteVO = new PacienteVO();
