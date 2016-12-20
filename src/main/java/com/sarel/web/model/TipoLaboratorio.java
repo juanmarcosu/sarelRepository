@@ -12,7 +12,10 @@ public enum TipoLaboratorio {
 	PRUEBAS_HEMATOLOGICAS("Pruebas Hematológicas"),
 	HEMATOLOGIA_COMPLETA("Hematología Completa"),
 	EXAMEN_ORINA("Examen de Orina"),
-	EXAMEN_HECES("Examen de Heces Fecales");
+	EXAMEN_HECES("Examen de Heces Fecales"),
+	PRUEBA_DENGE("Prueba de Dengue"),
+	HELICOBACTER_PYLORI("Prueba de Helicobacter Pylori");
+	
 	
 	private String tipoLaboratorio;
 	

@@ -1,4 +1,4 @@
-	/* Fin PerfilLipidico */
+	/* Inicio PerfilLipidico */
 
 	@Autowired
     	PerfilLipidicoService perfilLipidicoService;

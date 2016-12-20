@@ -50,11 +50,13 @@ import com.sarel.web.model.ExamenHeces;
 import com.sarel.web.model.ExamenOrina;
 import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.GlucosaPreYPost;
+import com.sarel.web.model.HelicobacterPylori;
 import com.sarel.web.model.HematologiaCompleta;
 import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PacienteVO;
 import com.sarel.web.model.ParametroExportacion;
 import com.sarel.web.model.PerfilLipidico;
+import com.sarel.web.model.PruebaDengue;
 import com.sarel.web.model.PruebaEmbarazo;
 import com.sarel.web.model.PruebaSerologica;
 import com.sarel.web.model.PruebaVDRL;
@@ -72,9 +74,11 @@ import com.sarel.web.service.ExamenHecesService;
 import com.sarel.web.service.ExamenOrinaService;
 import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.GlucosaPreYPostService;
+import com.sarel.web.service.HelicobacterPyloriService;
 import com.sarel.web.service.HematologiaCompletaService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.PerfilLipidicoService;
+import com.sarel.web.service.PruebaDengueService;
 import com.sarel.web.service.PruebaEmbarazoService;
 import com.sarel.web.service.PruebaSerologicaService;
 import com.sarel.web.service.PruebaVDRLService;
@@ -2081,6 +2085,260 @@ public class AppController {
 	
 	/* Fin PruebaVIH */
 	
+	/* Inicio PruebaDengue */
+
+	@Autowired
+    PruebaDengueService pruebaDengueService;
+	
+	@RequestMapping(value = { "/eliminarPRUEBA_DENGE" }, method = RequestMethod.GET)
+	public String eliminarPruebaDengue(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPRUEBA_DENGE") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaDengue nuevoPruebaDengue = pruebaDengueService.findById(idPerfil);
+		nuevoPruebaDengue.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebaDengueService.updatePruebaDengue(nuevoPruebaDengue);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Prueba de Dengue Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarPRUEBA_DENGE" }, method = RequestMethod.GET)
+	public String consultarPruebaDengue(ModelMap model, @RequestParam("idPRUEBA_DENGE") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaDengue pruebaDengue = pruebaDengueService.findById(idPerfil);
+		model.addAttribute("pruebaDengue", pruebaDengue);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaDengue.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebaDengue";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_DENGE" }, method = RequestMethod.GET)
+	public String editarPruebaDengue(ModelMap model, @RequestParam("idPRUEBA_DENGE") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaDengue pruebaDengue = pruebaDengueService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaDengue.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("pruebaDengue", pruebaDengue);
+		model.addAttribute("edit", true);
+		return "addPruebaDengue";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_DENGE" }, method = RequestMethod.POST)
+	public String modificarPruebaDengue(ModelMap model, @Valid PruebaDengue pruebaDengue, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaDengue";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebaDengueService.updatePruebaDengue(pruebaDengue);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaDengue.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Prueba de Dengue Numero: " + pruebaDengue.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_DENGE" }, method = RequestMethod.GET)
+	public String nuevoPruebaDengue(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		PruebaDengue pruebaDengue = new PruebaDengue();
+		model.addAttribute("pruebaDengue", pruebaDengue);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPruebaDengue";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_DENGE" }, method = RequestMethod.POST)
+	public String guardarPruebaDengue(@Valid PruebaDengue pruebaDengue, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaDengue";
+		}
+		
+		pruebaDengueService.savePruebaDengue(pruebaDengue);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaDengue.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + pruebaDengue.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirPRUEBA_DENGE" }, method = RequestMethod.GET)
+	public String imprimirPruebaDengue(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBA_DENGE") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebaDengue pruebaDengue = pruebaDengueService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaDengue.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebaDengue.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebaDengue.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Perfil Lipídico".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebaDengue.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("resultado", pruebaDengue.getResultado());
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebaDengue_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	/* Fin PruebaDengue */
+	
+	/* Inicio HelicobacterPylori */
+
+	@Autowired
+    HelicobacterPyloriService helicobacterPyloriService;
+	
+	@RequestMapping(value = { "/eliminarHELICOBACTER_PYLORI" }, method = RequestMethod.GET)
+	public String eliminarHelicobacterPylori(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idHELICOBACTER_PYLORI") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		HelicobacterPylori nuevoHelicobacterPylori = helicobacterPyloriService.findById(idPerfil);
+		nuevoHelicobacterPylori.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		helicobacterPyloriService.updateHelicobacterPylori(nuevoHelicobacterPylori);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarHELICOBACTER_PYLORI" }, method = RequestMethod.GET)
+	public String consultarHelicobacterPylori(ModelMap model, @RequestParam("idHELICOBACTER_PYLORI") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		HelicobacterPylori helicobacterPylori = helicobacterPyloriService.findById(idPerfil);
+		model.addAttribute("helicobacterPylori", helicobacterPylori);
+		ExpedienteLaboratorio expediente = expedienteService.findById(helicobacterPylori.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addHelicobacterPylori";
+	}
+	
+	@RequestMapping(value = { "/editarHELICOBACTER_PYLORI" }, method = RequestMethod.GET)
+	public String editarHelicobacterPylori(ModelMap model, @RequestParam("idHELICOBACTER_PYLORI") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		HelicobacterPylori helicobacterPylori = helicobacterPyloriService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(helicobacterPylori.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("helicobacterPylori", helicobacterPylori);
+		model.addAttribute("edit", true);
+		return "addHelicobacterPylori";
+	}
+	
+	@RequestMapping(value = { "/editarHELICOBACTER_PYLORI" }, method = RequestMethod.POST)
+	public String modificarHelicobacterPylori(ModelMap model, @Valid HelicobacterPylori helicobacterPylori, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addHelicobacterPylori";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		helicobacterPyloriService.updateHelicobacterPylori(helicobacterPylori);
+		ExpedienteLaboratorio expediente = expedienteService.findById(helicobacterPylori.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + helicobacterPylori.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarHELICOBACTER_PYLORI" }, method = RequestMethod.GET)
+	public String nuevoHelicobacterPylori(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		HelicobacterPylori helicobacterPylori = new HelicobacterPylori();
+		model.addAttribute("helicobacterPylori", helicobacterPylori);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addHelicobacterPylori";
+	}
+	
+	@RequestMapping(value = { "/agregarHELICOBACTER_PYLORI" }, method = RequestMethod.POST)
+	public String guardarHelicobacterPylori(@Valid HelicobacterPylori helicobacterPylori, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addHelicobacterPylori";
+		}
+		
+		helicobacterPyloriService.saveHelicobacterPylori(helicobacterPylori);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(helicobacterPylori.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + helicobacterPylori.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirHELICOBACTER_PYLORI" }, method = RequestMethod.GET)
+	public String imprimirHelicobacterPylori(HttpServletResponse response, ModelMap model, @RequestParam("idHELICOBACTER_PYLORI") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		HelicobacterPylori helicobacterPylori = helicobacterPyloriService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(helicobacterPylori.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(helicobacterPylori.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/HelicobacterPylori.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Perfil Lipídico".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = helicobacterPylori.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("resultado", helicobacterPylori.getResultado());
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=HelicobacterPylori_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	/* Fin HelicobacterPylori */
+	
 	@RequestMapping(value = { "/descargarManualdeUsuario" }, method = RequestMethod.GET)
 	public String servirManualUsuario(HttpServletResponse response, ModelMap model){		 
 		response.setContentType("application/x-pdf");
@@ -2332,6 +2590,30 @@ public class AppController {
 			}else if(unTipo.getName().equals(TipoLaboratorio.EXAMEN_HECES.getName())){
 				List<ExamenHeces> labs = examenHecesService.findByIdExpediente(idExpediente);
 				for(ExamenHeces unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_DENGE.getName())){
+				List<PruebaDengue> labs = pruebaDengueService.findByIdExpediente(idExpediente);
+				for(PruebaDengue unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.HELICOBACTER_PYLORI.getName())){
+				List<HelicobacterPylori> labs = helicobacterPyloriService.findByIdExpediente(idExpediente);
+				for(HelicobacterPylori unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
 					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);
