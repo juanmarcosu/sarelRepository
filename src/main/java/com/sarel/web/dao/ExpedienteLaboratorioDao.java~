@@ -1,0 +1,20 @@
+package com.sarel.web.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import com.sarel.web.model.c;
+
+public interface ExpedienteLaboratorioDao {
+
+	ExpedienteLaboratorio findById(int id);
+	
+	List<ExpedienteLaboratorio> findAll();
+	
+	List<ExpedienteLaboratorio> findVeinte();
+
+	ExpedienteLaboratorio findByCarnet(Integer carne);
+	
+	List<ExpedienteLaboratorio> findByCriteria(Map<String, Object> params);
+	
+}

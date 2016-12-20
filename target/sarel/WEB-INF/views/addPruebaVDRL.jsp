@@ -1,0 +1,98 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Prueba VDRL</title>
+	<jsp:include page="heading.jsp"/>
+	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+	<script>
+	function checkMod(){
+		checkResultado();
+		if ("${soloConsulta}" == "true") {
+			var el = document.getElementById('wholeForm'),
+		        all = el.getElementsByTagName('input'),
+		        i;
+		    for (i = 0; i < all.length; i++) {
+		        all[i].disabled = true;
+		    }
+		    document.getElementById('idQuimicoBiologo').disabled = true;
+		    document.getElementById('resultado').disabled = true;
+		}
+	}
+	function checkResultado(){
+		if(document.getElementById('resultado').value=='NEGATIVO'){
+			document.getElementById('reaVDRL').disabled = true;
+			document.getElementById('nivelVDRL').disabled = true;
+		}else{
+			document.getElementById('reaVDRL').disabled = false;
+			document.getElementById('nivelVDRL').disabled = false;
+		}
+	}
+	</script>
+</head>
+
+<body class="ng-cloak" onload="checkMod()">
+	<div class="generic-container" >
+          <div class="panel panel-default">
+	<div class="panel-heading"><span class="lead">Prueba VDRL</span></div>
+     	<div class="formcontainer">
+     	<div class="tablecontainer">
+     	<form:form modelAttribute="pruebaVDRL" method="POST" class="form-horizontal">
+     	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
+	<div id = "wholeForm">
+		<form:input type="hidden" path="id" id="id"/>
+		<form:input type="hidden" path="idExpediente" id="idExpediente" value="${idExpediente}"/>
+		<div class="has-error"><form:errors path="idExpediente" class="help-inline"/></div>
+		
+		<table>
+			<tr>
+				<td><label for="fechaLaboratorio">Fecha de Laboratorio (dd/MM/yyyy): </label> </td>
+				<td><form:input path="fechaLaboratorio" id="fechaLaboratorio"/></td>
+				<td><div class="has-error"><form:errors path="fechaLaboratorio" class="help-inline"/></div></td>
+		    </tr>
+		</table>
+		<hr size=3>
+		<table>
+			<tr>
+				<td><label for="resultado">Resultado: </label> </td>
+				<td><form:select path="resultado" id="resultado" items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado" class="form-control input-sm" onchange="checkResultado();"/></td>
+				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
+				
+					<td><label for="nivelVDRL">Prueba VDRL: </label> </td>
+					<td><form:input path="reaVDRL" id="reaVDRL" style="width: 20px;" value="1"/></td>
+					<td><div class="has-error"><form:errors path="reaVDRL" class="help-inline"/></div></td>
+					<td><label for="reaVDRL">:</label> </td>
+					<td><form:input path="nivelVDRL" id="nivelVDRL"/></td> 
+					<td><div class="has-error"><form:errors path="nivelVDRL" class="help-inline"/></div></td>
+				</tr>
+		    <tr>
+		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>
+		    	<td><form:select path="idQuimicoBiologo" id="idQuimicoBiologo" items="${laboratoristas}" multiple="false" itemValue="id" itemLabel="ssoId" class="form-control input-sm"/></td>		    	
+		    	<td><div class="has-error"><form:errors path="idQuimicoBiologo" class="help-inline"/></div></td>
+		    </tr>
+			<tr>
+				<td colspan="3">
+					<c:choose>
+						<c:when test="${edit}">
+							<input type="submit" value="Actualizar"/>
+						</c:when>
+						<c:otherwise>
+							<input type="submit" value="Crear"/>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
+		</table>
+		</div>
+	</form:form>
+	</div>     
+	</div>
+	</div>
+	</div>
+</body>
+</html>
