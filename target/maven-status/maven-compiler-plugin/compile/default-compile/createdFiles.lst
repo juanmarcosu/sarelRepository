@@ -8,6 +8,7 @@ com/sarel/web/service/HematologiaCompletaServiceImpl.class
 com/sarel/web/model/PruebaEmbarazo.class
 com/sarel/web/dao/UserDao.class
 com/sarel/web/service/PruebaSerologicaServiceImpl.class
+com/sarel/web/service/HemoglobinaGlucosaServiceImpl.class
 com/sarel/web/model/ExamenHeces.class
 com/sarel/web/dao/PruebaDengueDaoImpl.class
 com/sarel/web/service/PerfilLipidicoService.class
@@ -37,6 +38,7 @@ com/sarel/web/configuration/SecurityConfiguration.class
 com/sarel/web/dao/HematologiaCompletaDaoImpl.class
 com/sarel/web/controller/AppController.class
 com/sarel/web/model/Sexo.class
+com/sarel/web/dao/HemoglobinaGlucosaDao.class
 com/sarel/web/dao/ExamenOrinaDaoImpl.class
 com/sarel/web/model/ColorOrina.class
 com/sarel/web/dao/PruebaVIHDaoImpl.class
@@ -61,8 +63,10 @@ com/sarel/web/service/UserServiceImpl.class
 com/sarel/web/model/PruebaDengue.class
 com/sarel/web/model/EstadoResultadoLaboratorio.class
 com/sarel/web/service/PerfilLipidicoServiceImpl.class
+com/sarel/web/model/HemoglobinaGlucosa.class
 com/sarel/web/model/PruebaSerologica.class
 com/sarel/web/model/PacienteVO.class
+com/sarel/web/dao/HemoglobinaGlucosaDaoImpl.class
 com/sarel/web/dao/PacienteDaoImpl.class
 com/sarel/web/configuration/RoleToUserProfileConverter.class
 com/sarel/web/model/State.class
@@ -88,6 +92,7 @@ com/sarel/web/service/PruebasHematologicasServiceImpl.class
 com/sarel/web/dao/PruebaSerologicaDao.class
 com/sarel/web/model/Paciente.class
 com/sarel/web/model/HematologiaCompleta.class
+com/sarel/web/service/HemoglobinaGlucosaService.class
 com/sarel/web/dao/HelicobacterPyloriDaoImpl.class
 com/sarel/web/model/PruebaVDRL.class
 com/sarel/web/model/ExamenOrina.class

@@ -52,6 +52,7 @@ import com.sarel.web.model.ExpedienteLaboratorio;
 import com.sarel.web.model.GlucosaPreYPost;
 import com.sarel.web.model.HelicobacterPylori;
 import com.sarel.web.model.HematologiaCompleta;
+import com.sarel.web.model.HemoglobinaGlucosa;
 import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PacienteVO;
 import com.sarel.web.model.ParametroExportacion;
@@ -76,6 +77,7 @@ import com.sarel.web.service.ExpedienteLaboratorioService;
 import com.sarel.web.service.GlucosaPreYPostService;
 import com.sarel.web.service.HelicobacterPyloriService;
 import com.sarel.web.service.HematologiaCompletaService;
+import com.sarel.web.service.HemoglobinaGlucosaService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.PerfilLipidicoService;
 import com.sarel.web.service.PruebaDengueService;
@@ -2339,6 +2341,134 @@ public class AppController {
 	}
 	/* Fin HelicobacterPylori */
 	
+	/* Inicio HemoglobinaGlucosa */
+
+	@Autowired
+    HemoglobinaGlucosaService hemoglobinaGlucosaService;
+	
+	@RequestMapping(value = { "/eliminarHEMOGLOBINA_GLUCOSA" }, method = RequestMethod.GET)
+	public String eliminarHemoglobinaGlucosa(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idHEMOGLOBINA_GLUCOSA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		HemoglobinaGlucosa nuevoHemoglobinaGlucosa = hemoglobinaGlucosaService.findById(idPerfil);
+		nuevoHemoglobinaGlucosa.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		hemoglobinaGlucosaService.updateHemoglobinaGlucosa(nuevoHemoglobinaGlucosa);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Hemoglobina y Glucosa Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarHEMOGLOBINA_GLUCOSA" }, method = RequestMethod.GET)
+	public String consultarHemoglobinaGlucosa(ModelMap model, @RequestParam("idHEMOGLOBINA_GLUCOSA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		HemoglobinaGlucosa hemoglobinaGlucosa = hemoglobinaGlucosaService.findById(idPerfil);
+		model.addAttribute("hemoglobinaGlucosa", hemoglobinaGlucosa);
+		ExpedienteLaboratorio expediente = expedienteService.findById(hemoglobinaGlucosa.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addHemoglobinaGlucosa";
+	}
+	
+	@RequestMapping(value = { "/editarHEMOGLOBINA_GLUCOSA" }, method = RequestMethod.GET)
+	public String editarHemoglobinaGlucosa(ModelMap model, @RequestParam("idHEMOGLOBINA_GLUCOSA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		HemoglobinaGlucosa hemoglobinaGlucosa = hemoglobinaGlucosaService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(hemoglobinaGlucosa.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("hemoglobinaGlucosa", hemoglobinaGlucosa);
+		model.addAttribute("edit", true);
+		return "addHemoglobinaGlucosa";
+	}
+	
+	@RequestMapping(value = { "/editarHEMOGLOBINA_GLUCOSA" }, method = RequestMethod.POST)
+	public String modificarHemoglobinaGlucosa(ModelMap model, @Valid HemoglobinaGlucosa hemoglobinaGlucosa, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addHemoglobinaGlucosa";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		hemoglobinaGlucosaService.updateHemoglobinaGlucosa(hemoglobinaGlucosa);
+		ExpedienteLaboratorio expediente = expedienteService.findById(hemoglobinaGlucosa.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Hemoglobina y Glucosa Numero: " + hemoglobinaGlucosa.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarHEMOGLOBINA_GLUCOSA" }, method = RequestMethod.GET)
+	public String nuevoHemoglobinaGlucosa(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		HemoglobinaGlucosa hemoglobinaGlucosa = new HemoglobinaGlucosa();
+		model.addAttribute("hemoglobinaGlucosa", hemoglobinaGlucosa);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addHemoglobinaGlucosa";
+	}
+	
+	@RequestMapping(value = { "/agregarHEMOGLOBINA_GLUCOSA" }, method = RequestMethod.POST)
+	public String guardarHemoglobinaGlucosa(@Valid HemoglobinaGlucosa hemoglobinaGlucosa, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addHemoglobinaGlucosa";
+		}
+		
+		hemoglobinaGlucosaService.saveHemoglobinaGlucosa(hemoglobinaGlucosa);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(hemoglobinaGlucosa.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Hemoglobina y Glucosa Numero: " + hemoglobinaGlucosa.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirHEMOGLOBINA_GLUCOSA" }, method = RequestMethod.GET)
+	public String imprimirHemoglobinaGlucosa(HttpServletResponse response, ModelMap model, @RequestParam("idHEMOGLOBINA_GLUCOSA") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		HemoglobinaGlucosa hemoglobinaGlucosa = hemoglobinaGlucosaService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(hemoglobinaGlucosa.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(hemoglobinaGlucosa.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/HemoglobinaGlucosa.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Perfil Lipídico".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = hemoglobinaGlucosa.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("hemoglobinaGlicosilada", (hemoglobinaGlucosa.getHemoglobinaGlicosilada() ==null)?"":hemoglobinaGlucosa.getHemoglobinaGlicosilada().toString());
+		params.put("nivelPromedioGlucosa", (hemoglobinaGlucosa.getNivelPromedioGlucosa()==null)?"":hemoglobinaGlucosa.getNivelPromedioGlucosa().toString());
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=HemoglobinaGlucosa_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	/* Fin HemoglobinaGlucosa */
+	
 	@RequestMapping(value = { "/descargarManualdeUsuario" }, method = RequestMethod.GET)
 	public String servirManualUsuario(HttpServletResponse response, ModelMap model){		 
 		response.setContentType("application/x-pdf");
@@ -2614,6 +2744,18 @@ public class AppController {
 			}else if(unTipo.getName().equals(TipoLaboratorio.HELICOBACTER_PYLORI.getName())){
 				List<HelicobacterPylori> labs = helicobacterPyloriService.findByIdExpediente(idExpediente);
 				for(HelicobacterPylori unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.HEMOGLOBINA_GLUCOSA.getName())){
+				List<HemoglobinaGlucosa> labs = hemoglobinaGlucosaService.findByIdExpediente(idExpediente);
+				for(HemoglobinaGlucosa unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
 					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);
