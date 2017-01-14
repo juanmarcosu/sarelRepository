@@ -66,6 +66,7 @@ import com.sarel.web.model.PruebasHematologicas;
 import com.sarel.web.model.Resultado;
 import com.sarel.web.model.ResultadoLaboratorioVO;
 import com.sarel.web.model.Sexo;
+import com.sarel.web.model.TipoDengue;
 import com.sarel.web.model.TipoLaboratorio;
 import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
@@ -253,6 +254,16 @@ public class AppController {
 			sexos.add(unSexo);
 		}
 		return sexos;
+	}
+	
+	
+	@ModelAttribute("tiposDeDengue")
+    public List<TipoDengue> initializeTipoDengue() {
+		List<TipoDengue> tiposDeDengue = new ArrayList<TipoDengue>();
+		for (TipoDengue unTipoDengue :TipoDengue.values()){
+			tiposDeDengue.add(unTipoDengue);
+		}
+		return tiposDeDengue;
 	}
 
 	@Autowired
@@ -2201,6 +2212,7 @@ public class AppController {
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("resultado", pruebaDengue.getResultado());
+		params.put("tipoDengue", (pruebaDengue.getTipoDengue()==null)?"":pruebaDengue.getTipoDengue().toString());
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		

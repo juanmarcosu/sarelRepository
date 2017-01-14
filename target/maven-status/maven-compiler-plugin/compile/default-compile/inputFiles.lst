@@ -58,6 +58,7 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/PruebaVDRL.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/HelicobacterPyloriService.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PacienteServiceImpl.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/TipoDengue.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/GlucosaPreYPost.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/ResultadoLaboratorioVO.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebaVIHDaoImpl.java
@@ -92,8 +93,8 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/PruebaEmbarazo.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebaVIHService.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/ExamenOrinaServiceImpl.java
-/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/ColesterolTrigliceridosDao.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/ExpedienteLaboratorioDao.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/ColesterolTrigliceridosDao.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/ExamenHecesDaoImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/ExpedienteLaboratorioDaoImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/HelicobacterPylori.java

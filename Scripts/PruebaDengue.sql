@@ -9,6 +9,7 @@ CREATE TABLE laboratorio.`PRUEBA_DENGE` (
   `id_expediente` int(20) NOT NULL,
   `fecha_laboratorio` DATE NOT NULL,
   `resultado`  VARCHAR(50) NOT NULL,
+  `tipo_dengue`  VARCHAR(50),
   `id_quimico_biologo` bigint(20) NOT NULL,
   `estado`  VARCHAR(30) NOT NULL,
   PRIMARY KEY (`id`),

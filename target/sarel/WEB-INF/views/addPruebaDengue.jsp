@@ -12,15 +12,26 @@
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 	<script>
 	function checkMod(){
+		checkResultado();
 		if ("${soloConsulta}" == "true") {
 			var el = document.getElementById('wholeForm'),
 		        all = el.getElementsByTagName('input'),
-		        i;
+		        i,
+		        alls = el.getElementsByTagName('select'),
+		        j;
 		    for (i = 0; i < all.length; i++) {
 		        all[i].disabled = true;
 		    }
-		    document.getElementById('idQuimicoBiologo').disabled = true;
-		    document.getElementById('resultado').disabled = true;
+		    for (j = 0; j < alls.length; j++) {
+		        alls[j].disabled = true;
+		    }
+		}
+	}
+	function checkResultado(){
+		if(document.getElementById('resultado').value=='NEGATIVO'){
+			document.getElementById('tipoDengue').disabled = true;
+		}else{
+			document.getElementById('tipoDengue').disabled = false;
 		}
 	}
 	</script>
@@ -51,8 +62,10 @@
 		<table>
 			<tr>
 				<td><label for="resultado">Resultado: </label> </td>
-				<td><form:select path="resultado" id="resultado" items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado" class="form-control input-sm"/></td> 
+				<td><form:select path="resultado" id="resultado" items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado" class="form-control input-sm" onchange="checkResultado();"/></td> 
 				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
+				<td><form:select path="tipoDengue" id="tipoDengue" items="${tiposDeDengue}" multiple="false" itemValue="name" itemLabel="tipoDengue" class="form-control input-sm"/></td> 
+				<td><div class="has-error"><form:errors path="tipoDengue" class="help-inline"/></div></td>
 		    </tr> 
 		    
 		    <tr>

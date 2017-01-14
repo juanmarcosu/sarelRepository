@@ -84,6 +84,7 @@ com/sarel/web/configuration/SecurityWebApplicationInitializer.class
 com/sarel/web/dao/UserProfileDao.class
 com/sarel/web/service/HematologiaCompletaService.class
 com/sarel/web/dao/ResultadoLaboratorioVODaoImpl.class
+com/sarel/web/model/TipoDengue.class
 com/sarel/web/service/PruebaEmbarazoService.class
 com/sarel/web/model/Resultado.class
 com/sarel/web/model/PruebasHematologicas.class

@@ -39,6 +39,9 @@ public class PruebaDengue {
 	@Column(name = "resultado", unique=false, nullable = false)
 	private String resultado;
 	
+	@Column(name = "tipo_dengue", unique=false, nullable = true)
+	private String tipoDengue;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name="estado")
 	public EstadoResultadoLaboratorio getEstado(){
@@ -85,6 +88,12 @@ public class PruebaDengue {
 	public LocalDate getFechaLaboratorio() {
 		return fechaLaboratorio;
 	}
+	public String getTipoDengue() {
+		return tipoDengue;
+	}
+	public void setTipoDengue(String tipoDengue) {
+		this.tipoDengue = tipoDengue;
+	}
 	public void setFechaLaboratorio(LocalDate fechaLaboratorio) {
 		this.fechaLaboratorio = fechaLaboratorio;
 	}
@@ -106,7 +115,7 @@ public class PruebaDengue {
 	@Override
 	public String toString() {
 		return "PruebaDengue [id ="+ id +", idExpediente=" + idExpediente 
-				+", resultado=" + resultado +", idQuimicoBiologo=" + idQuimicoBiologo
+				+", resultado=" + resultado +", tipoDengue="+tipoDengue+", idQuimicoBiologo=" + idQuimicoBiologo
 				+", estado=" + estado.getEstadoResultadoLaboratorio()
 				+ "]";
 	}
