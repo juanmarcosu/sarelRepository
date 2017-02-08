@@ -164,7 +164,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ x10¹²/L]]></text>
+				<text><![CDATA[ x10 ¹²/L]]></text>
 			</staticText>
 			<textField>
 				<reportElement mode="Opaque" x="122" y="175" width="59" height="24" backcolor="#CCCCCC"/>
@@ -213,7 +213,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ x10ꝰ/L]]></text>
+				<text><![CDATA[ x10 ꝰ/L]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="300" y="175" width="122" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
@@ -297,7 +297,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ x10ꝰ/L]]></text>
+				<text><![CDATA[ x10 ꝰ/L]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="181" y="199" width="45" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
