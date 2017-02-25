@@ -6,7 +6,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Formulario de Creacion de nuevo Usuario</title>
+	<title>Formulario de creaci&oacute;n de nuevo usuario</title>
 	<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 	<link href="<c:url value='/static/css/appNewUser.css' />" rel="stylesheet"></link>
 </head>
@@ -15,7 +15,7 @@
 
  	<div class="form-container">
  	
- 	<h1>Formulario de Creacion de nuevo Usuario</h1>
+ 	<h1>Formulario de creaci&oacute;n de nuevo usuario</h1>
  	
 	<form:form method="POST" modelAttribute="user" class="form-horizontal">
 
