@@ -69,6 +69,7 @@ com/sarel/web/model/PacienteVO.class
 com/sarel/web/dao/HemoglobinaGlucosaDaoImpl.class
 com/sarel/web/dao/PacienteDaoImpl.class
 com/sarel/web/configuration/RoleToUserProfileConverter.class
+com/sarel/web/util/FormatoExportacionPruebaLaboratorio.class
 com/sarel/web/model/State.class
 com/sarel/web/model/User.class
 com/sarel/web/dao/ExamenHecesDaoImpl.class
@@ -83,6 +84,7 @@ com/sarel/web/service/PruebaVIHServiceImpl.class
 com/sarel/web/configuration/SecurityWebApplicationInitializer.class
 com/sarel/web/dao/UserProfileDao.class
 com/sarel/web/service/HematologiaCompletaService.class
+com/sarel/web/util/UtilsSarel.class
 com/sarel/web/dao/ResultadoLaboratorioVODaoImpl.class
 com/sarel/web/model/TipoDengue.class
 com/sarel/web/service/PruebaEmbarazoService.class
@@ -108,6 +110,7 @@ com/sarel/web/dao/AcidoUricoDao.class
 com/sarel/web/model/UserProfile.class
 com/sarel/web/service/PruebaVDRLService.class
 com/sarel/web/service/ExamenOrinaService.class
+com/sarel/web/util/ParametrosOmitidos.class
 com/sarel/web/model/GlucosaPreYPost.class
 com/sarel/web/model/ResultadoLaboratorioVO.class
 com/sarel/web/model/ExpedienteLaboratorio.class

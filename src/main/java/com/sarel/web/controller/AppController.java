@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import net.sf.jasperreports.engine.JRException;
@@ -27,6 +29,10 @@ import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -37,14 +43,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sarel.web.model.Employee;
-import com.sarel.web.service.EmployeeService;
 import com.sarel.web.model.AcidoUrico;
-import com.sarel.web.model.AspectoOrina;
 import com.sarel.web.model.AspectoHeces;
+import com.sarel.web.model.AspectoOrina;
 import com.sarel.web.model.CantidadPresente;
 import com.sarel.web.model.ColesterolTrigliceridos;
 import com.sarel.web.model.ColorOrina;
+import com.sarel.web.model.Employee;
 import com.sarel.web.model.EstadoResultadoLaboratorio;
 import com.sarel.web.model.ExamenHeces;
 import com.sarel.web.model.ExamenOrina;
@@ -72,6 +77,7 @@ import com.sarel.web.model.User;
 import com.sarel.web.model.UserProfile;
 import com.sarel.web.service.AcidoUricoService;
 import com.sarel.web.service.ColesterolTrigliceridosService;
+import com.sarel.web.service.EmployeeService;
 import com.sarel.web.service.ExamenHecesService;
 import com.sarel.web.service.ExamenOrinaService;
 import com.sarel.web.service.ExpedienteLaboratorioService;
@@ -89,14 +95,8 @@ import com.sarel.web.service.PruebaVIHService;
 import com.sarel.web.service.PruebasHematologicasService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import com.sarel.web.util.FormatoExportacionPruebaLaboratorio;
+import com.sarel.web.util.UtilsSarel;
 
 @Controller
 public class AppController {
@@ -584,6 +584,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -714,6 +718,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -845,6 +853,10 @@ public class AppController {
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("acidoUrico", acidoUrico.getNivelAcidoUrico().toString());
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -977,6 +989,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1108,6 +1124,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1239,6 +1259,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1372,6 +1396,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1514,6 +1542,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1655,6 +1687,10 @@ public class AppController {
 		params.put("wbc", (hematologiaCompleta.getWbc()==null)?"":hematologiaCompleta.getWbc().toString());
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1798,13 +1834,17 @@ public class AppController {
 		params.put("moco", (examenOrina.getMoco()==null)?"":examenOrina.getMoco() .toString());
 		params.put("otroColor", (examenOrina.getOtroColor()==null)?"":examenOrina.getOtroColor() .toString());
 		params.put("otros", (examenOrina.getOtros()==null)?"":examenOrina.getOtros() .toString());
-		params.put("ph", (examenOrina.getPh()==null)?"":examenOrina.getPh() .toString());
+		params.put("ph", (examenOrina.getPh()==null)?"": UtilsSarel.darFormatoANumero(examenOrina.getPh(),2));
 		params.put("textoBacterias", (examenOrina.getTextoBacterias()==null)?"":examenOrina.getTextoBacterias() .toString());
 		params.put("textoCilindros", (examenOrina.getTextoCilindros()==null)?"":examenOrina.getTextoCilindros() .toString());
 		params.put("textoOtros", (examenOrina.getTextoOtros()==null)?"":examenOrina.getTextoOtros() .toString());
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -1946,6 +1986,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -2085,6 +2129,10 @@ public class AppController {
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
 		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
 		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -2214,6 +2262,10 @@ public class AppController {
 		params.put("resultado", pruebaDengue.getResultado());
 		params.put("tipoDengue", (pruebaDengue.getTipoDengue()==null)?"":pruebaDengue.getTipoDengue().toString());
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -2341,6 +2393,10 @@ public class AppController {
 		params.put("resultado", helicobacterPylori.getResultado());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -2469,6 +2525,10 @@ public class AppController {
 		params.put("nivelPromedioGlucosa", (hemoglobinaGlucosa.getNivelPromedioGlucosa()==null)?"":hemoglobinaGlucosa.getNivelPromedioGlucosa().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+		
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");

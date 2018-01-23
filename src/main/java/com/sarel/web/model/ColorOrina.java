@@ -2,8 +2,9 @@ package com.sarel.web.model;
 
 public enum ColorOrina {
 
-	CAFE("Café"),
+	
 	AMARILLO("Amarillo"),
+	CAFE("Café"),
 	AMBAR("Ambar"),
 	ROJIZA("Rojiza"),
 	OTRO("Otro");
