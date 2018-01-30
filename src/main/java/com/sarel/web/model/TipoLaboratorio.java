@@ -15,7 +15,9 @@ public enum TipoLaboratorio {
 	EXAMEN_HECES("Examen de Heces Fecales"),
 	PRUEBA_DENGE("Prueba de Dengue"),
 	HELICOBACTER_PYLORI("Prueba de Helicobacter Pylori"),
-	HEMOGLOBINA_GLUCOSA("Hemoglobina Glicosilada");
+	HEMOGLOBINA_GLUCOSA("Hemoglobina Glicosilada"),
+	PRUEBAS_TIROIDEAS("Pruebas Tiroideas"),
+	ANTIGENO_PROSTATICO("Prueba de Antigeno Prostatico Especifico");
 	
 	private String tipoLaboratorio;
 	

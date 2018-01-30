@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Acido Urico</title>
+	<title>Antigeno Prostatico</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 	<%-- <link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>--%>
@@ -29,10 +29,10 @@
 <body class="ng-cloak" onload="checkMod()">
 	<div class="generic-container" >
           <div class="panel panel-default">
-	<div class="panel-heading"><span class="lead">Acido Urico </span></div>
+	<div class="panel-heading"><span class="lead">Prueba de Antigeno Prostatico Especifico</span></div>
      	<div class="formcontainer">
      	<div class="tablecontainer">
-	<form:form modelAttribute="acidoUrico" method="POST" class="form-horizontal"  >
+	<form:form modelAttribute="antigenoProstatico" method="POST" class="form-horizontal"  >
 	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	
 	<div id = "wholeForm">
@@ -50,21 +50,13 @@
 		<hr size=3>
 		<table>
 			<tr>
-				<td><label for="nivelAcidoUrico">Acido Urico: </label> </td>
-				<td><form:input path="nivelAcidoUrico" id="colesterolTotal"/></td>
-				<td><label for="nivelAcidoUrico"> mg/dl &nbsp; &nbsp; - &nbsp;</label> </td> 
-				<td><div class="has-error"><form:errors path="nivelAcidoUrico" class="help-inline"/></div></td>
-				<td><label>Referencia: </label></td>
-				<td><label>Hombres 3.4 - 7.0 mg/dl </label> </td>
+				<td><label for="resultado">Resultado: </label> </td>
+				<td><form:input path="resultado" id="resultado"/></td>
+				<td><label for="resultado"> &nbsp; &nbsp; - &nbsp;</label> </td> 
+				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
+				<td><label>Valor de Referencia: </label></td>
+				<td><label>Menor de 4.0 ng/mL </label> </td>
 			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><label>Mujeres 2.4 - 5.7 mg/dl </label> </td> 
-		    </tr>
 		    <tr>
 		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>
 		    	<td><form:select path="idQuimicoBiologo" id="idQuimicoBiologo" items="${laboratoristas}" multiple="false" itemValue="id" itemLabel="ssoId" class="form-control input-sm"/></td>

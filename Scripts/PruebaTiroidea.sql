@@ -1,0 +1,19 @@
+--
+-- Table structure for table `PRUEBAS_TIROIDEAS`
+--
+
+DROP TABLE IF EXISTS `PRUEBAS_TIROIDEAS`;
+
+CREATE TABLE `PRUEBAS_TIROIDEAS` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `id_expediente` int(20) NOT NULL,
+  `fecha_laboratorio` DATE NOT NULL,
+  `t_3` DOUBLE NOT NULL,
+  `t_4` DOUBLE NOT NULL,
+  `id_quimico_biologo` bigint(20) NOT NULL,
+  `estado`  VARCHAR(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_PRUEBAS_TIROIDEAS_QUIMICO` FOREIGN KEY (`id_quimico_biologo`) REFERENCES `APP_USER` (`id`),
+  CONSTRAINT `FK_PRUEBAS_TIROIDEAS_EXPEDIENTE` FOREIGN KEY (`id_expediente`) REFERENCES `EXPEDIENTE_LABORATORIO` (`id`),
+  KEY `Index20181` (`id_expediente`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
