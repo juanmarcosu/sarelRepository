@@ -142,6 +142,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/editarANTIGENO_PROSTATICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarANTIGENO_PROSTATICO").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
+	  	.antMatchers("/consultarPRUEBA_TSH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarPRUEBA_TSH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarPRUEBA_TSH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarPRUEBA_TSH").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	
 	  	.antMatchers("/descargarManualdeUsuario").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	
 	  	.antMatchers("/verExpedienteLaboratorio").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")

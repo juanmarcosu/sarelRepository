@@ -17,8 +17,8 @@ import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="PRUEBAS_TIROIDEAS")
-public class PruebaTiroidea {
+@Table(name="PRUEBA_TSH")
+public class PruebaTSH {
 	
 	private EstadoResultadoLaboratorio estado = EstadoResultadoLaboratorio.ACTIVO;
 	
@@ -38,12 +38,9 @@ public class PruebaTiroidea {
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaLaboratorio;
 
-	@Column(name = "t_3", unique=false, nullable = true)
-	private BigDecimal t3;
+	@Column(name = "resultado", unique=false, nullable = false)
+	private BigDecimal resultado;
 	
-	@Column(name = "t_4", unique=false, nullable = true)
-	private BigDecimal t4;
-
 	@Enumerated(EnumType.STRING)
 	@Column(name="estado")
 	public EstadoResultadoLaboratorio getEstado(){
@@ -59,9 +56,9 @@ public class PruebaTiroidea {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof PruebaTiroidea))
+		if (!(obj instanceof PruebaTSH))
 			return false;
-		PruebaTiroidea other = (PruebaTiroidea) obj;
+		PruebaTSH other = (PruebaTSH) obj;
 		if (id != other.id)
 			return false;
 		if (idExpediente != other.idExpediente)
@@ -81,17 +78,11 @@ public class PruebaTiroidea {
 	public void setIdExpediente(int idExpediente) {
 		this.idExpediente = idExpediente;
 	}
-	public BigDecimal getT3() {
-		return t3;
+	public BigDecimal getResultado() {
+		return resultado;
 	}
-	public void setT3(BigDecimal t3) {
-		this.t3 = t3;
-	}
-	public BigDecimal getT4() {
-		return t4;
-	}
-	public void setT4(BigDecimal t4) {
-		this.t4 = t4;
+	public void setResultado(BigDecimal resultado) {
+		this.resultado = resultado;
 	}
 	public LocalDate getFechaLaboratorio() {
 		return fechaLaboratorio;
@@ -116,9 +107,8 @@ public class PruebaTiroidea {
 	
 	@Override
 	public String toString() {
-		return "PruebaTiroidea [id ="+ id +", idExpediente=" + idExpediente 
-				+", t3=" + t3 +", t4=" + t4 
-				+", idQuimicoBiologo=" + idQuimicoBiologo
+		return "PruebaTSH [id ="+ id +", idExpediente=" + idExpediente 
+				+", resultado=" + resultado  +", idQuimicoBiologo=" + idQuimicoBiologo
 				//+", estado=" + EstadoResultadoLaboratorio.
 				+ "]";
 	}

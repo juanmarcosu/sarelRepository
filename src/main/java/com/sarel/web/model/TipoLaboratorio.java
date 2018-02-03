@@ -17,7 +17,8 @@ public enum TipoLaboratorio {
 	HELICOBACTER_PYLORI("Prueba de Helicobacter Pylori"),
 	HEMOGLOBINA_GLUCOSA("Hemoglobina Glicosilada"),
 	PRUEBAS_TIROIDEAS("Pruebas Tiroideas"),
-	ANTIGENO_PROSTATICO("Prueba de Antigeno Prostatico Especifico");
+	ANTIGENO_PROSTATICO("Prueba de Antigeno Prostatico Especifico"),
+	PRUEBA_TSH("Prueba de TSH");
 	
 	private String tipoLaboratorio;
 	

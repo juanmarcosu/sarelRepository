@@ -66,6 +66,7 @@ import com.sarel.web.model.PerfilLipidico;
 import com.sarel.web.model.PruebaDengue;
 import com.sarel.web.model.PruebaEmbarazo;
 import com.sarel.web.model.PruebaSerologica;
+import com.sarel.web.model.PruebaTSH;
 import com.sarel.web.model.PruebaTiroidea;
 import com.sarel.web.model.PruebaVDRL;
 import com.sarel.web.model.PruebaVIH;
@@ -93,6 +94,7 @@ import com.sarel.web.service.PerfilLipidicoService;
 import com.sarel.web.service.PruebaDengueService;
 import com.sarel.web.service.PruebaEmbarazoService;
 import com.sarel.web.service.PruebaSerologicaService;
+import com.sarel.web.service.PruebaTSHService;
 import com.sarel.web.service.PruebaTiroideaService;
 import com.sarel.web.service.PruebaVDRLService;
 import com.sarel.web.service.PruebaVIHService;
@@ -2625,6 +2627,11 @@ public class AppController {
 			return "addPruebaTiroidea";
 		}
 		
+		if(pruebaTiroidea.getT3() == null && pruebaTiroidea.getT4() == null){
+			model.addAttribute("alerta", "Debe ingresar al menos un resultado para poder guardar...");
+			return "addPruebaTiroidea";
+		}
+		
 		pruebaTiroideaService.savePruebaTiroidea(pruebaTiroidea);
 		model.addAttribute("user", getPrincipal());
 		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaTiroidea.getIdExpediente());
@@ -2804,6 +2811,138 @@ public class AppController {
 		return null;
 	}
 	/* Fin AntigenoProstatico */
+	
+	
+	/* Inicio PruebaTSH */
+
+	@Autowired
+    	PruebaTSHService pruebaTSHService;
+	
+	@RequestMapping(value = { "/eliminarPRUEBA_TSH" }, method = RequestMethod.GET)
+	public String eliminarPruebaTSH(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPRUEBA_TSH") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaTSH nuevoPruebaTSH = pruebaTSHService.findById(idPerfil);
+		nuevoPruebaTSH.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebaTSHService.updatePruebaTSH(nuevoPruebaTSH);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarPRUEBA_TSH" }, method = RequestMethod.GET)
+	public String consultarPruebaTSH(ModelMap model, @RequestParam("idPRUEBA_TSH") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaTSH pruebaTSH = pruebaTSHService.findById(idPerfil);
+		model.addAttribute("pruebaTSH", pruebaTSH);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaTSH.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebaTSH";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_TSH" }, method = RequestMethod.GET)
+	public String editarPruebaTSH(ModelMap model, @RequestParam("idPRUEBA_TSH") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaTSH pruebaTSH = pruebaTSHService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaTSH.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("pruebaTSH", pruebaTSH);
+		model.addAttribute("edit", true);
+		return "addPruebaTSH";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_TSH" }, method = RequestMethod.POST)
+	public String modificarPruebaTSH(ModelMap model, @Valid PruebaTSH pruebaTSH, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaTSH";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebaTSHService.updatePruebaTSH(pruebaTSH);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaTSH.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + pruebaTSH.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_TSH" }, method = RequestMethod.GET)
+	public String nuevoPruebaTSH(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		PruebaTSH pruebaTSH = new PruebaTSH();
+		model.addAttribute("pruebaTSH", pruebaTSH);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPruebaTSH";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_TSH" }, method = RequestMethod.POST)
+	public String guardarPruebaTSH(@Valid PruebaTSH pruebaTSH, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaTSH";
+		}
+		
+		pruebaTSHService.savePruebaTSH(pruebaTSH);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaTSH.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Prueba TSH Numero: " + pruebaTSH.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirPRUEBA_TSH" }, method = RequestMethod.GET)
+	public String imprimirPruebaTSH(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBA_TSH") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebaTSH pruebaTSH = pruebaTSHService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaTSH.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebaTSH.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebaTSH.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "PRUEBA DE TSH".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebaTSH.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("resultado", (pruebaTSH.getResultado()==null)?"": UtilsSarel.darFormatoANumero(pruebaTSH.getResultado(),2));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebaTSH_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	/* Fin PruebaTSH */
 	
 	@RequestMapping(value = { "/descargarManualdeUsuario" }, method = RequestMethod.GET)
 	public String servirManualUsuario(HttpServletResponse response, ModelMap model){		 
@@ -3116,6 +3255,18 @@ public class AppController {
 			}else if(unTipo.getName().equals(TipoLaboratorio.ANTIGENO_PROSTATICO.getName())){
 				List<AntigenoProstatico> labs = antigenoProstaticoService.findByIdExpediente(idExpediente);
 				for(AntigenoProstatico unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_TSH.getName())){
+				List<PruebaTSH> labs = pruebaTSHService.findByIdExpediente(idExpediente);
+				for(PruebaTSH unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
 					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);

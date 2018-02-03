@@ -50,10 +50,10 @@
 		<hr size=3>
 		<table>
 			<tr>
-				<td><label for="nivelPruebaTSH">Prueba TSH: </label> </td>
-				<td><form:input path="nivelPruebaTSH" id="colesterolTotal"/></td>
-				<td><label for="nivelPruebaTSH"> mg/dl &nbsp; &nbsp; - &nbsp;</label> </td> 
-				<td><div class="has-error"><form:errors path="nivelPruebaTSH" class="help-inline"/></div></td>
+				<td><label for="resultado">Prueba TSH: </label> </td>
+				<td><form:input path="resultado" id="resultado"/></td>
+				<td><label for="resultado"> mg/dl &nbsp; &nbsp; - &nbsp;</label> </td> 
+				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
 				<td><label>Referencia: </label></td>
 				<td><label>0.4 - 4.5 uIU/mL </label> </td>
 			</tr>
@@ -84,4 +84,3 @@
 	</div>
 </body>
 </html>
-

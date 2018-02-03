@@ -4,6 +4,7 @@ com/sarel/web/dao/PruebaTiroideaDao.class
 com/sarel/web/service/CustomUserDetailsService.class
 com/sarel/web/model/Employee.class
 com/sarel/web/configuration/AppInitializer.class
+com/sarel/web/service/PruebaTSHServiceImpl.class
 com/sarel/web/service/UserProfileServiceImpl.class
 com/sarel/web/service/AntigenoProstaticoService.class
 com/sarel/web/model/AspectoHeces.class
@@ -23,6 +24,7 @@ com/sarel/web/dao/ColesterolTrigliceridosDao.class
 com/sarel/web/service/AcidoUricoServiceImpl.class
 com/sarel/web/dao/PerfilLipidicoDaoImpl.class
 com/sarel/web/model/HelicobacterPylori.class
+com/sarel/web/dao/PruebaTSHDao.class
 com/sarel/web/dao/AntigenoProstaticoDao.class
 com/sarel/web/service/ExamenHecesServiceImpl.class
 com/sarel/web/dao/PruebaDengueDao.class
@@ -48,6 +50,7 @@ com/sarel/web/dao/ExamenOrinaDaoImpl.class
 com/sarel/web/model/ColorOrina.class
 com/sarel/web/dao/PruebaVIHDaoImpl.class
 com/sarel/web/dao/ExamenOrinaDao.class
+com/sarel/web/dao/PruebaTSHDaoImpl.class
 com/sarel/web/dao/PruebasHematologicasDao.class
 com/sarel/web/service/PruebaEmbarazoServiceImpl.class
 com/sarel/web/service/PruebaTiroideaService.class
@@ -97,6 +100,7 @@ com/sarel/web/model/TipoDengue.class
 com/sarel/web/service/PruebaEmbarazoService.class
 com/sarel/web/model/Resultado.class
 com/sarel/web/model/PruebasHematologicas.class
+com/sarel/web/model/PruebaTSH.class
 com/sarel/web/model/AspectoOrina.class
 com/sarel/web/service/PruebasHematologicasServiceImpl.class
 com/sarel/web/model/PruebaTiroidea.class
@@ -119,6 +123,7 @@ com/sarel/web/model/UserProfile.class
 com/sarel/web/service/PruebaVDRLService.class
 com/sarel/web/service/ExamenOrinaService.class
 com/sarel/web/util/ParametrosOmitidos.class
+com/sarel/web/service/PruebaTSHService.class
 com/sarel/web/model/GlucosaPreYPost.class
 com/sarel/web/model/AntigenoProstatico.class
 com/sarel/web/model/ResultadoLaboratorioVO.class
