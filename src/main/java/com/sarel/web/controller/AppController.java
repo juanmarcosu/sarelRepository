@@ -2237,7 +2237,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + pruebaDengue.getId() + " creado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Prueba de Dengue Numero: " + pruebaDengue.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -2260,7 +2260,7 @@ public class AppController {
 		HashMap<String, Object> params = new HashMap<String,Object>();
 		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
 		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
-		params.put("titulo", "Perfil Lipídico".toUpperCase());
+		params.put("titulo", "Prueba de Dengue".toUpperCase());
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebaDengue.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
@@ -2299,7 +2299,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Helicobacter Pylori Numero: " + idPerfil + " eliminado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -2338,7 +2338,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + helicobacterPylori.getId() + " editado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Helicobacter Pylori Numero: " + helicobacterPylori.getId() + " editado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -2369,7 +2369,7 @@ public class AppController {
 		model.addAttribute("expediente", expediente);
 		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
 		model.addAttribute("labs", labs);
-		model.addAttribute("message", "Laboratorio Perfil Lipidico Numero: " + helicobacterPylori.getId() + " creado Exitosamente...");
+		model.addAttribute("message", "Laboratorio Helicobacter Pylori Numero: " + helicobacterPylori.getId() + " creado Exitosamente...");
 		return "verExpedienteLaboratorio";
 	}
 	
@@ -2392,7 +2392,7 @@ public class AppController {
 		HashMap<String, Object> params = new HashMap<String,Object>();
 		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
 		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
-		params.put("titulo", "Perfil Lipídico".toUpperCase());
+		params.put("titulo", "Helicobacter Pylori".toUpperCase());
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = helicobacterPylori.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
@@ -2523,7 +2523,7 @@ public class AppController {
 		HashMap<String, Object> params = new HashMap<String,Object>();
 		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
 		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
-		params.put("titulo", "Perfil Lipídico".toUpperCase());
+		params.put("titulo", "Hemoglobina y Glucosa".toUpperCase());
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = hemoglobinaGlucosa.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));

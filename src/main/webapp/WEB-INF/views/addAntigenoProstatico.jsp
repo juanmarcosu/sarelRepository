@@ -54,6 +54,7 @@
 				<td><form:input path="resultado" id="resultado"/></td>
 				<td><label for="resultado"> &nbsp; &nbsp; - &nbsp;</label> </td> 
 				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
 				<td><label>Valor de Referencia: </label></td>
 				<td><label>Menor de 4.0 ng/mL </label> </td>
 			</tr>

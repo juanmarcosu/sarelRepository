@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sigsa7" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="209"/>
 	<parameter name="logoUSAC" class="java.io.InputStream"/>
 	<parameter name="logoUSALUD" class="java.io.InputStream"/>
 	<parameter name="titulo" class="java.lang.String"/>
@@ -23,7 +23,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="419" splitType="Stretch">
+		<band height="449" splitType="Stretch">
 			<rectangle radius="10">
 				<reportElement x="143" y="0" width="307" height="70"/>
 				<graphicElement>
@@ -119,14 +119,14 @@
 				<text><![CDATA[REGISTRO: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="391" width="114" height="18"/>
+				<reportElement x="130" y="420" width="114" height="18"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[QUÍMICO BIOLOGO: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="244" y="391" width="221" height="18"/>
+				<reportElement x="244" y="420" width="221" height="18"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="10" isBold="false" isUnderline="true" isStrikeThrough="false"/>
 				</textElement>
@@ -202,14 +202,6 @@
 				</textElement>
 				<text><![CDATA[Laboratorio]]></text>
 			</staticText>
-			<image isUsingCache="true" isLazy="true">
-				<reportElement stretchType="RelativeToBandHeight" x="186" y="276" width="150" height="115"/>
-				<imageExpression class="java.io.InputStream"><![CDATA[$P{sign}]]></imageExpression>
-			</image>
-			<image isUsingCache="true" isLazy="true">
-				<reportElement stretchType="RelativeToBandHeight" x="336" y="291" width="100" height="100"/>
-				<imageExpression class="java.io.InputStream"><![CDATA[$P{sello}]]></imageExpression>
-			</image>
 			<textField>
 				<reportElement mode="Opaque" x="71" y="214" width="142" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -259,6 +251,14 @@
 				</textElement>
 				<text><![CDATA[Valor de Referencia]]></text>
 			</staticText>
+			<image isUsingCache="true" isLazy="true">
+				<reportElement stretchType="RelativeToBandHeight" x="156" y="290" width="150" height="115"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$P{sign}]]></imageExpression>
+			</image>
+			<image isUsingCache="true" isLazy="true">
+				<reportElement stretchType="RelativeToBandHeight" x="306" y="305" width="100" height="100"/>
+				<imageExpression class="java.io.InputStream"><![CDATA[$P{sello}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 </jasperReport>

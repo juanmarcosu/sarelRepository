@@ -52,10 +52,10 @@
 			<tr>
 				<td><label for="resultado">Prueba TSH: </label> </td>
 				<td><form:input path="resultado" id="resultado"/></td>
-				<td><label for="resultado"> mg/dl &nbsp; &nbsp; - &nbsp;</label> </td> 
+				<td><label for="resultado"> ng/mL &nbsp; &nbsp; - &nbsp;</label> </td> 
 				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
 				<td><label>Referencia: </label></td>
-				<td><label>0.4 - 4.5 uIU/mL </label> </td>
+				<td><label>0.4 - 4.5 ng/mL </label> </td>
 			</tr>
 		    <tr>
 		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>

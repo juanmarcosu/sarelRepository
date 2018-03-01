@@ -54,7 +54,9 @@
 				<td><form:input path="t3" id="t3"/></td>
 				<td><label for="t3Label">ng/ml </label> </td> 
 				<td><div class="has-error"><form:errors path="t3" class="help-inline"/></div></td>
+				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
 				<td><label>Valor de Referencia: </label></td>
+				<td>&nbsp; &nbsp; &nbsp;</td>
 				<td><label>0.8 - 2.0 ng/mL </label> </td>
 		   	</tr>
 			<tr>
@@ -62,6 +64,8 @@
 				<td><form:input path="t4" id="t4"/></td>
 				<td><label for="t4Label">ng/ml </label> </td> 
 				<td><div class="has-error"><form:errors path="t4" class="help-inline"/></div></td>
+				<td></td>
+				<td></td>
 				<td></td>
 				<td><label>4.5 - 12.0 ng/mL </label> </td> 
 		    </tr>
