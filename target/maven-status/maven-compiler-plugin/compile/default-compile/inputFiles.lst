@@ -1,4 +1,5 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/ExamenHecesServiceImpl.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebasRenalesServiceImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/UserProfile.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebaSerologicaService.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PacienteDao.java
@@ -8,8 +9,8 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/EmployeeServiceImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/UserProfileDao.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/UserProfileService.java
-/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/EstadoResultadoLaboratorio.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebasHematologicasServiceImpl.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/EstadoResultadoLaboratorio.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebaEmbarazoServiceImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/AcidoUricoDao.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/HematologiaCompletaService.java
@@ -20,8 +21,8 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/UserProfileDaoImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebaVDRLDaoImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/PruebaDengue.java
-/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/UserProfileType.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebaTSHDaoImpl.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/UserProfileType.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/Employee.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebaEmbarazoDao.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/EmployeeDaoImpl.java
@@ -41,10 +42,11 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/HelicobacterPyloriServiceImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebaTSHServiceImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebaDengueDao.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebasRenalesDao.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PacienteService.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebaEmbarazoService.java
-/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/HematologiaCompletaServiceImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PerfilLipidicoServiceImpl.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/HematologiaCompletaServiceImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/util/ParametrosOmitidos.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/PerfilLipidico.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/ResultadoLaboratorioVODao.java
@@ -66,6 +68,7 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/HemoglobinaGlucosa.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/PruebaVDRL.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/HelicobacterPyloriService.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebasRenalesService.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PacienteServiceImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/TipoDengue.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/GlucosaPreYPost.java
@@ -92,8 +95,9 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/UserDaoImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/ExamenHecesDao.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PacienteDaoImpl.java
-/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/UserService.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebasRenalesDaoImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/ColesterolTrigliceridos.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/UserService.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/PruebaVDRLService.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebaSerologicaDaoImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/ExpedienteLaboratorio.java
@@ -142,4 +146,5 @@
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebaDengueDaoImpl.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/PruebaSerologica.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/dao/PruebaTSHDao.java
+/media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/model/PruebasRenales.java
 /media/juanmarcos/Data/workspace/sarel/src/main/java/com/sarel/web/service/UserProfileServiceImpl.java

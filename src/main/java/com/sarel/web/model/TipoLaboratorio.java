@@ -18,7 +18,8 @@ public enum TipoLaboratorio {
 	HEMOGLOBINA_GLUCOSA("Hemoglobina Glicosilada"),
 	PRUEBAS_TIROIDEAS("Pruebas Tiroideas"),
 	ANTIGENO_PROSTATICO("Prueba de Antigeno Prostatico Especifico"),
-	PRUEBA_TSH("Prueba de TSH");
+	PRUEBA_TSH("Prueba de TSH"),
+	PRUEBAS_RENALES("Pruebas Renales");
 	
 	private String tipoLaboratorio;
 	

@@ -71,6 +71,7 @@ import com.sarel.web.model.PruebaTiroidea;
 import com.sarel.web.model.PruebaVDRL;
 import com.sarel.web.model.PruebaVIH;
 import com.sarel.web.model.PruebasHematologicas;
+import com.sarel.web.model.PruebasRenales;
 import com.sarel.web.model.Resultado;
 import com.sarel.web.model.ResultadoLaboratorioVO;
 import com.sarel.web.model.Sexo;
@@ -99,6 +100,7 @@ import com.sarel.web.service.PruebaTiroideaService;
 import com.sarel.web.service.PruebaVDRLService;
 import com.sarel.web.service.PruebaVIHService;
 import com.sarel.web.service.PruebasHematologicasService;
+import com.sarel.web.service.PruebasRenalesService;
 import com.sarel.web.service.UserProfileService;
 import com.sarel.web.service.UserService;
 import com.sarel.web.util.FormatoExportacionPruebaLaboratorio;
@@ -2944,6 +2946,138 @@ public class AppController {
 	}
 	/* Fin PruebaTSH */
 	
+	/* Inicio PruebasRenales */
+
+	@Autowired
+    	PruebasRenalesService pruebasRenalesService;
+	
+	@RequestMapping(value = { "/eliminarPRUEBAS_RENALES" }, method = RequestMethod.GET)
+	public String eliminarPruebasRenales(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPRUEBAS_RENALES") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebasRenales nuevoPruebasRenales = pruebasRenalesService.findById(idPerfil);
+		nuevoPruebasRenales.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebasRenalesService.updatePruebasRenales(nuevoPruebasRenales);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarPRUEBAS_RENALES" }, method = RequestMethod.GET)
+	public String consultarPruebasRenales(ModelMap model, @RequestParam("idPRUEBAS_RENALES") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebasRenales pruebasRenales = pruebasRenalesService.findById(idPerfil);
+		model.addAttribute("pruebasRenales", pruebasRenales);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebasRenales.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebasRenales";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBAS_RENALES" }, method = RequestMethod.GET)
+	public String editarPruebasRenales(ModelMap model, @RequestParam("idPRUEBAS_RENALES") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebasRenales pruebasRenales = pruebasRenalesService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebasRenales.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("pruebasRenales", pruebasRenales);
+		model.addAttribute("edit", true);
+		return "addPruebasRenales";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBAS_RENALES" }, method = RequestMethod.POST)
+	public String modificarPruebasRenales(ModelMap model, @Valid PruebasRenales pruebasRenales, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebasRenales";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebasRenalesService.updatePruebasRenales(pruebasRenales);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebasRenales.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + pruebasRenales.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBAS_RENALES" }, method = RequestMethod.GET)
+	public String nuevoPruebasRenales(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		PruebasRenales pruebasRenales = new PruebasRenales();
+		model.addAttribute("pruebasRenales", pruebasRenales);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPruebasRenales";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBAS_RENALES" }, method = RequestMethod.POST)
+	public String guardarPruebasRenales(@Valid PruebasRenales pruebasRenales, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebasRenales";
+		}
+		
+		pruebasRenalesService.savePruebasRenales(pruebasRenales);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebasRenales.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Pruebas Renales Numero: " + pruebasRenales.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirPRUEBAS_RENALES" }, method = RequestMethod.GET)
+	public String imprimirPruebasRenales(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBAS_RENALES") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebasRenales pruebasRenales = pruebasRenalesService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebasRenales.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebasRenales.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebasRenales.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Pruebas Renales".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebasRenales.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("creatinina", (pruebasRenales.getCreatinina()==null)?"": UtilsSarel.darFormatoANumero(pruebasRenales.getCreatinina(),2));
+		params.put("nitrogenoUrea", (pruebasRenales.getNitrogenoUrea()==null)?"": UtilsSarel.darFormatoANumero(pruebasRenales.getNitrogenoUrea(),2));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebasRenales_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	/* Fin PruebasRenales */
+	
 	@RequestMapping(value = { "/descargarManualdeUsuario" }, method = RequestMethod.GET)
 	public String servirManualUsuario(HttpServletResponse response, ModelMap model){		 
 		response.setContentType("application/x-pdf");
@@ -3267,6 +3401,18 @@ public class AppController {
 			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_TSH.getName())){
 				List<PruebaTSH> labs = pruebaTSHService.findByIdExpediente(idExpediente);
 				for(PruebaTSH unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBAS_RENALES.getName())){
+				List<PruebasRenales> labs = pruebasRenalesService.findByIdExpediente(idExpediente);
+				for(PruebasRenales unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
 					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);

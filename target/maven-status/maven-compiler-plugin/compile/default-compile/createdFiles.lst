@@ -4,6 +4,7 @@ com/sarel/web/dao/PruebaTiroideaDao.class
 com/sarel/web/service/CustomUserDetailsService.class
 com/sarel/web/model/Employee.class
 com/sarel/web/configuration/AppInitializer.class
+com/sarel/web/service/PruebasRenalesServiceImpl.class
 com/sarel/web/service/PruebaTSHServiceImpl.class
 com/sarel/web/service/UserProfileServiceImpl.class
 com/sarel/web/service/AntigenoProstaticoService.class
@@ -31,6 +32,7 @@ com/sarel/web/dao/PruebaDengueDao.class
 com/sarel/web/service/ExpedienteLaboratorioServiceImpl.class
 com/sarel/web/service/GlucosaPreYPostServiceImpl.class
 com/sarel/web/configuration/AppConfig.class
+com/sarel/web/dao/PruebasRenalesDao.class
 com/sarel/web/service/UserProfileService.class
 com/sarel/web/service/PruebaSerologicaService.class
 com/sarel/web/service/PruebaDengueServiceImpl.class
@@ -56,6 +58,7 @@ com/sarel/web/service/PruebaEmbarazoServiceImpl.class
 com/sarel/web/service/PruebaTiroideaService.class
 com/sarel/web/dao/ColesterolTrigliceridosDaoImpl.class
 com/sarel/web/service/GlucosaPreYPostService.class
+com/sarel/web/dao/PruebasRenalesDaoImpl.class
 com/sarel/web/dao/EmployeeDaoImpl.class
 com/sarel/web/service/PruebasHematologicasService.class
 com/sarel/web/service/PacienteServiceImpl.class
@@ -67,11 +70,13 @@ com/sarel/web/dao/GlucosaPreYPostDaoImpl.class
 com/sarel/web/dao/AbstractDao.class
 com/sarel/web/service/EmployeeService.class
 com/sarel/web/dao/PruebaEmbarazoDaoImpl.class
+com/sarel/web/service/PruebasRenalesService.class
 com/sarel/web/model/TipoLaboratorio.class
 com/sarel/web/service/UserServiceImpl.class
 com/sarel/web/model/PruebaDengue.class
 com/sarel/web/model/EstadoResultadoLaboratorio.class
 com/sarel/web/service/PerfilLipidicoServiceImpl.class
+com/sarel/web/model/PruebasRenales.class
 com/sarel/web/model/HemoglobinaGlucosa.class
 com/sarel/web/model/PruebaSerologica.class
 com/sarel/web/model/PacienteVO.class

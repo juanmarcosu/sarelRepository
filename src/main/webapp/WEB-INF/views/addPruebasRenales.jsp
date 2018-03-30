@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Prueba TSH</title>
+	<title>Pruebas Renales</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 	<script>
@@ -28,10 +28,10 @@
 <body class="ng-cloak" onload="checkMod()">
 	<div class="generic-container" >
           <div class="panel panel-default">
-	<div class="panel-heading"><span class="lead">Prueba TSH </span></div>
+	<div class="panel-heading"><span class="lead">Pruebas Renales</span></div>
      	<div class="formcontainer">
      	<div class="tablecontainer">
-	<form:form modelAttribute="pruebaTSH" method="POST" class="form-horizontal"  >
+	<form:form modelAttribute="pruebasRenales" method="POST" class="form-horizontal"  >
 	<jsp:include page="expedienteLaboratorioSumario.jsp"/>
 	
 	<div id = "wholeForm">
@@ -49,12 +49,31 @@
 		<hr size=3>
 		<table>
 			<tr>
-				<td><label for="nivelPruebaTSH">Prueba TSH: </label> </td>
-				<td><form:input path="nivelPruebaTSH" id="colesterolTotal"/></td>
-				<td><label for="nivelPruebaTSH"> mg/dl &nbsp; &nbsp; - &nbsp;</label> </td> 
-				<td><div class="has-error"><form:errors path="nivelPruebaTSH" class="help-inline"/></div></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
 				<td><label>Referencia: </label></td>
-				<td><label>0.4 - 4.5 uIU/mL </label> </td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><label for="nitrogenoUrea">Nitr&oacute;geno de Urea: </label> </td>
+				<td><form:input path="nitrogenoUrea" id="nitrogenoUrea"/></td>
+				<td><label for="labelnitrogenoUrea"> mg/dL &nbsp; &nbsp; &nbsp; &nbsp;</label> </td> 
+				<td><div class="has-error"><form:errors path="nitrogenoUrea" class="help-inline"/></div></td>
+				<td><label>10 - 50 mg/dL </label> </td>
+				<td><label>&nbsp; &nbsp; &nbsp; </label></td>
+				<td><label>&nbsp; &nbsp; &nbsp; </label></td>
+			</tr>
+			<tr>
+				<td><label for="creatinina">Creatinina: </label> </td>
+				<td><form:input path="creatinina" id="creatinina"/></td>
+				<td><label for="labelcreatinina"> mg/dL &nbsp; &nbsp; &nbsp; &nbsp;</label> </td> 
+				<td><div class="has-error"><form:errors path="creatinina" class="help-inline"/></div></td>
+				<td><label>Hombres: 0.6 - 1.1 mg/dL</label></td>
+				<td><label>&nbsp; &nbsp; &nbsp; </label></td>
+				<td><label>Mujeres: 0.9 - 0.9 mg/dL</label> </td>
 			</tr>
 		    <tr>
 		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>
@@ -83,4 +102,3 @@
 	</div>
 </body>
 </html>
-

@@ -1,10 +1,7 @@
 package com.sarel.web.util;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
-
-import com.google.zxing.FormatException;
 
 public class UtilsSarel {
 
