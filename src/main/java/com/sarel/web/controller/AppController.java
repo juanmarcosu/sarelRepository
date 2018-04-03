@@ -63,8 +63,10 @@ import com.sarel.web.model.Paciente;
 import com.sarel.web.model.PacienteVO;
 import com.sarel.web.model.ParametroExportacion;
 import com.sarel.web.model.PerfilLipidico;
+import com.sarel.web.model.PruebaAlfafetoproteina;
 import com.sarel.web.model.PruebaDengue;
 import com.sarel.web.model.PruebaEmbarazo;
+import com.sarel.web.model.PruebaPCR;
 import com.sarel.web.model.PruebaSerologica;
 import com.sarel.web.model.PruebaTSH;
 import com.sarel.web.model.PruebaTiroidea;
@@ -92,8 +94,10 @@ import com.sarel.web.service.HematologiaCompletaService;
 import com.sarel.web.service.HemoglobinaGlucosaService;
 import com.sarel.web.service.PacienteService;
 import com.sarel.web.service.PerfilLipidicoService;
+import com.sarel.web.service.PruebaAlfafetoproteinaService;
 import com.sarel.web.service.PruebaDengueService;
 import com.sarel.web.service.PruebaEmbarazoService;
+import com.sarel.web.service.PruebaPCRService;
 import com.sarel.web.service.PruebaSerologicaService;
 import com.sarel.web.service.PruebaTSHService;
 import com.sarel.web.service.PruebaTiroideaService;
@@ -3078,6 +3082,268 @@ public class AppController {
 	}
 	/* Fin PruebasRenales */
 	
+	/* Inicio PruebaPCR */
+
+	@Autowired
+    	PruebaPCRService pruebaPCRService;
+	
+	@RequestMapping(value = { "/eliminarPRUEBA_PCR" }, method = RequestMethod.GET)
+	public String eliminarPruebaPCR(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPRUEBA_PCR") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaPCR nuevoPruebaPCR = pruebaPCRService.findById(idPerfil);
+		nuevoPruebaPCR.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebaPCRService.updatePruebaPCR(nuevoPruebaPCR);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarPRUEBA_PCR" }, method = RequestMethod.GET)
+	public String consultarPruebaPCR(ModelMap model, @RequestParam("idPRUEBA_PCR") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaPCR pruebaPCR = pruebaPCRService.findById(idPerfil);
+		model.addAttribute("pruebaPCR", pruebaPCR);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaPCR.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebaPCR";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_PCR" }, method = RequestMethod.GET)
+	public String editarPruebaPCR(ModelMap model, @RequestParam("idPRUEBA_PCR") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaPCR pruebaPCR = pruebaPCRService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaPCR.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("pruebaPCR", pruebaPCR);
+		model.addAttribute("edit", true);
+		return "addPruebaPCR";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_PCR" }, method = RequestMethod.POST)
+	public String modificarPruebaPCR(ModelMap model, @Valid PruebaPCR pruebaPCR, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaPCR";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebaPCRService.updatePruebaPCR(pruebaPCR);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaPCR.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + pruebaPCR.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_PCR" }, method = RequestMethod.GET)
+	public String nuevoPruebaPCR(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		PruebaPCR pruebaPCR = new PruebaPCR();
+		model.addAttribute("pruebaPCR", pruebaPCR);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPruebaPCR";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_PCR" }, method = RequestMethod.POST)
+	public String guardarPruebaPCR(@Valid PruebaPCR pruebaPCR, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaPCR";
+		}
+		
+		pruebaPCRService.savePruebaPCR(pruebaPCR);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaPCR.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Prueba PCR Numero: " + pruebaPCR.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirPRUEBA_PCR" }, method = RequestMethod.GET)
+	public String imprimirPruebaPCR(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBA_PCR") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebaPCR pruebaPCR = pruebaPCRService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaPCR.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebaPCR.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebaPCR.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Prueba PCR".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebaPCR.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("resultado", (pruebaPCR.getResultado()==null)?"": UtilsSarel.darFormatoANumero(pruebaPCR.getResultado(),2));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebaPCR_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	/* Fin PruebaPCR */
+	
+	/* Inicio PruebaAlfafetoproteina */
+
+	@Autowired
+    	PruebaAlfafetoproteinaService pruebaAlfafetoproteinaService;
+	
+	@RequestMapping(value = { "/eliminarPRUEBA_ALFAFETOPROTEINA" }, method = RequestMethod.GET)
+	public String eliminarPruebaAlfafetoproteina(ModelMap model, @RequestParam("idExpediente") int idExpediente, @RequestParam("idPRUEBA_ALFAFETOPROTEINA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaAlfafetoproteina nuevoPruebaAlfafetoproteina = pruebaAlfafetoproteinaService.findById(idPerfil);
+		nuevoPruebaAlfafetoproteina.setEstado(EstadoResultadoLaboratorio.ELIMINADO);
+		pruebaAlfafetoproteinaService.updatePruebaAlfafetoproteina(nuevoPruebaAlfafetoproteina);
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + idPerfil + " eliminado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/consultarPRUEBA_ALFAFETOPROTEINA" }, method = RequestMethod.GET)
+	public String consultarPruebaAlfafetoproteina(ModelMap model, @RequestParam("idPRUEBA_ALFAFETOPROTEINA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaAlfafetoproteina pruebaAlfafetoproteina = pruebaAlfafetoproteinaService.findById(idPerfil);
+		model.addAttribute("pruebaAlfafetoproteina", pruebaAlfafetoproteina);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaAlfafetoproteina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("soloConsulta", true);
+		return "addPruebaAlfafetoproteina";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_ALFAFETOPROTEINA" }, method = RequestMethod.GET)
+	public String editarPruebaAlfafetoproteina(ModelMap model, @RequestParam("idPRUEBA_ALFAFETOPROTEINA") int idPerfil) {
+		model.addAttribute("user", getPrincipal());
+		PruebaAlfafetoproteina pruebaAlfafetoproteina = pruebaAlfafetoproteinaService.findById(idPerfil);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaAlfafetoproteina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		model.addAttribute("pruebaAlfafetoproteina", pruebaAlfafetoproteina);
+		model.addAttribute("edit", true);
+		return "addPruebaAlfafetoproteina";
+	}
+	
+	@RequestMapping(value = { "/editarPRUEBA_ALFAFETOPROTEINA" }, method = RequestMethod.POST)
+	public String modificarPruebaAlfafetoproteina(ModelMap model, @Valid PruebaAlfafetoproteina pruebaAlfafetoproteina, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaAlfafetoproteina";
+		}
+		
+		model.addAttribute("user", getPrincipal());
+		pruebaAlfafetoproteinaService.updatePruebaAlfafetoproteina(pruebaAlfafetoproteina);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaAlfafetoproteina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Perfil Lipido Numero: " + pruebaAlfafetoproteina.getId() + " editado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_ALFAFETOPROTEINA" }, method = RequestMethod.GET)
+	public String nuevoPruebaAlfafetoproteina(ModelMap model, @RequestParam("idExpediente") int idExpediente) {
+		model.addAttribute("user", getPrincipal());
+		//model.addAttribute("laboratoristas", userService.findAllUsersByRol("LABORATORISTA"));
+		ExpedienteLaboratorio expediente = expedienteService.findById(idExpediente);
+		model.addAttribute("expediente", expediente);
+		PruebaAlfafetoproteina pruebaAlfafetoproteina = new PruebaAlfafetoproteina();
+		model.addAttribute("pruebaAlfafetoproteina", pruebaAlfafetoproteina);
+		model.addAttribute("idExpediente", idExpediente);
+		model.addAttribute("edit", false);
+		return "addPruebaAlfafetoproteina";
+	}
+	
+	@RequestMapping(value = { "/agregarPRUEBA_ALFAFETOPROTEINA" }, method = RequestMethod.POST)
+	public String guardarPruebaAlfafetoproteina(@Valid PruebaAlfafetoproteina pruebaAlfafetoproteina, BindingResult result, 
+			ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "addPruebaAlfafetoproteina";
+		}
+		
+		pruebaAlfafetoproteinaService.savePruebaAlfafetoproteina(pruebaAlfafetoproteina);
+		model.addAttribute("user", getPrincipal());
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaAlfafetoproteina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		model.addAttribute("labs", labs);
+		model.addAttribute("message", "Laboratorio Prueba de Alfafetoproteina Numero: " + pruebaAlfafetoproteina.getId() + " creado Exitosamente...");
+		return "verExpedienteLaboratorio";
+	}
+	
+	@RequestMapping(value = { "/imprimirPRUEBA_ALFAFETOPROTEINA" }, method = RequestMethod.GET)
+	public String imprimirPruebaAlfafetoproteina(HttpServletResponse response, ModelMap model, @RequestParam("idPRUEBA_ALFAFETOPROTEINA") int idLaboratorio) throws JRException, IOException {
+		model.addAttribute("user", getPrincipal());
+		PruebaAlfafetoproteina pruebaAlfafetoproteina = pruebaAlfafetoproteinaService.findById(idLaboratorio);
+		ExpedienteLaboratorio expediente = expedienteService.findById(pruebaAlfafetoproteina.getIdExpediente());
+		model.addAttribute("expediente", expediente);
+		User quimicoBiologo = userService.findById(pruebaAlfafetoproteina.getIdQuimicoBiologo());
+		
+		List<ParametroExportacion> exportacion= new ArrayList<ParametroExportacion>();
+		ParametroExportacion mpe = new ParametroExportacion();
+		if(mpe.getParameters() == null){
+			mpe.setParameters(new HashMap<String,Object>());
+		}
+		exportacion.add(mpe);
+		JasperReport report = JasperCompileManager.compileReport(new ClassPathResource("jrxml/PruebaAlfafetoproteina.jrxml").getInputStream());
+		
+		HashMap<String, Object> params = new HashMap<String,Object>();
+		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
+		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
+		params.put("titulo", "Prueba de Alfafetoproteina".toUpperCase());
+		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
+		Date fecha = pruebaAlfafetoproteina.getFechaLaboratorio().toDate();
+		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("resultado", (pruebaAlfafetoproteina.getResultado()==null)?"": UtilsSarel.darFormatoANumero(pruebaAlfafetoproteina.getResultado(),2));
+		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
+		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+
+		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
+		params = formater.getParametrosConFormato();
+
+		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
+		
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=PruebaAlfafetoproteina_"+expediente.getCarne().toString()+"_"+new SimpleDateFormat("dd-MM-yyyy").format(fecha)+".pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(myJRprintReportObject, outStream);
+		
+		return null;
+	}
+	/* Fin PruebaAlfafetoproteina */
+	
 	@RequestMapping(value = { "/descargarManualdeUsuario" }, method = RequestMethod.GET)
 	public String servirManualUsuario(HttpServletResponse response, ModelMap model){		 
 		response.setContentType("application/x-pdf");
@@ -3413,6 +3679,30 @@ public class AppController {
 			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBAS_RENALES.getName())){
 				List<PruebasRenales> labs = pruebasRenalesService.findByIdExpediente(idExpediente);
 				for(PruebasRenales unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_PCR.getName())){
+				List<PruebaPCR> labs = pruebaPCRService.findByIdExpediente(idExpediente);
+				for(PruebaPCR unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_ALFAFETOPROTEINA.getName())){
+				List<PruebaAlfafetoproteina> labs = pruebaAlfafetoproteinaService.findByIdExpediente(idExpediente);
+				for(PruebaAlfafetoproteina unLab : labs){
 					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
 					unResultado.setId(unLab.getId());
 					unResultado.setIdExpediente(idExpediente);

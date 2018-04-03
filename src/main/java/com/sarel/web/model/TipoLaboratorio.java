@@ -19,7 +19,9 @@ public enum TipoLaboratorio {
 	PRUEBAS_TIROIDEAS("Pruebas Tiroideas"),
 	ANTIGENO_PROSTATICO("Prueba de Antigeno Prostatico Especifico"),
 	PRUEBA_TSH("Prueba de TSH"),
-	PRUEBAS_RENALES("Pruebas Renales");
+	PRUEBAS_RENALES("Pruebas Renales"),
+	PRUEBA_ALFAFETOPROTEINA("Prueba de Alfafetoproteina"),
+	PRUEBA_PCR("Prueba de PCR Ultrasencible");
 	
 	private String tipoLaboratorio;
 	

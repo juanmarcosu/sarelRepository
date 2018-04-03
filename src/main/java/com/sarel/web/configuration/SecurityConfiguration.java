@@ -152,6 +152,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	  	.antMatchers("/editarPRUEBAS_RENALES").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	.antMatchers("/eliminarPRUEBAS_RENALES").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
 	  	
+	  	.antMatchers("/consultarPRUEBA_PCR").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarPRUEBA_PCR").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarPRUEBA_PCR").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarPRUEBA_PCR").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	
+	  	.antMatchers("/consultarPRUEBA_ALFAFETOPROTEINA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
+	  	.antMatchers("/agregarPRUEBA_ALFAFETOPROTEINA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/editarPRUEBA_ALFAFETOPROTEINA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	.antMatchers("/eliminarPRUEBA_ALFAFETOPROTEINA").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA')")
+	  	
 	  	.antMatchers("/descargarManualdeUsuario").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
 	  	
 	  	.antMatchers("/verExpedienteLaboratorio").access("hasRole('ADMINISTRADOR') or hasRole('LABORATORISTA') or hasRole('CONSULTOR')")
