@@ -172,7 +172,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ng/mL]]></text>
+				<text><![CDATA[uUI/mL]]></text>
 			</staticText>
 			<textField>
 				<reportElement mode="Opaque" x="71" y="199" width="142" height="24" backcolor="#CCCCCC"/>

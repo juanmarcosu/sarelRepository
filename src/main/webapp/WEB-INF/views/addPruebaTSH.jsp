@@ -55,7 +55,7 @@
 				<td><label for="resultado"> ng/mL &nbsp; &nbsp; - &nbsp;</label> </td> 
 				<td><div class="has-error"><form:errors path="resultado" class="help-inline"/></div></td>
 				<td><label>Referencia: </label></td>
-				<td><label>0.4 - 4.5 ng/mL </label> </td>
+				<td><label>0.4 - 4.5 uUI/mL </label> </td>
 			</tr>
 		    <tr>
 		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>
