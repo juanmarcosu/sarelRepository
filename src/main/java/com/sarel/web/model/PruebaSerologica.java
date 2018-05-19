@@ -42,7 +42,7 @@ public class PruebaSerologica {
 	private LocalDate fechaLaboratorio;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="resultado_factor_reumatoide")
+	@Column(name="resultado_factor_reumatoide", nullable = true)
 	public Resultado getResultadoFactorReumatoide(){
 		return this.resultadoFactorReumatoide;
 	}
@@ -51,7 +51,7 @@ public class PruebaSerologica {
 	}
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="resultado_proteina_c_reactiva")
+	@Column(name="resultado_proteina_c_reactiva", nullable = true)
 	public Resultado getResultadoProteinaCReactiva() {
 		return resultadoProteinaCReactiva;
 	}
@@ -60,7 +60,7 @@ public class PruebaSerologica {
 	}
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="resultado_anti_estreptolisina_o")
+	@Column(name="resultado_anti_estreptolisina_o", nullable = true)
 	public Resultado getResultadoAntiEstreptolisinaO() {
 		return resultadoAntiEstreptolisinaO;
 	}

@@ -17,6 +17,9 @@
 	<parameter name="subreporte" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="sign" class="java.io.InputStream"/>
 	<parameter name="sello" class="java.io.InputStream"/>
+	<parameter name="resultadoFactorReumatoide" class="java.lang.String"/>
+	<parameter name="resultadoProteinaCReactiva" class="java.lang.String"/>
+	<parameter name="resultadoAntiEstreptolisinaO" class="java.lang.String"/>
 	<field name="parameters" class="java.util.Map"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -132,7 +135,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[" "+$P{quimicoBiologo}+" "]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="345" y="175" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="378" y="175" width="180" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -146,7 +149,7 @@
 				<text><![CDATA[Referencia:	hasta 8 UI/ml ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="199" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="13" y="199" width="130" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -160,7 +163,7 @@
 				<text><![CDATA[Proteína "C" Reactiva: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="281" y="199" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="307" y="199" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -174,14 +177,14 @@
 				<text><![CDATA[mg/l]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="139" y="199" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="228" y="199" width="79" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{proteinaCReactiva}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="345" y="199" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="378" y="199" width="180" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -195,7 +198,7 @@
 				<text><![CDATA[		hasta 6 mg/l]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="281" y="175" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="307" y="175" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -209,14 +212,14 @@
 				<text><![CDATA[UI/ml]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="139" y="175" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="228" y="175" width="79" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{factorReumatoide}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="175" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="13" y="175" width="130" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -230,7 +233,7 @@
 				<text><![CDATA[Factor Reumatoide: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="281" y="223" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="307" y="223" width="40" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -244,14 +247,14 @@
 				<text><![CDATA[UI/ml]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="139" y="223" width="142" height="24" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="228" y="223" width="79" height="24" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isUnderline="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{antiEstreptolisinaO}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="223" width="139" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
+				<reportElement mode="Transparent" x="13" y="223" width="130" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -265,7 +268,7 @@
 				<text><![CDATA[Anti Estreptolisina "O": ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="345" y="223" width="213" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="378" y="223" width="180" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
 				<box>
 					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
 					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
@@ -293,6 +296,27 @@
 				<reportElement stretchType="RelativeToBandHeight" x="378" y="275" width="100" height="100"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{sello}]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement mode="Opaque" x="143" y="175" width="85" height="24" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{resultadoFactorReumatoide}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="143" y="199" width="85" height="24" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{resultadoProteinaCReactiva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="143" y="223" width="85" height="24" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{resultadoAntiEstreptolisinaO}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 </jasperReport>

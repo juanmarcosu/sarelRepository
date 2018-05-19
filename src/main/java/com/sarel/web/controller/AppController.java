@@ -1401,6 +1401,9 @@ public class AppController {
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebaSerologica.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
+		params.put("resultadoFactorReumatoide",pruebaSerologica.getResultadoFactorReumatoide()==null?"-":pruebaSerologica.getResultadoFactorReumatoide().toString());
+		params.put("resultadoProteinaCReactiva",pruebaSerologica.getResultadoProteinaCReactiva()==null?"-":pruebaSerologica.getResultadoProteinaCReactiva().toString());
+		params.put("resultadoAntiEstreptolisinaO",pruebaSerologica.getResultadoAntiEstreptolisinaO()==null?"-":pruebaSerologica.getResultadoAntiEstreptolisinaO().toString());
 		params.put("factorReumatoide", (pruebaSerologica.getFactorReumatoide()==null)?"":pruebaSerologica.getFactorReumatoide().toString());
 		params.put("proteinaCReactiva", (pruebaSerologica.getProteinaCReactiva()==null)?"":pruebaSerologica.getProteinaCReactiva().toString());
 		params.put("antiEstreptolisinaO", (pruebaSerologica.getAntiEstreptolisinaO()==null)?"":pruebaSerologica.getAntiEstreptolisinaO().toString());

@@ -29,21 +29,21 @@
 		}
 	}
 	function checkResultado1(){
-		if(document.getElementById('resultadoFactorReumatoide').value=='NEGATIVO'){
+		if(document.getElementById('resultadoFactorReumatoide').value != 'POSITIVO'){
 			document.getElementById('factorReumatoide').disabled = true;
 		}else{
 			document.getElementById('factorReumatoide').disabled = false;
 		}
 	}
 	function checkResultado2(){
-		if(document.getElementById('resultadoProteinaCReactiva').value=='NEGATIVO'){
+		if(document.getElementById('resultadoProteinaCReactiva').value != 'POSITIVO'){
 			document.getElementById('proteinaCReactiva').disabled = true;
 		}else{
 			document.getElementById('proteinaCReactiva').disabled = false;
 		}
 	}
 	function checkResultado3(){
-		if(document.getElementById('resultadoAntiEstreptolisinaO').value=='NEGATIVO'){
+		if(document.getElementById('resultadoAntiEstreptolisinaO').value != 'POSITIVO'){
 			document.getElementById('antiEstreptolisinaO').disabled = true;
 		}else{
 			document.getElementById('antiEstreptolisinaO').disabled = false;
@@ -78,9 +78,12 @@
 		<table>
 			<tr>
 				<td><label for="resultadoFactorReumatoide">Factor Reumatoide: </label> </td>
-				<td><form:select path="resultadoFactorReumatoide" id="resultadoFactorReumatoide" items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado" class="form-control input-sm" onchange="checkResultado1();"/></td>
+				<td><form:select path="resultadoFactorReumatoide" id="resultadoFactorReumatoide" class="form-control input-sm" onchange="checkResultado1();">
+					<form:option value="">No Realizado</form:option>
+				    <form:options items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado"/>
+				</form:select></td>
 				<td><div class="has-error"><form:errors path="resultadoFactorReumatoide" class="help-inline"/></div></td>
-				
+	
 				<td><form:input path="factorReumatoide" id="factorReumatoide"/></td>
 				<td><label for="factorReumatoide">UI/ml </label> </td>
 				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
@@ -89,7 +92,11 @@
 			</tr>
 			<tr>
 				<td><label for="resultadoProteinaCReactiva">Proteína "C" Reactiva: </label> </td>
-				<td><form:select path="resultadoProteinaCReactiva" id="resultadoProteinaCReactiva" items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado" class="form-control input-sm" onchange="checkResultado2();"/></td>
+				<td><form:select path="resultadoProteinaCReactiva" id="resultadoProteinaCReactiva" class="form-control input-sm" onchange="checkResultado2();">
+					<form:option value="">No Realizado</form:option>
+				    <form:options items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado"/>
+				</form:select></td>
+			<%-- 	<td><form:select path="resultadoProteinaCReactiva" id="resultadoProteinaCReactiva" items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado" class="form-control input-sm" onchange="checkResultado2();"/></td> --%>
 				<td><div class="has-error"><form:errors path="resultadoProteinaCReactiva" class="help-inline"/></div></td>
 				
 				<td><form:input path="proteinaCReactiva" id="proteinaCReactiva"/></td>
@@ -100,7 +107,10 @@
 			</tr>
 			<tr>
 				<td><label for="resultadoAntiEstreptolisinaO">Anti Estreptolisina "O": </label> </td>
-				<td><form:select path="resultadoAntiEstreptolisinaO" id="resultadoAntiEstreptolisinaO" items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado" class="form-control input-sm" onchange="checkResultado3();"/></td>
+				<td><form:select path="resultadoAntiEstreptolisinaO" id="resultadoAntiEstreptolisinaO" class="form-control input-sm" onchange="checkResultado3();">
+					<form:option value="">No Realizado</form:option>
+				    <form:options items="${posiblesResultados}" multiple="false" itemValue="name" itemLabel="resultado"/>
+				</form:select></td>
 				<td><div class="has-error"><form:errors path="resultadoAntiEstreptolisinaO" class="help-inline"/></div></td>
 				
 				<td><form:input path="antiEstreptolisinaO" id="antiEstreptolisinaO"/></td> 
