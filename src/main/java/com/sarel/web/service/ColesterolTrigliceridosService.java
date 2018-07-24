@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.ColesterolTrigliceridos;
@@ -12,5 +13,5 @@ public interface ColesterolTrigliceridosService {
 	void deleteColesterolTrigliceridos(ColesterolTrigliceridos colesterolTrigliceridos);
 	List<ColesterolTrigliceridos> findAll();
 	List<ColesterolTrigliceridos> findByIdExpediente(Integer idExpediente);
-
+	List<ColesterolTrigliceridos> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

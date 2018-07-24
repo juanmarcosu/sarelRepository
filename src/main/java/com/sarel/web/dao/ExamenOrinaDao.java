@@ -1,5 +1,6 @@
 package com.sarel.web.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.ExamenOrina;
@@ -12,5 +13,5 @@ public interface ExamenOrinaDao {
 	void deleteExamenOrina(ExamenOrina examenOrina);
 	List<ExamenOrina> findAll();
 	List<ExamenOrina> findByIdExpediente(Integer idExpediente);
-
+	List<ExamenOrina> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

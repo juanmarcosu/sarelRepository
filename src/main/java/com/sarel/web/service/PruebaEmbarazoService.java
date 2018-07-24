@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.PruebaEmbarazo;
@@ -12,5 +13,6 @@ public interface PruebaEmbarazoService {
 	void deletePruebaEmbarazo(PruebaEmbarazo pruebaEmbarazo);
 	List<PruebaEmbarazo> findAll();
 	List<PruebaEmbarazo> findByIdExpediente(Integer idExpediente);
+	List<PruebaEmbarazo> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 
 }

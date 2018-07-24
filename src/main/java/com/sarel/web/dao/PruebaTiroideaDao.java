@@ -1,5 +1,6 @@
 package com.sarel.web.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.PruebaTiroidea;
@@ -12,5 +13,5 @@ public interface PruebaTiroideaDao {
 	void deletePruebaTiroidea(PruebaTiroidea pruebaTiroidea);
 	List<PruebaTiroidea> findAll();
 	List<PruebaTiroidea> findByIdExpediente(Integer idExpediente);
-
+	List<PruebaTiroidea> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

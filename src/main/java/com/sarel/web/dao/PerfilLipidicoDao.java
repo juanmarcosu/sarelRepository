@@ -1,5 +1,6 @@
 package com.sarel.web.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.PerfilLipidico;
@@ -12,5 +13,5 @@ public interface PerfilLipidicoDao {
 	void deletePerfilLipidico(PerfilLipidico perfilLipidico);
 	List<PerfilLipidico> findAll();
 	List<PerfilLipidico> findByIdExpediente(Integer idExpediente);
-
+	List<PerfilLipidico> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

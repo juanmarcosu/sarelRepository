@@ -2,6 +2,9 @@ package com.sarel.web.util;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Date;
+
+import org.joda.time.LocalDate;
 
 public class UtilsSarel {
 
@@ -64,4 +67,9 @@ public class UtilsSarel {
 		
 		return resultado;
 	}
+	
+	public static LocalDate convertToLocalDate(Date date) {
+        if(date == null) return null;
+        return new LocalDate(date);
+    }
 }

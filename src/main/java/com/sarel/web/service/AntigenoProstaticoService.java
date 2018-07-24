@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.AntigenoProstatico;
@@ -12,5 +13,5 @@ public interface AntigenoProstaticoService {
 	void deleteAntigenoProstatico(AntigenoProstatico antigenoProstatico);
 	List<AntigenoProstatico> findAll();
 	List<AntigenoProstatico> findByIdExpediente(Integer idExpediente);
-
+	List<AntigenoProstatico> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

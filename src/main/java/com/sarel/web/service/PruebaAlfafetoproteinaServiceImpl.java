@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,9 @@ public class PruebaAlfafetoproteinaServiceImpl implements PruebaAlfafetoproteina
 	
 	public List<PruebaAlfafetoproteina> findByIdExpediente(Integer idExpediente){
 		return dao.findByIdExpediente(idExpediente);
+	}
+	
+	public List<PruebaAlfafetoproteina> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal){
+		return dao.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
 	}
 }

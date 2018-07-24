@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.PruebaPCR;
@@ -12,5 +13,5 @@ public interface PruebaPCRService {
 	void deletePruebaPCR(PruebaPCR pruebaPCR);
 	List<PruebaPCR> findAll();
 	List<PruebaPCR> findByIdExpediente(Integer idExpediente);
-
+	List<PruebaPCR> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

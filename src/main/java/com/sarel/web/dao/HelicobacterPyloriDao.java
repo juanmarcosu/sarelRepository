@@ -1,5 +1,6 @@
 package com.sarel.web.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.HelicobacterPylori;
@@ -12,5 +13,5 @@ public interface HelicobacterPyloriDao {
 	void deleteHelicobacterPylori(HelicobacterPylori helicobacterPylori);
 	List<HelicobacterPylori> findAll();
 	List<HelicobacterPylori> findByIdExpediente(Integer idExpediente);
-
+	List<HelicobacterPylori> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

@@ -388,11 +388,31 @@ public class AppController {
     ExpedienteLaboratorioService expedienteService;
 	
 	@RequestMapping(value = { "/verExpedienteLaboratorio" }, method = RequestMethod.GET)
-	public String verExpedientePersona(@RequestParam("idPaciente") Integer idPaciente, @RequestParam("carne") BigInteger carne, ModelMap model) {
+	public String verExpedientePersona(@RequestParam("idPaciente") Integer idPaciente, @RequestParam("carne") BigInteger carne, 
+			@RequestParam(value = "fechaInicial", required = false) String sFechaInicial, @RequestParam(value = "fechaFinal", required = false) String sFechaFinal
+			, ModelMap model) {
+		
+		Date fechaInicial = null;
+		Date fechaFinal = null;
+		
 		model.addAttribute("user", getPrincipal());
 		ExpedienteLaboratorio expediente = expedienteService.findByCarnet(carne);
 		if(expediente == null){
 			expediente = expedienteService.findByIdPaciente(idPaciente);
+		}
+		if(sFechaInicial!=null){
+			try{
+				fechaInicial=new SimpleDateFormat("dd/MM/yyyy").parse(sFechaInicial);
+			}catch(Exception e){
+				fechaInicial = null;
+			}
+		}
+		if(sFechaFinal!=null){
+			try{
+				fechaFinal = new SimpleDateFormat("dd/MM/yyyy").parse(sFechaFinal);
+			}catch(Exception e){
+				fechaFinal = null;
+			}
 		}
 		if(expediente == null){
 			Paciente paciente = pacienteService.findById(idPaciente);
@@ -414,7 +434,7 @@ public class AppController {
 			expedienteService.saveExpedienteLaboratorio(expedienteTemp);
 			expediente = expedienteService.findByIdPaciente(idPaciente);
 		}
-		List<ResultadoLaboratorioVO> labs = obtenerTodosLosLaboratoriosPorIdExpediente(expediente.getId());
+		List<ResultadoLaboratorioVO> labs = obtenerLaboratoriosPorExpedienteYFecha(expediente.getId(), fechaInicial, fechaFinal);
 		model.addAttribute("expediente", expediente);
 		model.addAttribute("labs", labs);
 		return "verExpedienteLaboratorio";
@@ -3469,6 +3489,254 @@ public class AppController {
 	public String deleteEmployee(@PathVariable String ssn) {
 		service.deleteEmployeeBySsn(ssn);
 		return "redirect:/list";
+	}
+	
+	private List<ResultadoLaboratorioVO> obtenerLaboratoriosPorExpedienteYFecha(int idExpediente, Date fechaInicial, Date fechaFinal){
+		List<ResultadoLaboratorioVO> resultados = new ArrayList<ResultadoLaboratorioVO>();
+		for(TipoLaboratorio unTipo : TipoLaboratorio.values()){
+			if(unTipo.getName().equals(TipoLaboratorio.PERFIL_LIPIDICO.getName())){
+				List<PerfilLipidico> lipidicos = perfilLipidicoService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PerfilLipidico unLipido : lipidicos){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLipido.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLipido.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLipido.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLipido.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_EMBARAZO.getName())){
+				List<PruebaEmbarazo> pruebaEmbarazo = pruebaEmbarazoService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebaEmbarazo unaPruebaEmbarazo : pruebaEmbarazo){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unaPruebaEmbarazo.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unaPruebaEmbarazo.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unaPruebaEmbarazo.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unaPruebaEmbarazo.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.ACIDO_URICO.getName())){
+				List<AcidoUrico> acidos = acidoUricoService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(AcidoUrico unAcidoUrico : acidos){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unAcidoUrico.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unAcidoUrico.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unAcidoUrico.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unAcidoUrico.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_VDRL.getName())){
+				List<PruebaVDRL> VDRLs = pruebaVDRLService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebaVDRL unVDRL : VDRLs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unVDRL.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unVDRL.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unVDRL.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unVDRL.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.COLESTEROL_TRIGLICERIDOS.getName())){
+				List<ColesterolTrigliceridos> labs = colesterolTrigliceridosService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(ColesterolTrigliceridos unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.GLUCOSA_PRE_Y_POST.getName())){
+				List<GlucosaPreYPost> labs = glucosaPreYPostService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(GlucosaPreYPost unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_SEROLOGICA.getName())){
+				List<PruebaSerologica> labs = pruebaSerologicaService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebaSerologica unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBAS_HEMATOLOGICAS.getName())){
+				List<PruebasHematologicas> labs = pruebasHematologicasService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebasHematologicas unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.HEMATOLOGIA_COMPLETA.getName())){
+				List<HematologiaCompleta> labs = hematologiaCompletaService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(HematologiaCompleta unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.EXAMEN_ORINA.getName())){
+				List<ExamenOrina> labs = examenOrinaService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(ExamenOrina unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.EXAMEN_HECES.getName())){
+				List<ExamenHeces> labs = examenHecesService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(ExamenHeces unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_DENGE.getName())){
+				List<PruebaDengue> labs = pruebaDengueService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebaDengue unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.HELICOBACTER_PYLORI.getName())){
+				List<HelicobacterPylori> labs = helicobacterPyloriService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(HelicobacterPylori unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.HEMOGLOBINA_GLUCOSA.getName())){
+				List<HemoglobinaGlucosa> labs = hemoglobinaGlucosaService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(HemoglobinaGlucosa unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBAS_TIROIDEAS.getName())){
+				List<PruebaTiroidea> labs = pruebaTiroideaService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebaTiroidea unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.ANTIGENO_PROSTATICO.getName())){
+				List<AntigenoProstatico> labs = antigenoProstaticoService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(AntigenoProstatico unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_TSH.getName())){
+				List<PruebaTSH> labs = pruebaTSHService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebaTSH unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBAS_RENALES.getName())){
+				List<PruebasRenales> labs = pruebasRenalesService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebasRenales unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_PCR.getName())){
+				List<PruebaPCR> labs = pruebaPCRService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebaPCR unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}else if(unTipo.getName().equals(TipoLaboratorio.PRUEBA_ALFAFETOPROTEINA.getName())){
+				List<PruebaAlfafetoproteina> labs = pruebaAlfafetoproteinaService.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
+				for(PruebaAlfafetoproteina unLab : labs){
+					ResultadoLaboratorioVO unResultado = new ResultadoLaboratorioVO();
+					unResultado.setId(unLab.getId());
+					unResultado.setIdExpediente(idExpediente);
+					unResultado.setFechaLaboratorio(unLab.getFechaLaboratorio());
+					unResultado.setQuimicoBiologo(userService.findById(unLab.getIdQuimicoBiologo()).getSsoId());
+					unResultado.setEstado(unLab.getEstado().getName().replaceAll("_", " "));
+					unResultado.setTipoLaboratorio(unTipo);
+					resultados.add(unResultado);
+				}
+			}
+		}
+		return resultados;
 	}
 	
 	private List<ResultadoLaboratorioVO> obtenerTodosLosLaboratoriosPorIdExpediente(int idExpediente){

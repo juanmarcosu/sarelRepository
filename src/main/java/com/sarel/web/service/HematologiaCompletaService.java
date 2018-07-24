@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.HematologiaCompleta;
@@ -12,5 +13,5 @@ public interface HematologiaCompletaService {
 	void deleteHematologiaCompleta(HematologiaCompleta hematologiaCompleta);
 	List<HematologiaCompleta> findAll();
 	List<HematologiaCompleta> findByIdExpediente(Integer idExpediente);
-
+	List<HematologiaCompleta> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

@@ -26,6 +26,12 @@
 			nuevaRuta = context+"/agregar"+tipo+url;
 		 	window.location.href = nuevaRuta;
 		 }
+		function setDates(){
+			var js_fechainicio = document.getElementById("fechaInicial").value;
+			var js_fechafin = document.getElementById("fechaFinal").value;
+			var lnk = document.getElementById('alink');
+			lnk.href = lnk.href + "&fechaInicial=" + js_fechainicio + "&fechaFinal=" + js_fechafin;
+		}
 	</script>
 
 </head>
@@ -49,6 +55,21 @@
 				<td><label for="email">EMAIL: ${expediente.email} </label> </td>
 				<td><label for="movil">SEXO: ${expediente.sexo} </label> </td>
 		    </tr>
+    </table>
+    <table>
+    	<tr>
+    		<td>
+    			<label>Desde:</label>
+    			<input id="fechaInicial" name="fechaInicial"/>
+    		</td>
+    		<td>
+    			<label>Hasta:</label>
+    			<input id="fechaFinal" name="fechaFinal"/>
+    		</td>
+    		<td>
+    			<strong><a id=alink onmousedown='setDates()' href="<c:url value='/verExpedienteLaboratorio?idPaciente=${expediente.idPaciente}&carne=${expediente.carne}' />">Filtrar</a></strong>
+    		</td>
+    	</tr>
     </table>
     <sec:authorize access="hasRole('ADMINISTRADOR')">
     	<div align="right"><strong><a href="<c:url value='/editarEXPEDIENTE_LABORATORIO?idEXPEDIENTE_LABORATORIO=${expediente.id}' />">Modificar Expediente Laboratorio</a></strong></div>
@@ -90,7 +111,7 @@
 			<tr>
 			<td>${unLaboratorio.tipoLaboratorio.toString()}</td>
 			<td>${unLaboratorio.quimicoBiologo}</td>
-			<td>${unLaboratorio.fechaLaboratorio}</td>
+			<td>${unLaboratorio.fechaLaboratorio.toString("dd/MM/yyyy")}</td>
 			<td><a href="<c:url value='/consultar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}' />">Consultar</a></td>
 			<td><a href="<c:url value='/editar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}' />">Editar</a></td>
 			<td><a href="<c:url value='/eliminar${unLaboratorio.tipoLaboratorio.name}?id${unLaboratorio.tipoLaboratorio.name}=${unLaboratorio.id}&idExpediente=${expediente.id}' />">Eliminar</a></td>

@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,9 @@ public class HematologiaCompletaServiceImpl implements HematologiaCompletaServic
 	
 	public List<HematologiaCompleta> findByIdExpediente(Integer idExpediente){
 		return dao.findByIdExpediente(idExpediente);
+	}
+	
+	public List<HematologiaCompleta> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal){
+		return dao.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
 	}
 }

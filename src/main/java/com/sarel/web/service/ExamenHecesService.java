@@ -1,5 +1,6 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.sarel.web.model.ExamenHeces;
@@ -12,5 +13,5 @@ public interface ExamenHecesService {
 	void deleteExamenHeces(ExamenHeces examenHeces);
 	List<ExamenHeces> findAll();
 	List<ExamenHeces> findByIdExpediente(Integer idExpediente);
-
+	List<ExamenHeces> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal);
 }

@@ -1,7 +1,9 @@
 package com.sarel.web.service;
 
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,5 +40,9 @@ public class PerfilLipidicoServiceImpl implements PerfilLipidicoService {
 	
 	public List<PerfilLipidico> findByIdExpediente(Integer idExpediente){
 		return dao.findByIdExpediente(idExpediente);
+	}
+	
+	public List<PerfilLipidico> findByIdExpedienteAndDates(Integer idExpediente, Date fechaInicial, Date fechaFinal){
+		return dao.findByIdExpedienteAndDates(idExpediente, fechaInicial, fechaFinal);
 	}
 }
