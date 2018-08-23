@@ -10,7 +10,19 @@
 	<title>Hemoglobina Glicosilada</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<%-- <link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>--%>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/jquery-ui.css" />
+	<script src="${pageContext.request.contextPath}/static/js/jquery-1.9.1.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/jquery-ui.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/datepicker-es.js"></script>
+	<script>
+		$(function () {
+			var datePickerEs=$.datepicker.regional[ "es" ];
+		    datePickerEs.dateFormat='dd/mm/yy';
+		    datePickerEs.changeMonth=true;
+		    datePickerEs.changeYear=true;
+		    jQuery("#fechaLaboratorio").datepicker(datePickerEs);
+		});
+	</script>
 	<script>
 	function checkMod(){
 		if ("${soloConsulta}" == "true") {
