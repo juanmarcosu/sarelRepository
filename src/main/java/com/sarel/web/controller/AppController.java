@@ -2690,7 +2690,7 @@ public class AppController {
 		HashMap<String, Object> params = new HashMap<String,Object>();
 		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
 		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
-		params.put("titulo", "Pruebas Tiroideas".toUpperCase());
+		params.put("titulo", "Pruebas de función Tiroidea".toUpperCase());
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebaTiroidea.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));
@@ -3081,7 +3081,7 @@ public class AppController {
 		HashMap<String, Object> params = new HashMap<String,Object>();
 		params.put("logoUSALUD", new ClassPathResource("jrxml/logo_usalud.png").getInputStream());
 		params.put("logoUSAC", new ClassPathResource("jrxml/logo_usac.png").getInputStream());
-		params.put("titulo", "Pruebas Renales".toUpperCase());
+		params.put("titulo", "Pruebas de Función Renal".toUpperCase());
 		params.put("nombrePaciente", expediente.getNombres().toUpperCase()+" "+expediente.getApellidos().toUpperCase()+" ");
 		Date fecha = pruebasRenales.getFechaLaboratorio().toDate();
 		params.put("fecha", new SimpleDateFormat("dd/MM/yyyy").format(fecha));

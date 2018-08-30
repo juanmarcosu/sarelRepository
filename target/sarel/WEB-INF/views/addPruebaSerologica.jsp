@@ -98,9 +98,9 @@
 				<td><div class="has-error"><form:errors path="resultadoFactorReumatoide" class="help-inline"/></div></td>
 	
 				<td><form:input path="factorReumatoide" id="factorReumatoide"/></td>
-				<td><label for="factorReumatoide">UI/ml </label> </td>
+				<td><label for="factorReumatoide">UI/mL </label> </td>
 				<td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
-				<td><label for="factorReumatoide2">Hasta 8 UI/ml</label> </td> 
+				<td><label for="factorReumatoide2">Hasta 12 UI/mL</label> </td> 
 				<td><div class="has-error"><form:errors path="factorReumatoide" class="help-inline"/></div></td>
 			</tr>
 			<tr>

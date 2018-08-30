@@ -75,7 +75,7 @@
 				<td><form:input path="nitrogenoUrea" id="nitrogenoUrea"/></td>
 				<td><label for="labelnitrogenoUrea"> mg/dL &nbsp; &nbsp; &nbsp; &nbsp;</label> </td> 
 				<td><div class="has-error"><form:errors path="nitrogenoUrea" class="help-inline"/></div></td>
-				<td><label>10 - 50 mg/dL </label> </td>
+				<td><label>4.7 - 23.5 mg/dL </label> </td>
 				<td><label>&nbsp; &nbsp; &nbsp; </label></td>
 				<td><label>&nbsp; &nbsp; &nbsp; </label></td>
 			</tr>
@@ -86,7 +86,7 @@
 				<td><div class="has-error"><form:errors path="creatinina" class="help-inline"/></div></td>
 				<td><label>Hombres: 0.6 - 1.1 mg/dL</label></td>
 				<td><label>&nbsp; &nbsp; &nbsp; </label></td>
-				<td><label>Mujeres: 0.9 - 0.9 mg/dL</label> </td>
+				<td><label>Mujeres: 0.5 - 0.9 mg/dL</label> </td>
 			</tr>
 		    <tr>
 		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>

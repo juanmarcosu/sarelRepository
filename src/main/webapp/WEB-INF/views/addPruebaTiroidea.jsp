@@ -7,7 +7,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Pruebas Tiroideas</title>
+	<title>Pruebas de Funci&oacute;n Tiroidea</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/jquery-ui.css" />
@@ -74,12 +74,12 @@
 			<tr>
 				<td><label for="t4">T4: </label> </td>
 				<td><form:input path="t4" id="t4"/></td>
-				<td><label for="t4Label">ng/ml </label> </td> 
+				<td><label for="t4Label">ng/dL </label> </td> 
 				<td><div class="has-error"><form:errors path="t4" class="help-inline"/></div></td>
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><label>4.5 - 12.0 ng/mL </label> </td> 
+				<td><label>4.5 - 12.0 ng/dL </label> </td> 
 		    </tr>
 		    <tr>
 		    	<td><label for="quimicoBiologo">Quimico Biologo: </label> </td>
