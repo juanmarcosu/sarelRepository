@@ -193,7 +193,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[4.5 - 12.0 ng/mL]]></text>
+				<text><![CDATA[4.5 - 12.0 ng/dL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="143" y="56" width="307" height="14" isRemoveLineWhenBlank="true"/>
@@ -221,7 +221,7 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ng/mL]]></text>
+				<text><![CDATA[ng/dL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="0" y="214" width="71" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>

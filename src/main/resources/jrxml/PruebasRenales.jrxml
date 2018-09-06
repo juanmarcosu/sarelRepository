@@ -216,7 +216,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ 10 -  50 mg/dL]]></text>
+				<text><![CDATA[ 4.7 -  23.5 mg/dL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="354" y="235" width="163" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
