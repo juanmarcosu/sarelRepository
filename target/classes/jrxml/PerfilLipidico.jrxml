@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sigsa7" pageWidth="612" pageHeight="1008" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="318"/>
+	<property name="ireport.y" value="174"/>
 	<parameter name="logoUSAC" class="java.io.InputStream"/>
 	<parameter name="logoUSALUD" class="java.io.InputStream"/>
 	<parameter name="titulo" class="java.lang.String"/>
@@ -250,7 +250,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[65 - 175 mg/dl]]></text>
+				<text><![CDATA[Menor de 100 mg/dl]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="340" y="223" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
@@ -299,7 +299,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[Hasta 30 mg/dl]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Transparent" x="340" y="247" width="37" height="24" isRemoveLineWhenBlank="true" backcolor="#FFFFFF"/>
@@ -435,6 +435,34 @@
 				<reportElement stretchType="RelativeToBandHeight" x="365" y="381" width="100" height="100"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{sello}]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement mode="Opaque" x="400" y="161" width="142" height="14" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor de Referencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="400" y="319" width="142" height="24" isRemoveLineWhenBlank="true" backcolor="#CCCCCC"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Menor de 3.5]]></text>
+			</staticText>
 		</band>
 	</title>
 </jasperReport>

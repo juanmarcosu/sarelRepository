@@ -10,7 +10,6 @@
 	<title>Perfil Lipido</title>
 	<jsp:include page="heading.jsp"/>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/jquery-ui.css" />
 	<script src="${pageContext.request.contextPath}/static/js/jquery-1.9.1.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/jquery-ui.js"></script>
@@ -72,42 +71,66 @@
 		<br>
 		<table>
 			<tr>
+				<td></td>
+				<td></td>
+				<td>&nbsp; &nbsp;</td>
+				<td><label> Valor de Referencia</label> </td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>&nbsp; &nbsp;</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
 				<td><label for="colesterolTotal">Colesterol Total: </label> </td>
 				<td><form:input path="colesterolTotal" id="colesterolTotal"/></td>
+				<td>&nbsp; &nbsp;</td>
 				<td><label for="colesterolTotalLabel">Hasta 150 mg/dl </label> </td> 
 				<td><div class="has-error"><form:errors path="colesterolTotal" class="help-inline"/></div></td>
 		    </tr>
 			<tr>
 				<td><label for="colesterolAltaDensidad">Colesterol Alta Densidad (HDL): </label> </td>
 				<td><form:input path="colesterolAltaDensidad" id="colesterolAltaDensidad"/></td>
+				<td>&nbsp; &nbsp;</td>
 				<td><label for="colesterolAltaDensidadLabel">Mayor de 40 mg/dl </label> </td> 
 				<td><div class="has-error"><form:errors path="colesterolAltaDensidad" class="help-inline"/></div></td>
 		    </tr>
 		    <tr>
 				<td><label for="colesterolBajaDensidad">Colesterol Baja Densidad (LDL): </label> </td>
 				<td><form:input path="colesterolBajaDensidad" id="colesterolBajaDensidad"/></td>
-				<td><label for="colesterolBajaDensidadLabel">65 - 175 mg/dl </label> </td> 
+				<td>&nbsp; &nbsp;</td>
+				<td><label for="colesterolBajaDensidadLabel">Menor de 100 mg/dl </label> </td> 
 				<td><div class="has-error"><form:errors path="colesterolBajaDensidad" cssClass="error"/></div></td>
 		    </tr>
 			<tr>
 				<td><label for="colesterolMuyBajaDensidad">Colesterol de Muy Baja Densidad (VLDL): </label> </td>
 				<td><form:input path="colesterolMuyBajaDensidad" id="colesterolMuyBajaDensidad"/></td>
+				<td>&nbsp; &nbsp;</td>
+				<td><label> Hasta  30 mg/dl</label> </td>
 				<td><div class="has-error"><form:errors path="colesterolMuyBajaDensidad" cssClass="error"/></div></td>
 		    </tr>
 		    <tr>
 				<td><label for="trigliceridos">Trigliceridos: </label> </td>
 				<td><form:input path="trigliceridos" id="trigliceridos" onchange="calcularFila4y3()"/></td>
+				<td>&nbsp; &nbsp;</td>
 				<td><label for="trigliceridosLabel">Hasta 150 mg/dl </label> </td> 
 				<td><div class="has-error"><form:errors path="trigliceridos" cssClass="error"/></div></td>
 		    </tr>
 		    <tr>
 				<td><label for="indiceRiesgo">Indice de Riesgo: </label> </td>
 				<td><form:input path="indiceRiesgo" id="indiceRiesgo"/></td>
+				<td>&nbsp; &nbsp;</td>
+				<td>&nbsp; &nbsp;</td>
 				<td><div class="has-error"><form:errors path="indiceRiesgo" cssClass="error"/></div></td>
 		    </tr>
 		    <tr>
 				<td><label for="resistenciaInsulina">Resistencia a la Insulina: </label> </td>
 				<td><form:input path="resistenciaInsulina" id="resistenciaInsulina"/></td> 
+				<td>&nbsp; &nbsp;</td>
+				<td><label>Menor de 3.5</label> </td>
 				<td><div class="has-error"><form:errors path="resistenciaInsulina" cssClass="error"/></div></td>
 		    </tr> 
 		    <tr>
