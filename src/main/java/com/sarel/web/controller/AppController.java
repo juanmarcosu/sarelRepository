@@ -2297,6 +2297,8 @@ public class AppController {
 		params.put("resultado", pruebaDengue.getResultado());
 		params.put("tipoDengue", (pruebaDengue.getTipoDengue()==null)?"":pruebaDengue.getTipoDengue().toString());
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
 		
 		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
 		params = formater.getParametrosConFormato();
@@ -2428,6 +2430,8 @@ public class AppController {
 		params.put("resultado", helicobacterPylori.getResultado());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
 		
 		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
 		params = formater.getParametrosConFormato();
@@ -2560,6 +2564,8 @@ public class AppController {
 		params.put("nivelPromedioGlucosa", (hemoglobinaGlucosa.getNivelPromedioGlucosa()==null)?"":hemoglobinaGlucosa.getNivelPromedioGlucosa().toString());
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
 		
 		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
 		params = formater.getParametrosConFormato();
@@ -2698,6 +2704,8 @@ public class AppController {
 		params.put("t4", (pruebaTiroidea.getT4()==null)?"": UtilsSarel.darFormatoANumero(pruebaTiroidea.getT4(),2));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
 		JasperPrint myJRprintReportObject = JasperFillManager.fillReport(report, params, new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(exportacion));
 		
 	    response.setContentType("application/x-pdf");
@@ -2825,7 +2833,9 @@ public class AppController {
 		params.put("resultado", (antigenoProstatico.getResultado()==null)?"": UtilsSarel.darFormatoANumero(antigenoProstatico.getResultado(),2));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
-
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
 		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
 		params = formater.getParametrosConFormato();
 
@@ -2957,7 +2967,9 @@ public class AppController {
 		params.put("resultado", (pruebaTSH.getResultado()==null)?"": UtilsSarel.darFormatoANumero(pruebaTSH.getResultado(),2));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
-
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
 		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
 		params = formater.getParametrosConFormato();
 
@@ -3089,7 +3101,9 @@ public class AppController {
 		params.put("nitrogenoUrea", (pruebasRenales.getNitrogenoUrea()==null)?"": UtilsSarel.darFormatoANumero(pruebasRenales.getNitrogenoUrea(),2));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
-
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
 		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
 		params = formater.getParametrosConFormato();
 
@@ -3220,7 +3234,9 @@ public class AppController {
 		params.put("resultado", (pruebaPCR.getResultado()==null)?"": UtilsSarel.darFormatoANumero(pruebaPCR.getResultado(),2));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
-
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
 		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
 		params = formater.getParametrosConFormato();
 
@@ -3351,7 +3367,9 @@ public class AppController {
 		params.put("resultado", (pruebaAlfafetoproteina.getResultado()==null)?"": UtilsSarel.darFormatoANumero(pruebaAlfafetoproteina.getResultado(),2));
 		params.put("codigoPaciente", expediente.getCarne().toString().toUpperCase()+" ");
 		params.put("quimicoBiologo", quimicoBiologo.getFirstName().toUpperCase()+" "+quimicoBiologo.getLastName().toUpperCase()+" ");
-
+		params.put("sign", (quimicoBiologo.getUrlSing()==null?null:new ClassPathResource("jrxml/signs/"+quimicoBiologo.getUrlSing()).getInputStream()));
+		params.put("sello", new ClassPathResource("jrxml/sello_usalud.png").getInputStream());
+		
 		FormatoExportacionPruebaLaboratorio formater = new FormatoExportacionPruebaLaboratorio(params);
 		params = formater.getParametrosConFormato();
 
